@@ -1,0 +1,331 @@
+{
+  "categories": [
+    {
+      "title": "Tests de Inteligencia",
+      "description": "Evalúan el nivel de inteligencia general (CI) o habilidades cognitivas específicas.",
+      "tests": [
+        {
+          "type": "WAIS",
+          "title": "WAIS (Wechsler Adult Intelligence Scale)",
+          "questions": [
+            {
+              "questionText": "¿Cuál es el número que sigue en la secuencia: 2, 4, 6, 8?",
+              "options": ["10", "12", "14"],
+              "scores": [1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra completa mejor la siguiente analogía? \"Perro es a ladrido como gato es a ___\".",
+              "options": ["maullido", "ronroneo", "silbido"],
+              "scores": [1, 0, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Nivel de inteligencia bajo."},
+            {"minScore": 2, "maxScore": 3, "message": "Nivel de inteligencia promedio."},
+            {"minScore": 4, "maxScore": 5, "message": "Nivel de inteligencia alto."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Personalidad",
+      "description": "Buscan identificar rasgos de personalidad, estilos de afrontamiento y características individuales.",
+      "tests": [
+        {
+          "type": "MMPI",
+          "title": "MMPI (Minnesota Multiphasic Personality Inventory)",
+          "questions": [
+            {
+              "questionText": "Me siento cómodo en situaciones sociales.",
+              "options": ["Verdadero", "Falso"],
+              "scores": [1, 0]
+            },
+            {
+              "questionText": "Suelo preocuparme por cosas que están fuera de mi control.",
+              "options": ["Verdadero", "Falso"],
+              "scores": [0, 1]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Tendencia introvertida."},
+            {"minScore": 2, "maxScore": 3, "message": "Personalidad equilibrada."},
+            {"minScore": 4, "maxScore": 5, "message": "Tendencia extrovertida."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests Proyectivos",
+      "description": "Se basan en la idea de que las respuestas de una persona revelan aspectos inconscientes de su mente.",
+      "tests": [
+        {
+          "type": "RORSCHACH",
+          "title": "Test de Rorschach",
+          "questions": [
+            {
+              "questionText": "¿Qué ves en esta imagen?",
+              "options": ["Mariposa", "Murciélago", "Mancha sin forma"],
+              "scores": [1, 0, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Tendencia a interpretaciones abstractas."},
+            {"minScore": 2, "maxScore": 3, "message": "Interpretación emocional predominante."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests Neuropsicológicos",
+      "description": "Evalúan funciones cerebrales específicas, como memoria, atención, lenguaje y habilidades motoras.",
+      "tests": [
+        {
+          "type": "LURIA_NEBRASKA",
+          "title": "Test de Luria-Nebraska",
+          "questions": [
+            {
+              "questionText": "Repite la siguiente frase: 'El sol brilla intensamente'.",
+              "options": ["Correcto", "Incorrecto"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Déficit cognitivo leve."},
+            {"minScore": 2, "maxScore": 3, "message": "Funciones cognitivas normales."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Aptitudes y Habilidades",
+      "description": "Miden capacidades específicas, como habilidades verbales, numéricas, espaciales o mecánicas.",
+      "tests": [
+        {
+          "type": "DAT",
+          "title": "DAT (Differential Aptitude Tests)",
+          "questions": [
+            {
+              "questionText": "Resuelve: 5 + 7 = ?",
+              "options": ["12", "13", "14"],
+              "scores": [1, 0, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Habilidad matemática baja."},
+            {"minScore": 2, "maxScore": 3, "message": "Habilidad matemática promedio."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests Vocacionales y de Intereses",
+      "description": "Ayudan a identificar intereses profesionales y áreas de compatibilidad laboral.",
+      "tests": [
+        {
+          "type": "KUDER",
+          "title": "Test de Kuder",
+          "questions": [
+            {
+              "questionText": "¿Qué actividad prefieres?",
+              "options": ["Leer un libro", "Arreglar un motor", "Dibujar un paisaje"],
+              "scores": [1, 0, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Inclinación hacia trabajos creativos."},
+            {"minScore": 2, "maxScore": 3, "message": "Inclinación hacia trabajos técnicos."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Desarrollo Infantil",
+      "description": "Evalúan el desarrollo cognitivo, emocional y social en niños.",
+      "tests": [
+        {
+          "type": "DENVER",
+          "title": "Test de Denver",
+          "questions": [
+            {
+              "questionText": "¿El niño puede sostener un objeto con ambas manos?",
+              "options": ["Sí", "No"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Desarrollo normal."},
+            {"minScore": 2, "maxScore": 3, "message": "Posible retraso en el desarrollo."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Ansiedad y Depresión",
+      "description": "Diseñados para detectar síntomas de ansiedad, depresión y otros trastornos emocionales.",
+      "tests": [
+        {
+          "type": "BAI",
+          "title": "BAI (Beck Anxiety Inventory)",
+          "questions": [
+            {
+              "questionText": "¿Con qué frecuencia te sientes nervioso(a)?",
+              "options": ["Nunca", "A veces", "Siempre"],
+              "scores": [0, 1, 2]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Ansiedad mínima."},
+            {"minScore": 2, "maxScore": 3, "message": "Ansiedad moderada."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Estrés y Afrontamiento",
+      "description": "Evalúan cómo las personas manejan situaciones estresantes.",
+      "tests": [
+        {
+          "type": "COPE",
+          "title": "Cuestionario de Afrontamiento (COPE)",
+          "questions": [
+            {
+              "questionText": "Cuando enfrento problemas, busco apoyo emocional.",
+              "options": ["Verdadero", "Falso"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Estilo de afrontamiento pasivo."},
+            {"minScore": 2, "maxScore": 3, "message": "Estilo de afrontamiento activo."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests Forenses",
+      "description": "Utilizados en contextos legales para evaluar competencia, riesgo de reincidencia o credibilidad.",
+      "tests": [
+        {
+          "type": "HCR_20",
+          "title": "HCR-20",
+          "questions": [
+            {
+              "questionText": "¿Ha mostrado comportamientos violentos en el pasado?",
+              "options": ["Sí", "No"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Bajo riesgo de reincidencia."},
+            {"minScore": 2, "maxScore": 3, "message": "Alto riesgo de reincidencia."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Autoestima y Bienestar Psicológico",
+      "description": "Evalúan la percepción de sí mismo y el bienestar emocional.",
+      "tests": [
+        {
+          "type": "ROSENBERG",
+          "title": "Escala de Autoestima de Rosenberg",
+          "questions": [
+            {
+              "questionText": "En general, me siento satisfecho conmigo mismo.",
+              "options": ["Verdadero", "Falso"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Autoestima baja."},
+            {"minScore": 2, "maxScore": 3, "message": "Autoestima alta."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Conducta y Síntomas Psiquiátricos",
+      "description": "Identifican patrones de conducta problemática o síntomas de trastornos mentales.",
+      "tests": [
+        {
+          "type": "CBCL",
+          "title": "CBCL (Child Behavior Checklist)",
+          "questions": [
+            {
+              "questionText": "El niño tiene dificultades para concentrarse.",
+              "options": ["Sí", "No"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Comportamiento dentro de lo normal."},
+            {"minScore": 2, "maxScore": 3, "message": "Posible problema de conducta."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Motivación y Valores",
+      "description": "Exploran lo que motiva a una persona y sus valores personales.",
+      "tests": [
+        {
+          "type": "SCHWARTZ",
+          "title": "Test de Valores de Schwartz",
+          "questions": [
+            {
+              "questionText": "Valoro más la independencia que la seguridad.",
+              "options": ["Verdadero", "Falso"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Orientación hacia valores tradicionales."},
+            {"minScore": 2, "maxScore": 3, "message": "Orientación hacia valores modernos."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Creatividad",
+      "description": "Miden habilidades creativas y pensamiento divergente.",
+      "tests": [
+        {
+          "type": "TORRANCE",
+          "title": "Test de Torrance",
+          "questions": [
+            {
+              "questionText": "¿Cuántos usos puedes imaginar para una caja de cartón?",
+              "options": ["1-2", "3-5", "Más de 5"],
+              "scores": [1, 2, 3]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Creatividad limitada."},
+            {"minScore": 2, "maxScore": 3, "message": "Creatividad elevada."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Tests de Adaptación Social",
+      "description": "Evalúan habilidades sociales y capacidad de adaptación.",
+      "tests": [
+        {
+          "type": "IHS",
+          "title": "Inventario de Habilidades Sociales (IHS)",
+          "questions": [
+            {
+              "questionText": "Me resulta fácil iniciar conversaciones con desconocidos.",
+              "options": ["Verdadero", "Falso"],
+              "scores": [1, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Habilidades sociales bajas."},
+            {"minScore": 2, "maxScore": 3, "message": "Habilidades sociales altas."}
+          ]
+        }
+      ]
+    }
+  ]
+}
