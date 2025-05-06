@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33 // O superior
+    compileSdk 33 // O superior
     defaultConfig {
         applicationId "com.example.psychologicaltestapp"
         minSdkVersion 21
@@ -34,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.example.psychologicaltestapp'
 }
 
 dependencies {
