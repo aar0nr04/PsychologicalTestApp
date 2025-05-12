@@ -219,7 +219,12 @@
             {"questionText": "35. Es frecuente que me sienta muy estresado/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
             {"questionText": "36. Parece que los demás hacen las cosas con más facilidad que yo.", "options": ["SÍ", "NO"], "scores": [1, 0]}
           ],
-          "results": []
+          "results": [
+            {"minScore": 0, "maxScore": 1, "message": "Ansiedad mínima."},
+            {"minScore": 2, "maxScore": 3, "message": "Ansiedad moderada."}
+
+
+          ]
         }
       ]
     },
