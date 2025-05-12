@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "227812545083",
+    "project_id": "psytst-72f06",
+    "storage_bucket": "psytst-72f06.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227812545083:android:49ce1ada407044ca40421e",
+        "android_client_info": {
+          "package_name": "com.example.psychologicaltestapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNABxVwBNaSxSnRBeZZjyKn3nTCgi5kgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
