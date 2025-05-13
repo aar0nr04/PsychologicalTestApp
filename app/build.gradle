@@ -45,11 +45,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.activity:activity:1.10.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.code.gson:gson:2.8.9'
-    implementation platform('com.google.firebase:firebase-bom:32.3.1') // BoM de Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.13.0') // BoM de Firebase
     implementation 'com.google.firebase:firebase-auth' // Autenticación
     implementation 'com.google.firebase:firebase-firestore' // Base de datos Firestore
 
