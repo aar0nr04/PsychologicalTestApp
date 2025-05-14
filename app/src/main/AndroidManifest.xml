@@ -47,6 +47,12 @@
         <activity
             android:name=".TestActivity"
             android:exported="false" />
+        <activity android:name=".LoginActivity"
+            android:exported="true" />
+        <activity android:name=".ResultActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".TestInstructionsActivity" android:exported="false" />
+        <activity android:name=".TestResultsActivity" android:exported="false" />
     </application>
 
 </manifest>

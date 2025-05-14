@@ -4,6 +4,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.psychologicaltestapp.AuthRepository
+import com.example.psychologicaltestapp.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -38,4 +40,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-}}
+}

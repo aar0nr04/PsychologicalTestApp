@@ -16,7 +16,7 @@ plugins {
 }
 
 tasks.register('clean', Delete) {
-    delete rootProject.build
+    delete rootProject.bui
     Dir
 }
 
