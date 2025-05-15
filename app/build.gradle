@@ -6,11 +6,12 @@ plugins {
 apply plugin: 'com.google.gms.google-services' // Aplica el plugin de Firebase
 
 android {
-    compileSdk 33 // O superior
+    compileSdk 36 // O superior
     defaultConfig {
         applicationId "com.example.psychologicaltestapp"
-        minSdkVersion 21
-        targetSdkVersion 33 // O superior
+        minSdkVersion 23
+        //noinspection EditedTargetSdkVersion
+        targetSdkVersion 36 // O superior
         versionCode 1
         versionName "1.0"
 

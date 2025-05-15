@@ -2,6 +2,7 @@ package com.example.psychologicaltestapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,13 @@ class TestListActivity : AppCompatActivity() {
             // Convertir el JSON a un objeto Category
             val category = Gson().fromJson(categoryJson, Category::class.java)
 
+            // Verificar si hay tests disponibles
+            if (category.tests.isNullOrEmpty()) {
+                Toast.makeText(this, "No hay tests disponibles", Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
+
             // Configurar RecyclerView
             binding.testsRecyclerView.layoutManager = LinearLayoutManager(this)
             testAdapter = TestAdapter(category.tests) { selectedTest ->
@@ -43,7 +51,8 @@ class TestListActivity : AppCompatActivity() {
         } catch (e: Exception) {
             // Mostrar un mensaje de error si algo falla
             e.printStackTrace()
-            finish() // Cerrar la actividad
+            Toast.makeText(this, "Error al cargar los tests", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
