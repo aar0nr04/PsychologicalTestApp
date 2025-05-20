@@ -23,7 +23,7 @@ class TestAdapter(
         holder.itemView.setOnClickListener { onTestClick(test) }
     }
 
-    override fun getItemCount() = tests.size
+    override fun getItemCount(): Int = tests.size
 
     class TestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.testTitle)

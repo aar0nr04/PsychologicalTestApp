@@ -1,11 +1,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp">
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/logo" />
     <!-- Login Button -->
     <Button
         android:id="@+id/loginButton"
@@ -14,12 +20,20 @@
         android:text="Iniciar sesión"
         android:layout_marginBottom="16dp" />
 
+    <!-- Register Button -->
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:layout_marginBottom="16dp" />
+
     <!-- View Tests Button -->
     <Button
         android:id="@+id/testsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ver tests"
+        android:text="Hacer Test"
         android:layout_marginBottom="16dp" />
 
     <!-- View Psychologist Directory Button -->
@@ -28,5 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Directorio de psicólogos" />
+
+
 
 </LinearLayout>

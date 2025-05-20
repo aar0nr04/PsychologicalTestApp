@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         // Reference buttons
         val loginButton = findViewById<Button>(R.id.loginButton)
+        val registerButton = findViewById<Button>(R.id.registerButton)
         val testsButton = findViewById<Button>(R.id.testsButton)
         val psychologistDirectoryButton = findViewById<Button>(R.id.psychologistDirectoryButton)
 
@@ -50,5 +51,11 @@ class MainActivity : AppCompatActivity() {
         psychologistDirectoryButton.setOnClickListener {
             startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
         }
+
+        // Navigate to Register
+        registerButton.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
     }
 }

@@ -18,12 +18,6 @@ data class Test(
     val results: List<Result>
 )
 
-data class Question(
-    val questionText: String,
-    val options: List<String>,
-    val scores: List<Int>
-)
-
 data class Result(
     val minScore: Int,
     val maxScore: Int,

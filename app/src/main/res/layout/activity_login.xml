@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:fitsSystemWindows="true"> <!-- Ensures layout respects system windows -->
+    android:fitsSystemWindows="true"
+    android:gravity="center"> <!-- Ensures layout respects system windows -->
 
     <!-- Campo para el correo electrónico -->
     <EditText

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.psychologicaltestapp"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.psychologicaltestapp">
     <!-- Required permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,9 +14,11 @@
         android:theme="@style/Theme.PsychologicalTestApp"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".PsychologistDirectoryActivity"
+            android:name=".TestDetailsActivity"
             android:exported="false" />
-        <!-- Firebase meta-data -->
+        <activity
+            android:name=".PsychologistDirectoryActivity"
+            android:exported="false" /> <!-- Firebase meta-data -->
         <meta-data
             android:name="com.google.firebase.components.FirebaseComponents"
             android:value="com.google.firebase.components.ComponentDiscoveryService" />

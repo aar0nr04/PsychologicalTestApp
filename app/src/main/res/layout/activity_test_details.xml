@@ -3,18 +3,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:layout_marginTop="70dp">
+    android:gravity="center"
+    android:layout_marginTop="30dp">
 
-    <!-- RecyclerView para mostrar las categorías -->
+    <!-- Title of the Category -->
+    <TextView
+        android:id="@+id/testTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Título de la Categoría"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+
+        />
+
+    <!-- RecyclerView for Tests -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoriesRecyclerView"
+        android:id="@+id/testsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp"
-        android:contentDescription="Lista de categorías disponibles" />
+        android:contentDescription="Lista de tests disponibles" />
 
-    <!-- Botón para regresar al menú anterior -->
+    <!-- Back Button -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"

@@ -1,64 +1,53 @@
 package com.example.psychologicaltestapp
 
 import android.content.Intent
-import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.example.psychologicaltestapp.databinding.ActivityTestListBinding
+import android.widget.Toast
 
 class TestListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTestListBinding
-    private lateinit var testAdapter: TestAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflar el layout usando View Binding
+        // Inflate the layout using View Binding
         binding = ActivityTestListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         try {
-            // Obtener la categoría pasada como JSON
-            val categoryJson = intent.getStringExtra("CATEGORY")
-                ?: throw IllegalArgumentException("Categoría no proporcionada")
+            // Load categories from JSON
+            val categories = loadTestsFromJson(this)
 
-            // Convertir el JSON a un objeto Category
-            val category = Gson().fromJson(categoryJson, Category::class.java)
-
-            // Verificar si hay tests disponibles
-            if (category.tests.isNullOrEmpty()) {
-                Toast.makeText(this, "No hay tests disponibles", Toast.LENGTH_SHORT).show()
-                finish()
-                return
+            // Configure RecyclerView
+            binding.categoriesRecyclerView.layoutManager = LinearLayoutManager(this)
+            categoryAdapter = CategoryAdapter(categories) { selectedCategory ->
+                showTestsInCategory(selectedCategory)
             }
+            binding.categoriesRecyclerView.adapter = categoryAdapter
 
-            // Configurar RecyclerView
-            binding.testsRecyclerView.layoutManager = LinearLayoutManager(this)
-            testAdapter = TestAdapter(category.tests) { selectedTest ->
-                startTest(selectedTest)
-            }
-            binding.testsRecyclerView.adapter = testAdapter
-
-            // Configurar el botón "Regresar"
+            // Configure the "Back" button
             binding.backButton.setOnClickListener {
-                finish() // Cerrar esta actividad y regresar al menú anterior
+                finish() // Close this activity and return to the previous menu
             }
 
         } catch (e: Exception) {
-            // Mostrar un mensaje de error si algo falla
+            // Show an error message if something fails
             e.printStackTrace()
-            Toast.makeText(this, "Error al cargar los tests", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error al cargar las categorías", Toast.LENGTH_SHORT).show()
             finish()
         }
     }
 
-    private fun startTest(test: Test) {
-        val intent = Intent(this, TestActivity::class.java)
-        intent.putExtra("TEST_TYPE", test.type) // Pasar el tipo de test
+    private fun showTestsInCategory(category: Category) {
+        val intent = Intent(this, TestDetailsActivity::class.java)
+        intent.putExtra("CATEGORY", Gson().toJson(category)) // Pass the category as JSON
         startActivity(intent)
     }
 }
