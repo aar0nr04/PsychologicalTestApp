@@ -1,5 +1,6 @@
 package com.example.psychologicaltestapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -110,13 +111,11 @@ class TestActivity : AppCompatActivity() {
         val result = test.results.find { totalScore in it.minScore..it.maxScore }
         val resultMessage = result?.message ?: "No se pudo calcular el resultado."
 
-        // Mostrar el resultado en un AlertDialog
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setTitle("Resultado")
-        dialogBuilder.setMessage(resultMessage)
-        dialogBuilder.setPositiveButton("Aceptar") { _, _ ->
-            finish() // Cerrar esta actividad
+        // En lugar de mostrar un AlertDialog, iniciamos ResultActivity
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra("RESULT_MESSAGE", resultMessage)
         }
-        dialogBuilder.show()
+        startActivity(intent)
+        finish() // Finaliza TestActivity para que el usuario no pueda volver a las preguntas
     }
 }
