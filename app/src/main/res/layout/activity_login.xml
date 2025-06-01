@@ -4,10 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:fitsSystemWindows="true"
+
     android:gravity="center"> <!-- Ensures layout respects system windows -->
 
+
+    <!-- Campo para el Titulo -->
+    <TextView
+        android:id="@+id/RegisterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iniciar Sesión"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/cardview_dark_background"
+        android:paddingBottom="30dp"
+        android:scrollbars="vertical" />
     <!-- Campo para el correo electrónico -->
+
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"

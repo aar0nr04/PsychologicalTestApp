@@ -1,0 +1,13 @@
+<resources>
+    <!-- Primary Color -->
+    <color name="primaryColor">#007BCE</color> <!-- Example: Blue -->
+
+    <!-- Secondary Color -->
+    <color name="secondaryColor">#FF0000</color> <!-- Example: Red -->
+
+    <!-- Text Color -->
+    <color name="textColor">#FFFFFF</color> <!-- White -->
+
+    <!-- Background Color -->
+    <color name="backgroundColor">#333333</color> <!-- Dark Gray -->
+</resources>

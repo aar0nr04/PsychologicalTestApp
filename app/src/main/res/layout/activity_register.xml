@@ -6,6 +6,18 @@
     android:padding="25dp"
     android:gravity="center">
 
+    <!-- Campo para el Titulo -->
+    <TextView
+        android:id="@+id/RegisterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/cardview_dark_background"
+        android:paddingBottom="30dp"
+        android:scrollbars="vertical" />
+
     <!-- Campo para el nombre -->
     <EditText
         android:id="@+id/nameEditText"
@@ -33,10 +45,36 @@
         android:inputType="textPassword"
         android:layout_marginBottom="16dp" />
 
-    <!-- Botón de registro -->
+    <!-- ScrollView para mostrar el texto largo -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/termsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Política de Privacidad\n\nÚltima actualización: [Fecha de actualización]\n\nBienvenido/a a **[Nombre de tu Aplicación]**. En **[Nombre de tu Empresa o Desarrollador]**, valoramos y respetamos tu privacidad. Esta **Política de Privacidad** describe cómo recopilamos, utilizamos, almacenamos y protegemos tus datos personales cuando utilizas nuestra aplicación móvil **[Nombre de tu Aplicación]**. Por favor, léela cuidadosamente para comprender cómo manejamos tu información.\n\n---\n\n### 1. Información que Recopilamos\nPara proporcionarte los servicios de nuestra aplicación, podemos recopilar los siguientes tipos de información:\n\n#### a) Información que nos proporcionas directamente:\n- Nombre completo.\n- Dirección de correo electrónico.\n- Fecha de nacimiento (opcional).\n- Respuestas a cuestionarios o pruebas psicológicas realizadas dentro de la aplicación.\n- Cualquier otra información que elijas proporcionar voluntariamente.\n\n#### b) Información que recopilamos automáticamente:\n- Datos de uso de la aplicación (por ejemplo, páginas visitadas, interacciones dentro de la app).\n- Datos técnicos, como dirección IP, tipo de dispositivo, sistema operativo y versión.\n- Cookies y tecnologías similares (si aplican).\n\n---\n\n### 2. Uso de la Información\nUtilizamos la información recopilada únicamente para los siguientes propósitos:\n\n- Proporcionar, mejorar y personalizar los servicios de la aplicación.\n- Analizar el rendimiento de la aplicación y corregir errores técnicos.\n- Enviar notificaciones importantes relacionadas con la aplicación (por ejemplo, actualizaciones o cambios en nuestros términos).\n- Cumplir con obligaciones legales y garantizar la seguridad de la aplicación.\n\nNos comprometemos a **no utilizar tus datos para fines maliciosos**, ni compartirlos con terceros sin tu consentimiento previo, salvo en los casos permitidos por la ley.\n\n---\n\n### 3. Compartir Información con Terceros\nNo vendemos, alquilamos ni compartimos tus datos personales con terceros, excepto en los siguientes casos:\n\n- **Proveedores de servicios:** Podemos compartir información con proveedores externos que nos ayudan a operar la aplicación (por ejemplo, servicios de hosting o análisis de datos). Estos proveedores están obligados a mantener la confidencialidad de tus datos.\n- **Cumplimiento legal:** Podemos divulgar información si es requerido por una autoridad competente, siempre que esté respaldado por una orden judicial o legal válida.\n- **Consentimiento expreso:** Si decides compartir tus resultados o datos con un profesional de la salud o terapeuta, lo haremos únicamente con tu autorización escrita.\n\n---\n\n### 4. Seguridad de los Datos\nImplementamos medidas de seguridad técnicas, administrativas y físicas para proteger tus datos personales contra accesos no autorizados, alteraciones, divulgación o destrucción. Sin embargo, ninguna transmisión de datos por internet o sistema de almacenamiento electrónico es 100% segura, por lo que no podemos garantizar su seguridad absoluta.\n\n---\n\n### 5. Derechos del Usuario\nDe acuerdo con la **Ley Federal de Protección de Datos Personales en Posesión de Particulares (LFPDPPP)** de México, tienes los siguientes derechos respecto a tus datos personales:\n\n- **Acceso:** Puedes solicitar una copia de los datos personales que tenemos sobre ti.\n- **Rectificación:** Puedes corregir cualquier dato inexacto o incompleto.\n- **Cancelación:** Puedes solicitar la eliminación de tus datos de nuestros sistemas.\n- **Oposición:** Puedes oponerte al tratamiento de tus datos para ciertos fines.\n\nPara ejercer cualquiera de estos derechos, envía un correo electrónico a **[correo de contacto]** con la siguiente información:\n\n- Nombre completo.\n- Copia de una identificación oficial.\n- Descripción clara de la solicitud.\n\nResponderemos a tu solicitud en un plazo máximo de **20 días hábiles**.\n\n---\n\n### 6. Cambios en esta Política de Privacidad\nNos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Te notificaremos sobre cambios significativos mediante un aviso dentro de la aplicación o por correo electrónico. Te recomendamos revisar esta política periódicamente para estar informado/a sobre cómo protegemos tu información.\n\n---\n\n### 7. Consentimiento\nAl utilizar **[Nombre de tu Aplicación]**, aceptas los términos de esta Política de Privacidad. Si no estás de acuerdo con esta política, por favor, no utilices la aplicación.\n\n---\n\n### 8. Contacto\nSi tienes preguntas, comentarios o inquietudes sobre esta Política de Privacidad o sobre cómo manejamos tus datos, no dudes en contactarnos:\n\n- Correo electrónico: **[correo de contacto]**\n- Teléfono: **[número de contacto]**\n- Dirección física: **[dirección de la empresa, si aplica]**"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:scrollbars="vertical" />
+    </ScrollView>
+
+    <!-- Botón para aceptar los términos -->
+    <Button
+        android:id="@+id/acceptTermsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aceptar Términos"
+        android:enabled="true" />
+
+    <!-- Botón de registro (inicialmente deshabilitado) -->
     <Button
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrarse" />
+        android:text="Registrarse"
+        android:enabled="false" />
+
 </LinearLayout>

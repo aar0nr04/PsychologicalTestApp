@@ -17,12 +17,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
-    <!-- RadioGroup para las opciones -->
-    <RadioGroup
-        android:id="@+id/optionsRadioGroup"
+    <!-- Contenedor para las opciones (usando botones en lugar de RadioButtons) -->
+    <LinearLayout
+        android:id="@+id/optionsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        android:gravity="end"> <!-- Alineación a la derecha -->
+
+    </LinearLayout>
 
     <!-- Botones de navegación -->
     <LinearLayout
@@ -36,13 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Regresar"
-            android:layout_marginEnd="8dp"/>
-
-        <Button
-            android:id="@+id/prevButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Anterior"
             android:layout_marginEnd="8dp"/>
 
         <Button

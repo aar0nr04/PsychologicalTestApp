@@ -5,7 +5,17 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center">
-
+    <!-- Campo para el Titulo -->
+    <TextView
+        android:id="@+id/ResultadoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/cardview_dark_background"
+        android:paddingBottom="20dp"
+        android:scrollbars="vertical" />
     <!-- TextView para mostrar el resultado -->
     <TextView
         android:id="@+id/resultTextView"
@@ -17,6 +27,22 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
+    <!-- Botón para tips -->
+    <Button
+        android:id="@+id/tipsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tips"
+        android:layout_gravity="center_horizontal"/>
+
+    <!-- Botón para psicologo -->
+    <Button
+        android:id="@+id/psychologistButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consulta un Experto"
+        android:layout_gravity="center_horizontal"/>
+
     <!-- Botón para regresar al menú principal -->
     <Button
         android:id="@+id/backToMenuButton"
@@ -24,4 +50,6 @@
         android:layout_height="wrap_content"
         android:text="Regresar al Menú"
         android:layout_gravity="center_horizontal"/>
+
+
 </LinearLayout>
