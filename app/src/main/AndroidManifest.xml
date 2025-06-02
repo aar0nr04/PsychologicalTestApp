@@ -16,6 +16,12 @@
         android:theme="@style/Theme.PsychologicalTestApp"
         tools:replace="android:allowBackup">
 
+        <!-- Google AdMob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8324237755469566~6714151343" /> <!-- Reemplaza con tu App ID -->
+
+
         <!-- Firebase meta-data -->
         <meta-data
             android:name="com.google.firebase.components.FirebaseComponents"
