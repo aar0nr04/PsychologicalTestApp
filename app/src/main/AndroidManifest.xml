@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.psychologicaltestapp">
+
     <!-- Required permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,33 +15,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PsychologicalTestApp"
         tools:replace="android:allowBackup">
-        <activity
-            android:name=".TestDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PsychologistDirectoryActivity"
-            android:exported="false" /> <!-- Firebase meta-data -->
+
+        <!-- Firebase meta-data -->
         <meta-data
             android:name="com.google.firebase.components.FirebaseComponents"
             android:value="com.google.firebase.components.ComponentDiscoveryService" />
         <meta-data
             android:name="firebase_analytics_collection_enabled"
-            android:value="true" /> <!-- MainActivity -->
+            android:value="true" />
+
+        <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- RegisterActivity -->
+        </activity>
+
+        <!-- Other activities -->
+        <activity
+            android:name=".TestDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PsychologistDirectoryActivity"
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" /> <!-- TestListActivity -->
+            android:exported="false" />
         <activity
             android:name=".TestListActivity"
-            android:exported="false" /> <!-- TestActivity -->
+            android:exported="false" />
         <activity
             android:name=".TestActivity"
             android:exported="false" />
@@ -50,14 +57,9 @@
             android:name=".ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".PsychologistDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".TestInstructionsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TestResultsActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>
