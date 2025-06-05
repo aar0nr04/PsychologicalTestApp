@@ -32,7 +32,63 @@ class PsychologistDirectoryActivity : AppCompatActivity() {
                 name = "Dr. Carlos Gómez",
                 specialty = "Psicología Infantil",
                 imageUrl = "https://example.com/carlos-gomez.jpg",
-                description = "Especializado en desarrollo infantil."
+                description = "Especializado en desarrollo infantil y trastornos del aprendizaje."
+            ),
+            Psychologist(
+                id = "3",
+                name = "Dra. Laura Martínez",
+                specialty = "Neuropsicología",
+                imageUrl = "https://example.com/laura-martinez.jpg",
+                description = "Especialista en evaluación neuropsicológica y rehabilitación cognitiva."
+            ),
+            Psychologist(
+                id = "4",
+                name = "Dr. Javier Torres",
+                specialty = "Psicología Organizacional",
+                imageUrl = "https://example.com/javier-torres.jpg",
+                description = "Consultor en bienestar laboral y desarrollo organizacional."
+            ),
+            Psychologist(
+                id = "5",
+                name = "Dra. Sofía Ramírez",
+                specialty = "Psicología Forense",
+                imageUrl = "https://example.com/sofia-ramirez.jpg",
+                description = "Experta en peritajes psicológicos y mediación familiar."
+            ),
+            Psychologist(
+                id = "6",
+                name = "Dr. Miguel Ángel Ruiz",
+                specialty = "Psicología Deportiva",
+                imageUrl = "https://example.com/miguel-angel-ruiz.jpg",
+                description = "Entrenador mental para atletas de alto rendimiento."
+            ),
+            Psychologist(
+                id = "7",
+                name = "Dra. Valeria Castro",
+                specialty = "Psicología Educativa",
+                imageUrl = "https://example.com/valeria-castro.jpg",
+                description = "Especializada en orientación vocacional y habilidades de estudio."
+            ),
+            Psychologist(
+                id = "8",
+                name = "Dr. Eduardo Fernández",
+                specialty = "Terapia Familiar",
+                imageUrl = "https://example.com/eduardo-fernandez.jpg",
+                description = "Experto en dinámicas familiares y terapia de pareja."
+            ),
+            Psychologist(
+                id = "9",
+                name = "Dra. Andrea Herrera",
+                specialty = "Psicología Positiva",
+                imageUrl = "https://example.com/andrea-herrera.jpg",
+                description = "Enfoque en bienestar emocional y resiliencia personal."
+            ),
+            Psychologist(
+                id = "10",
+                name = "Dr. Daniel Sánchez",
+                specialty = "Psicología Geriátrica",
+                imageUrl = "https://example.com/daniel-sanchez.jpg",
+                description = "Especialista en el manejo de la salud mental en adultos mayores."
             )
         )
 

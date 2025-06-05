@@ -1,71 +1,94 @@
 package com.example.psychologicaltestapp
 
-
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
-
+import com.example.psychologicaltestapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        // Initialize AdMob
-        MobileAds.initialize(this) {}
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Load the banner ad
-        val adView = findViewById<com.google.android.gms.ads.AdView>(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
-
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Reference buttons
-        val loginButton = findViewById<Button>(R.id.loginButton)
-        val registerButton = findViewById<Button>(R.id.registerButton)
-        val testsButton = findViewById<Button>(R.id.testsButton)
-        val psychologistDirectoryButton = findViewById<Button>(R.id.psychologistDirectoryButton)
+        setupVideoBackground()
+        setupAdMob()
+        setupButtons()
+        binding.videoBackground.setOnErrorListener { mediaPlayer, what, extra ->
+            println("MediaPlayer error in TestActivity: what=$what, extra=$extra")
+            true
+        }
+        updateUI()
+    }
 
-        // Check if user is already logged in
-        if (auth.currentUser != null) {
-            // User is logged in, enable all options
-            loginButton.text = "Cerrar sesión"
-            loginButton.setOnClickListener {
+    private fun setupVideoBackground() {
+        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.clouds_video3}")
+        binding.videoBackground.setVideoURI(videoUri)
+        binding.videoBackground.setOnPreparedListener { mediaPlayer ->
+            mediaPlayer.isLooping = true
+            mediaPlayer.setVolume(0f, 0f) // Mute the video
+            binding.videoBackground.start()
+        }
+    }
+
+    private fun setupAdMob() {
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+    }
+
+    private fun setupButtons() {
+        binding.loginButton.setOnClickListener {
+            if (auth.currentUser != null) {
                 auth.signOut()
-                recreate() // Refresh activity to update UI
-            }
-        } else {
-            // User is not logged in, restrict access to tests and directory
-            testsButton.isEnabled = true
-            psychologistDirectoryButton.isEnabled = true
-
-            loginButton.setOnClickListener {
+                recreate()
+            } else {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
         }
 
-        // Navigate to Tests screen
-        testsButton.setOnClickListener {
+        binding.testsButton.setOnClickListener {
             startActivity(Intent(this, TestListActivity::class.java))
         }
 
-        // Navigate to Psychologist Directory screen
-        psychologistDirectoryButton.setOnClickListener {
+        binding.psychologistDirectoryButton.setOnClickListener {
             startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
         }
 
-        // Navigate to Register
-        registerButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+    }
 
+    private fun updateUI() {
+        if (auth.currentUser != null) {
+            binding.loginButton.text = "Cerrar sesión"
+            binding.testsButton.isEnabled = true
+            binding.psychologistDirectoryButton.isEnabled = true
+        } else {
+            binding.loginButton.text = "Iniciar sesión"
+            binding.testsButton.isEnabled = true
+            binding.psychologistDirectoryButton.isEnabled = true
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.videoBackground.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.videoBackground.start()
     }
 }

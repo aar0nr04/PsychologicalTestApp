@@ -1,55 +1,68 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp">
-
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo" />
-    <!-- Login Button -->
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Iniciar sesión"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Register Button -->
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registrarse"
-        android:layout_marginBottom="16dp" />
-
-    <!-- View Tests Button -->
-    <Button
-        android:id="@+id/testsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hacer Test"
-        android:layout_marginBottom="16dp" />
-
-    <!-- View Psychologist Directory Button -->
-    <Button
-        android:id="@+id/psychologistDirectoryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Directorio de psicólogos" />
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+    android:layout_height="match_parent">
+    <VideoView
+        android:id="@+id/videoBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- Replace with your Banner Ad Unit ID -->
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="0dp">
 
-</LinearLayout>
+
+        <!-- Login Button -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="384dp"
+            app:srcCompat="@drawable/logo3"
+            android:scaleType="fitCenter"
+            />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar sesión"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Register Button -->
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrarse"
+            android:layout_marginBottom="10dp" />
+
+        <!-- View Tests Button -->
+        <Button
+            android:id="@+id/testsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hacer Test"
+            android:layout_marginBottom="10dp" />
+
+        <!-- View Psychologist Directory Button -->
+        <Button
+            android:id="@+id/psychologistDirectoryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Directorio de psicólogos"
+            android:layout_marginBottom="10dp" />/>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- Replace with your Banner Ad Unit ID -->
+
+    </LinearLayout>
+</RelativeLayout>
