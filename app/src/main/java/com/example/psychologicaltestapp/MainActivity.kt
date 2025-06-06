@@ -21,25 +21,25 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        setupVideoBackground()
+ //       setupVideoBackground()
         setupAdMob()
         setupButtons()
-        binding.videoBackground.setOnErrorListener { mediaPlayer, what, extra ->
-            println("MediaPlayer error in TestActivity: what=$what, extra=$extra")
-            true
-        }
+//        binding.videoBackground.setOnErrorListener { mediaPlayer, what, extra ->
+//            println("MediaPlayer error in TestActivity: what=$what, extra=$extra")
+//            true
+//        }
         updateUI()
     }
 
-    private fun setupVideoBackground() {
-        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.clouds_video3}")
-        binding.videoBackground.setVideoURI(videoUri)
-        binding.videoBackground.setOnPreparedListener { mediaPlayer ->
-            mediaPlayer.isLooping = true
-            mediaPlayer.setVolume(0f, 0f) // Mute the video
-            binding.videoBackground.start()
-        }
-    }
+//    private fun setupVideoBackground() {
+//        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.clouds_video}")
+//        binding.videoBackground.setVideoURI(videoUri)
+//        binding.videoBackground.setOnPreparedListener { mediaPlayer ->
+//            mediaPlayer.isLooping = true
+//            mediaPlayer.setVolume(0f, 0f) // Mute the video
+//            binding.videoBackground.start()
+//        }
+//    }
 
     private fun setupAdMob() {
         MobileAds.initialize(this) {}
@@ -82,13 +82,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        binding.videoBackground.pause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.videoBackground.start()
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        binding.videoBackground.pause()
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        binding.videoBackground.start()
+//    }
 }

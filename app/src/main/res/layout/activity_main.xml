@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <VideoView
+<!--    <VideoView
         android:id="@+id/videoBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter" />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

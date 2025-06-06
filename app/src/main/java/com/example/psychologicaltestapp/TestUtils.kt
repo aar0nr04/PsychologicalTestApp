@@ -19,6 +19,7 @@ data class Test(
 )
 
 data class Result(
+    val category: String,
     val minScore: Int,
     val maxScore: Int,
     val message: String
@@ -57,10 +58,17 @@ fun loadTestsFromJson(context: Context): List<Category> {
                         options.add(optionsArray.getString(l))
                     }
 
-                    val scores = mutableListOf<Int>()
-                    val scoresArray = questionObject.getJSONArray("scores")
-                    for (l in 0 until scoresArray.length()) {
-                        scores.add(scoresArray.getInt(l))
+                    val scores = mutableMapOf<String, List<Int>>()
+                    val scoresObject = questionObject.optJSONObject("scores")
+                    if (scoresObject != null) {
+                        for (key in scoresObject.keys()) {
+                            val scoreValues = mutableListOf<Int>()
+                            val scoreArray = scoresObject.getJSONArray(key)
+                            for (l in 0 until scoreArray.length()) {
+                                scoreValues.add(scoreArray.getInt(l))
+                            }
+                            scores[key] = scoreValues
+                        }
                     }
 
                     questions.add(Question(questionText, options, scores))
@@ -69,11 +77,13 @@ fun loadTestsFromJson(context: Context): List<Category> {
                 val results = mutableListOf<Result>()
                 val resultsArray = testObject.getJSONArray("results")
                 for (k in 0 until resultsArray.length()) {
+
                     val resultObject = resultsArray.getJSONObject(k)
+                    val category = resultObject.getString("category") // Add this line
                     val minScore = resultObject.getInt("minScore")
                     val maxScore = resultObject.getInt("maxScore")
                     val message = resultObject.getString("message")
-                    results.add(Result(minScore, maxScore, message))
+                    results.add(Result(category, minScore, maxScore, message)) // Pass arguments in the correct order
                 }
 
                 tests.add(Test(type, testTitle, questions, results))

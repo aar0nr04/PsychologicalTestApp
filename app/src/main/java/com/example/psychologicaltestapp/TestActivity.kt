@@ -3,17 +3,14 @@ package com.example.psychologicaltestapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-
 
 class TestActivity : AppCompatActivity() {
 
     private lateinit var test: Test
     private var currentQuestionIndex = 0
-    private var totalScore = 0
-    // Add this variable to track the selected option
-    private var selectedOptionIndex: Int? = null
+    private val userResponses = mutableListOf<Int>() // Track user responses for each question
+    private var selectedOptionIndex: Int? = null // Track the selected option for the current question
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +99,7 @@ class TestActivity : AppCompatActivity() {
         // Mostrar el progreso
         progressTextView.text = "Pregunta ${currentQuestionIndex + 1} de ${test.questions.size}"
     }
+
     private fun handleNextButtonClick() {
         val selectedOptionIndex = this.selectedOptionIndex
         if (selectedOptionIndex == null) {
@@ -110,38 +108,71 @@ class TestActivity : AppCompatActivity() {
             return
         }
 
-        // Sumar el puntaje correspondiente a la opción seleccionada
-        totalScore += test.questions[currentQuestionIndex].scores[selectedOptionIndex]
+        // Guardar la respuesta del usuario
+        userResponses.add(selectedOptionIndex)
 
         // Avanzar a la siguiente pregunta
         currentQuestionIndex++
         showQuestion()
     }
 
-
     private fun handleOptionSelected(index: Int) {
-        // Update the selected option index
+        // Actualizar el índice de la opción seleccionada
         selectedOptionIndex = index
 
-        // Get the container holding all the buttons
+        // Obtener el contenedor que contiene todos los botones
         val optionsContainer = findViewById<LinearLayout>(R.id.optionsContainer)
 
-        // Loop through all buttons to update their appearance
+        // Recorrer todos los botones para actualizar su apariencia
         for (i in 0 until optionsContainer.childCount) {
             val button = optionsContainer.getChildAt(i) as Button
             button.setBackgroundResource(if (i == index) R.drawable.custom_button_selected else R.drawable.custom_button_style)
         }
     }
-    private fun showResult() {
-        // Encontrar el resultado correspondiente al puntaje total
-        val result = test.results.find { totalScore in it.minScore..it.maxScore }
-        val resultMessage = result?.message ?: "No se pudo calcular el resultado."
 
-        // En lugar de mostrar un AlertDialog, iniciamos ResultActivity
+    private fun showResult() {
+        // Step 1: Calculate scores for each category
+        val categoryScores = mutableMapOf<String, Int>() // Mapa para almacenar puntajes por categoría
+
+        test.questions.forEachIndexed { questionIndex, question ->
+            question.scores.forEach { (category, scoreValues) ->
+                // Obtener el índice de la opción seleccionada para la pregunta actual
+                val selectedOptionIndex = userResponses[questionIndex]
+                val scoreToAdd = scoreValues[selectedOptionIndex]
+
+                // Acumular el puntaje para la categoría
+                categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
+            }
+        }
+
+        // Step 2: Generar mensajes de resultado para cada categoría
+        val resultMessages = mutableListOf<String>()
+
+        categoryScores.forEach { (category, score) ->
+            // Encontrar todos los resultados que coincidan con la categoría y el puntaje
+            val matchingResults = test.results.filter { it.category == category && score in it.minScore..it.maxScore }
+
+            if (matchingResults.isNotEmpty()) {
+                // Combinar todos los mensajes de resultado en una sola cadena
+                val combinedMessage = matchingResults.joinToString("\n\n") { it.message }
+                resultMessages.add("Categoría: $category\nPuntuación: $score\n$combinedMessage")
+            } else {
+                resultMessages.add("Categoría: $category\nPuntuación: $score\nResultado no encontrado.")
+            }
+        }
+
+        // Step 3: Combinar todos los mensajes de resultado en un solo texto
+        val finalResultMessage = if (resultMessages.isNotEmpty()) {
+            resultMessages.joinToString("\n\n")
+        } else {
+            "No se pudo calcular el resultado."
+        }
+
+        // Step 4: Pasar el mensaje de resultado a ResultActivity
         val intent = Intent(this, ResultActivity::class.java).apply {
-            putExtra("RESULT_MESSAGE", resultMessage)
+            putExtra("RESULT_MESSAGE", finalResultMessage)
         }
         startActivity(intent)
-        finish() // Finaliza TestActivity para que el usuario no pueda volver a las preguntas
+        finish() // Finalizar TestActivity para que el usuario no pueda volver a las preguntas
     }
 }

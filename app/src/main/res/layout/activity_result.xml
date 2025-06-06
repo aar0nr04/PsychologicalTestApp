@@ -17,15 +17,28 @@
         android:paddingBottom="20dp"
         android:scrollbars="vertical" />
     <!-- TextView para mostrar el resultado -->
-    <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resultado"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resultado"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+
+            android:ellipsize="end"
+            android:singleLine="false"
+            android:padding="16dp"
+        />
+    </ScrollView>
+
 
     <!-- Botón para tips -->
     <Button

@@ -1,168 +1,183 @@
 {
   "categories": [
     {
-      "title": "Tests de Inteligencia",
-      "description": "Evalúan el nivel de inteligencia general (CI) o habilidades cognitivas específicas.",
+      "title": "Tests de Ansiedad y Depresión",
+      "description": "Diseñados para detectar síntomas de ansiedad, depresión y otros trastornos emocionales.",
       "tests": [
         {
-          "type": "WAIS",
-          "title": "WAIS (Wechsler Adult Intelligence Scale)",
+          "type": "AMAS-A",
+          "title": "AMAS-A",
           "questions": [
-            {
-              "questionText": "¿Cuál es el número que sigue en la secuencia: 2, 4, 6, 8?",
-              "options": ["10", "12", "14", "16"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Qué palabra completa mejor la siguiente analogía? \"Perro es a ladrido como gato es a ___\".",
-              "options": ["maullido", "ronroneo", "silbido", "gruñido"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "Si tienes 3 manzanas y regalas 2, ¿cuántas te quedan?",
-              "options": ["1", "2", "3", "0"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál de las siguientes palabras no pertenece al grupo?",
-              "options": ["manzana", "plátano", "zanahoria", "pera"],
-              "scores": [0, 0, 1, 0]
-            },
-            {
-              "questionText": "¿Qué figura geométrica tiene todos sus lados iguales?",
-              "options": ["triángulo", "cuadrado", "rectángulo", "círculo"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el sinónimo de 'feliz'?",
-              "options": ["triste", "alegre", "enojado", "indiferente"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Qué palabra significa lo contrario de 'claro'?",
-              "options": ["oscuro", "brillante", "luminoso", "radiante"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "Si un tren sale a las 8:00 AM y llega a las 10:00 AM, ¿cuánto tiempo dura el viaje?",
-              "options": ["1 hora", "2 horas", "3 horas", "4 horas"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el resultado de multiplicar 7 x 8?",
-              "options": ["56", "64", "49", "72"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Qué instrumento mide la temperatura?",
-              "options": ["termómetro", "barómetro", "reloj", "balanza"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el planeta más cercano al Sol?",
-              "options": ["Tierra", "Marte", "Mercurio", "Venus"],
-              "scores": [0, 0, 1, 0]
-            },
-            {
-              "questionText": "¿Qué letra sigue en esta secuencia: A, C, F, J?",
-              "options": ["L", "M", "N", "O"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el animal más grande del mundo?",
-              "options": ["elefante", "ballena azul", "tiburón blanco", "rinoceronte"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Qué palabra completa mejor la frase? 'El agua es a líquido como el hielo es a ___'.",
-              "options": ["sólido", "gas", "vapor", "fluido"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el resultado de sumar 25 + 37?",
-              "options": ["52", "62", "72", "82"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Qué palabra no pertenece al grupo?",
-              "options": ["sol", "luna", "estrella", "árbol"],
-              "scores": [0, 0, 0, 1]
-            },
-            {
-              "questionText": "¿Cuál es el continente más grande del mundo?",
-              "options": ["Asia", "África", "Europa", "América"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Qué palabra significa lo mismo que 'rápido'?",
-              "options": ["lento", "veloz", "pausado", "torpe"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el resultado de dividir 49 entre 7?",
-              "options": ["6", "7", "8", "9"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Qué letra sigue en esta secuencia: B, D, G, K?",
-              "options": ["M", "N", "O", "P"],
-              "scores": [0, 0, 1, 0]
-            },
-            {
-              "questionText": "¿Cuál es el océano más grande del mundo?",
-              "options": ["Atlántico", "Índico", "Pacífico", "Ártico"],
-              "scores": [0, 0, 1, 0]
-            },
-            {
-              "questionText": "¿Qué palabra completa mejor la analogía? 'Mano es a guante como pie es a ___'.",
-              "options": ["calcetín", "zapato", "camisa", "gorro"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el resultado de restar 85 - 47?",
-              "options": ["38", "48", "58", "68"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Qué opción representa mejor un triángulo?",
-              "options": ["○", "□", "△", "◇"],
-              "scores": [0, 0, 1, 0]
-            },
-            {
-              "questionText": "¿Cuál es el mes que tiene menos días?",
-              "options": ["enero", "febrero", "marzo", "abril"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Qué palabra significa lo contrario de 'amigo'?",
-              "options": ["enemigo", "compañero", "aliado", "hermano"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el resultado de elevar 3 al cuadrado?",
-              "options": ["6", "9", "12", "15"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Qué figura geométrica tiene tres lados?",
-              "options": ["cuadrado", "triángulo", "rectángulo", "pentágono"],
-              "scores": [0, 1, 0, 0]
-            },
-            {
-              "questionText": "¿Cuál es el río más largo del mundo?",
-              "options": ["Amazonas", "Nilo", "Yangtsé", "Misisipi"],
-              "scores": [1, 0, 0, 0]
-            },
-            {
-              "questionText": "¿Qué letra sigue en esta secuencia: Z, Y, X, W?",
-              "options": ["V", "U", "T", "S"],
-              "scores": [1, 0, 0, 0]
-            }
+            {"questionText": "1. Me preocupa hacer lo correcto.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}} ,
+            {"questionText": "2. Es frecuente que me sienta inquieto/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "3. Es frecuente que me preocupe por lo que podría pasarle a mi familia.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "4. Siempre soy agradable con todos.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [1, 0]}},
+            {"questionText": "5. Me pongo nervioso/a cuando las cosas no me salen bien.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "6. Muchas veces me siento acelerado/a o intranquilo/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "7. Es fácil que me sienta mal cuando me llaman la atención.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "8. Siempre soy amable.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
+            {"questionText": "9. A veces me preocupo por las cosas que en realidad no tienen importancia.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "10. Es frecuente que la gente diga que soy inquieto/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "11. La vida se está complicando demasiado.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "12. Siempre soy educado/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
+            {"questionText": "13. Es fácil que hieran mis sentimientos.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "14. Es frecuente que sienta mi cuerpo tenso.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "15. Me preocupa el dinero.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "16. Me preocupa lo que va a pasar.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "17. Estoy nervioso/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "18. Me cuesta trabajo tomar decisiones.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "19. Me preocupa hacerme viejo/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "20. Me preocupa el futuro.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "21. Mis músculos se sienten tensos.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "22. Me preocupa cómo me está yendo en el trabajo.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "23. Es fácil que me desespere con los demás.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "24. Siempre digo la verdad.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
+            {"questionText": "25. Me preocupa lo que los demás piensen de mí.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "26. Me cuesta mucho trabajo estar quieto/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "27. Me preocupa la muerte.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "28. Siempre soy bueno/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [1, 0]}},
+            {"questionText": "29. Muchas veces me siento cansado/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "30. Me preocupa cuando me acuesto a dormir.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "31. Siento que alguien me va a decir que hago mal las cosas.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "32. Me caen bien todas las personas que conozco.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
+            {"questionText": "33. Me siento preocupado/a la gran parte del tiempo.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "34. Me despierto pensando en mis problemas.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "35. Es frecuente que me sienta muy estresado/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
+            {"questionText": "36. Parece que los demás hacen las cosas con más facilidad que yo.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}}
           ],
           "results": [
-            {"minScore": 0, "maxScore": 10, "message": "Nivel de inteligencia bajo. Es posible que necesites trabajar en habilidades cognitivas básicas."},
-            {"minScore": 11, "maxScore": 20, "message": "Nivel de inteligencia promedio. Tienes habilidades cognitivas equilibradas."},
-            {"minScore": 21, "maxScore": 30, "message": "Nivel de inteligencia alto. Muestras habilidades cognitivas avanzadas."}
+            {
+              "category": "IHS",
+              "minScore": 0,
+              "maxScore": 4,
+              "message": "IHS: Bajo\nPocas preocupaciones; no es particularmente sensible ante la crítica; perspectiva relajada y de 'ver qué pasa' ante los problemas de la vida."
+            },
+            {
+              "category": "IHS",
+              "minScore": 5,
+              "maxScore": 8,
+              "message": "IHS: Esperada\nGrados normales de inquietud y preocupación ante la vida."
+            },
+            {
+              "category": "IHS",
+              "minScore": 9,
+              "maxScore": 11,
+              "message": "IHS: Elevación Leve\nSe preocupa con frecuencia; la inquietud puede interferir con sus relaciones; por lo general no presenta dificultades serias. Puede mostrarse compulsiva (o) acerca de cuestiones específicas; hipersensibilidad leve."
+            },
+            {
+              "category": "IHS",
+              "minScore": 12,
+              "maxScore": 14,
+              "message": "IHS Clinicamente significativa: Esperada\nPreocupación enfocada; pensamiento repetitivo e improductivo; agotamiento mental; posible presencia de temores vagos; frecuentes rasgos obsesivos compulsivos."
+            },
+            {
+              "category": "FIS",
+              "minScore": 0,
+              "maxScore": 1,
+              "message": "ANSIEDAD FISIOLOGICA: Bajo\nCon excepcion de que se trate de negacion; buenas maneras de canalizar el nerviosismo normal"
+            },
+            {
+              "category": "FIS",
+              "minScore": 2,
+              "maxScore": 3,
+              "message": "ANSIEDAD FISIOLOGICA: Esperada\nCantidad promedio de afecciones fisiologicas comunes"
+            },
+            {
+              "category": "FIS",
+              "minScore": 4,
+              "maxScore": 6,
+              "message": "ANSIEDAD FISIOLOGICA: Elevación Leve\nIndividuo tenso y algo intranquilo; es probable que funcione bien en ausencia de otras elevaciones."
+            },
+            {
+              "category": "FIS",
+              "minScore": 7,
+              "maxScore": 8,
+              "message": "ANSIEDAD FISIOLOGICA: Clinicamente significativa: Esperada\nPreocupación enfocada; pensamiento repetitivo e improductivo; agotamiento mental; posible presencia de temores vagos; frecuentes rasgos obsesivos compulsivos."
+            },
+            {
+              "category": "FIS",
+              "minScore": 9,
+              "maxScore": 9,
+              "message": "ANSIEDAD FISIOLOGICA: Extrema:\nCantidad anormalmente elevada de manifestaciones somaticas asociadas a la ansiedad; se tensa y se fatiga con facilidad; probables trastornos del sueño."
+            },
+            {
+              "category": "SOC",
+              "minScore": 0,
+              "maxScore": 1,
+              "message": "PREOCUPACION SOCIAL/ESTRÉS: Baja:\nSe preocupan poco por las opiniones o puntos de vista que los demas tienen de ellos, es posible falta de interes en las relaciones."
+            },
+            {
+              "category": "SOC",
+              "minScore": 2,
+              "maxScore": 3,
+              "message": "PREOCUPACION SOCIAL/ESTRÉS: Esperada:\nPreocupaciones normales acerca de actividades y cuestiones interpersonales."
+            },
+            {
+              "category": "SOC",
+              "minScore": 4,
+              "maxScore": 5,
+              "message": "PREOCUPACION SOCIAL/ESTRÉS: Elevacion Leve:\nDemasiada preocupacion acerca de su apariencia; de las tareas de la vida cotidiana; pero es probable que no sea disfuncional."
+            },
+            {
+              "category": "SOC",
+              "minScore": 6,
+              "maxScore": 7,
+              "message": "PREOCUPACION SOCIAL/ESTRÉS: Clinicamente Significativa:\nNiveles elevados de estrés asociados habitualmente  con las tareas de la vida cotidiana y con las preocupaciones sociales."
+            },
+            {
+              "category": "M",
+              "minScore": 0,
+              "maxScore": 1,
+              "message": "SUBESCALA DE MENTIRA: Baja (cuestionable):\nPosible exageracion en el informe para llamar la atencion, comprension deficiente de las preguntas"
+            },
+            {
+              "category": "M",
+              "minScore": 2,
+              "maxScore": 3,
+              "message": "SUBESCALA DE MENTIRA: Esperada (valido):\nAdecuado, tipico"
+            },
+            {
+              "category": "M",
+              "minScore": 4,
+              "maxScore": 5,
+              "message": "SUBESCALA DE MENTIRA: Elevacion leve (valido):\nRigido, moralista; cierto grado de negacion o ingenuidad; creencias conservadoras."
+            },
+            {
+              "category": "M",
+              "minScore": 6,
+              "maxScore": 6,
+              "message": "SUBESCALA DE MENTIRA: Clinicamente significativo (cuestionable):\nPoco cooperativo con el proceso de evaluacion,ingenuo; necesita que otros lo vean de manera positiva; falta de naturaleza reflexiva."
+            },
+            {
+              "category": "T",
+              "minScore": 0,
+              "maxScore": 8,
+              "message": "ANSIEDAD TOTAL: Baja:\nIndividuo confiado y centrado. Tambien se asocia con tendencias narcisistas"
+            },
+            {
+              "category": "T",
+              "minScore": 9,
+              "maxScore": 15,
+              "message": "ANSIEDAD TOTAL: Esperada:\nIndividuo tipico de patrones anormales ni reacciones poco comunes."
+            },
+            {
+              "category": "T",
+              "minScore": 16,
+              "maxScore": 22,
+              "message": "ANSIEDAD TOTAL: Elevacion leve:\nIndividuo adaptado a su entorno, posiblemente excitable,trata de estar bien a pesar de ciertas inseguridades, tiende a depender de la interpretacion psicologica de sus problemas."
+            },
+            {
+              "category": "T",
+              "minScore": 23,
+              "maxScore": 28,
+              "message": "ANSIEDAD TOTAL: Clinicamente significativa:\nIndividuo temeroso y ansioso. Posible exceso de preocupaciones; probabilidad de algunas manifestaciones psicofisiologicas de la ansiedad. Posible rigidez en el proceso del pensamiento."
+            },
+            {
+              "category": "T",
+              "minScore": 29,
+              "maxScore": 30,
+              "message": "ANSIEDAD TOTAL: Extrema :\nGrandes niveles de ansiedad con probable altercion de pensamiento y debilitamiento de la energia emocional; preocupacion y rumiacion excesivas; temores vagos; deficiencia en toma de decisiones y frecuente evidencia de falta de juicio; probable depresion concomitante."
+            }
           ]
         }
       ]
@@ -187,451 +202,9 @@
             }
           ],
           "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Tendencia introvertida."},
-            {"minScore": 2, "maxScore": 3, "message": "Personalidad equilibrada."},
-            {"minScore": 4, "maxScore": 5, "message": "Tendencia extrovertida."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests Proyectivos",
-      "description": "Se basan en la idea de que las respuestas de una persona revelan aspectos inconscientes de su mente.",
-      "tests": [
-        {
-          "type": "RORSCHACH",
-          "title": "Test de Rorschach",
-          "questions": [
-            {
-              "questionText": "¿Qué ves en esta imagen?",
-              "options": ["Mariposa", "Murciélago", "Mancha sin forma"],
-              "scores": [1, 0, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Tendencia a interpretaciones abstractas."},
-            {"minScore": 2, "maxScore": 3, "message": "Interpretación emocional predominante."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests Neuropsicológicos",
-      "description": "Evalúan funciones cerebrales específicas, como memoria, atención, lenguaje y habilidades motoras.",
-      "tests": [
-        {
-          "type": "LURIA_NEBRASKA",
-          "title": "Test de Luria-Nebraska",
-          "questions": [
-            {
-              "questionText": "Repite la siguiente frase: 'El sol brilla intensamente'.",
-              "options": ["Correcto", "Incorrecto"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Déficit cognitivo leve."},
-            {"minScore": 2, "maxScore": 3, "message": "Funciones cognitivas normales."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Aptitudes y Habilidades",
-      "description": "Miden capacidades específicas, como habilidades verbales, numéricas, espaciales o mecánicas.",
-      "tests": [
-        {
-          "type": "DAT",
-          "title": "DAT (Differential Aptitude Tests)",
-          "questions": [
-            {
-              "questionText": "Resuelve: 5 + 7 = ?",
-              "options": ["12", "13", "14"],
-              "scores": [1, 0, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Habilidad matemática baja."},
-            {"minScore": 2, "maxScore": 3, "message": "Habilidad matemática promedio."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests Vocacionales y de Intereses",
-      "description": "Ayudan a identificar intereses profesionales y áreas de compatibilidad laboral.",
-      "tests": [
-        {
-          "type": "KUDER",
-          "title": "Test de Kuder",
-          "questions": [
-            {
-              "questionText": "¿Qué actividad prefieres?",
-              "options": ["Leer un libro", "Arreglar un motor", "Dibujar un paisaje"],
-              "scores": [1, 0, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Inclinación hacia trabajos creativos."},
-            {"minScore": 2, "maxScore": 3, "message": "Inclinación hacia trabajos técnicos."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Desarrollo Infantil",
-      "description": "Evalúan el desarrollo cognitivo, emocional y social en niños.",
-      "tests": [
-        {
-          "type": "DENVER",
-          "title": "Test de Denver",
-          "questions": [
-            {
-              "questionText": "¿El niño puede sostener un objeto con ambas manos?",
-              "options": ["Sí", "No"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Desarrollo normal."},
-            {"minScore": 2, "maxScore": 3, "message": "Posible retraso en el desarrollo."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Ansiedad y Depresión",
-      "description": "Diseñados para detectar síntomas de ansiedad, depresión y otros trastornos emocionales.",
-      "tests": [
-        {
-          "type": "BAI",
-          "title": "BAI (Beck Anxiety Inventory)",
-          "questions": [
-            {
-              "questionText": "¿Con qué frecuencia te sientes nervioso(a)?",
-              "options": ["Nunca", "A veces", "Siempre"],
-              "scores": [0, 1, 2]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Ansiedad mínima."},
-            {"minScore": 2, "maxScore": 3, "message": "Ansiedad moderada."}
-          ]
-        },
-        {
-          "type": "AMAS-A",
-          "title": "AMAS-A",
-          "questions": [
-            {"questionText": "1. Me preocupa hacer lo correcto.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "2. Es frecuente que me sienta inquieto/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "3. Es frecuente que me preocupe por lo que podría pasarle a mi familia.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "4. Siempre soy agradable con todos.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "5. Me pongo nervioso/a cuando las cosas no me salen bien.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "6. Muchas veces me siento acelerado/a o intranquilo/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "7. Es fácil que me sienta mal cuando me llaman la atención.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "8. Siempre soy amable.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "9. A veces me preocupo por las cosas que en realidad no tienen importancia.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "10. Es frecuente que la gente diga que soy inquieto/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "11. La vida se está complicando demasiado.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "12. Siempre soy educado/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "13. Es fácil que hieran mis sentimientos.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "14. Es frecuente que sienta mi cuerpo tenso.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "15. Me preocupa el dinero.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "16. Me preocupa lo que va a pasar.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "17. Estoy nervioso/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "18. Me cuesta trabajo tomar decisiones.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "19. Me preocupa hacerme viejo/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "20. Me preocupa el futuro.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "21. Mis músculos se sienten tensos.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "22. Me preocupa cómo me está yendo en el trabajo.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "23. Es fácil que me desespere con los demás.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "24. Siempre digo la verdad.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "25. Me preocupa lo que los demás piensen de mí.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "26. Me cuesta mucho trabajo estar quieto/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "27. Me preocupa la muerte.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "28. Siempre soy bueno/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "29. Muchas veces me siento cansado/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "30. Me preocupa cuando me acuesto a dormir.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "31. Siento que alguien me va a decir que hago mal las cosas.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "32. Me caen bien todas las personas que conozco.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "33. Me siento preocupado/a la gran parte del tiempo.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "34. Me despierto pensando en mis problemas.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "35. Es frecuente que me sienta muy estresado/a.", "options": ["SÍ", "NO"], "scores": [1, 0]},
-            {"questionText": "36. Parece que los demás hacen las cosas con más facilidad que yo.", "options": ["SÍ", "NO"], "scores": [1, 0]}
-          ],
-          "results": [
-            {
-              "minScore": 75,
-              "maxScore": 100,
-              "message": "Ansiedad Total: Extrema\nGrandes niveles de ansiedad con probable alteración de pensamiento y debilitamiento de la energía emocional; preocupación y rumiación excesivas; temores vagos; deficiencia en toma de decisiones y frecuente evidencia de falta de juicio; probable depresión concomitante."
-            },
-            {
-              "minScore": 65,
-              "maxScore": 74,
-              "message": "Ansiedad Total: Clínicamente significativa\nIndividuo temeroso y ansioso. Posible exceso de preocupaciones; probabilidad de algunas manifestaciones psicofisiológicas de la ansiedad. Posible rigidez en el proceso del pensamiento."
-            },
-            {
-              "minScore": 55,
-              "maxScore": 64,
-              "message": "Ansiedad Total: Elevación leve\nIndividuo adaptado a su entorno, posiblemente excitable, trata de estar bien a pesar de ciertas inseguridades, tiende a depender de la interpretación psicológica de sus problemas."
-            },
-            {
-              "minScore": 45,
-              "maxScore": 54,
-              "message": "Ansiedad Total: Esperada\nIndividuo típico de patrones anormales ni reacciones poco comunes."
-            },
-            {
-              "minScore": 0,
-              "maxScore": 44,
-              "message": "Ansiedad Total: Baja\nIndividuo confiado y centrado. También se asocia con tendencias narcisistas."
-            },
-            {
-              "minScore": 75,
-              "maxScore": 100,
-              "message": "Inquietud e Hipersensibilidad: Extrema\nNiveles graves de pensamiento improductivo y repetitivo; sensación de desastre inminente; las ofensas leves lo enojan con facilidad; al menos cierto grado de paranoia."
-            },
-            {
-              "minScore": 65,
-              "maxScore": 74,
-              "message": "Inquietud e Hipersensibilidad: Clínicamente significativa\nPreocupación enfocada; pensamiento repetitivo e improductivo; agotamiento mental; posible presencia de temores vagos; frecuentes rasgos obsesivos compulsivos."
-            },
-            {
-              "minScore": 55,
-              "maxScore": 64,
-              "message": "Inquietud e Hipersensibilidad: Elevación leve\nSe preocupa con frecuencia; la inquietud puede interferir con sus relaciones; por lo general no presenta dificultades serias. Puede mostrarse compulsiva (o) acerca de cuestiones específicas; hipersensibilidad leve."
-            },
-            {
-              "minScore": 45,
-              "maxScore": 54,
-              "message": "Inquietud e Hipersensibilidad: Esperada\nGrados normales de inquietud y preocupación ante la vida."
-            },
-            {
-              "minScore": 0,
-              "maxScore": 44,
-              "message": "Inquietud e Hipersensibilidad: Baja\nPocas preocupaciones; no es particularmente sensible ante la crítica; perspectiva relajada y de 'ver qué pasa' ante los problemas de la vida."
-            },
-            {
-              "minScore": 70,
-              "maxScore": 100,
-              "message": "Ansiedad Fisiológica: Extrema\nCantidad anormalmente elevada de manifestaciones somáticas asociadas a la ansiedad; se tensa y se fatiga con facilidad; probables trastornos del sueño."
-            },
-            {
-              "minScore": 65,
-              "maxScore": 69,
-              "message": "Ansiedad Fisiológica: Clínicamente significativa\nIndividuo tenso y nervioso; predispuesto a enfermedades psicosomáticas; problemas de atención."
-            },
-            {
-              "minScore": 55,
-              "maxScore": 64,
-              "message": "Ansiedad Fisiológica: Elevación leve\nIndividuo tenso y algo intranquilo; es probable que funcione bien en ausencia de otras elevaciones."
-            },
-            {
-              "minScore": 45,
-              "maxScore": 54,
-              "message": "Ansiedad Fisiológica: Esperada\nCantidad promedio de afecciones fisiológicas comunes."
-            },
-            {
-              "minScore": 0,
-              "maxScore": 44,
-              "message": "Ansiedad Fisiológica: Baja\nCon excepción de que se trate de negación; buenas maneras de canalizar el nerviosismo normal."
-            },
-            {
-              "minScore": 75,
-              "maxScore": 100,
-              "message": "Preocupación Social/Estrés: Extrema\nReacciona de manera excesiva ante el estrés; se preocupa demasiado por las opiniones de los demás; sistema de apoyo débil."
-            },
-            {
-              "minScore": 65,
-              "maxScore": 74,
-              "message": "Preocupación Social/Estrés: Clínicamente significativa\nNiveles elevados de estrés asociados habitualmente con las tareas de la vida cotidiana y con las preocupaciones sociales."
-            },
-            {
-              "minScore": 55,
-              "maxScore": 64,
-              "message": "Preocupación Social/Estrés: Elevación leve\nDemasiada preocupación acerca de su apariencia; de las tareas de la vida cotidiana; pero es probable que no sea disfuncional."
-            },
-            {
-              "minScore": 45,
-              "maxScore": 54,
-              "message": "Preocupación Social/Estrés: Esperada\nPreocupaciones normales acerca de actividades y cuestiones interpersonales."
-            },
-            {
-              "minScore": 0,
-              "maxScore": 44,
-              "message": "Preocupación Social/Estrés: Baja\nSe preocupan poco por las opiniones o puntos de vista que los demás tienen de ellos, es posible falta de interés en las relaciones."
-            },
-            {
-              "minScore": 75,
-              "maxScore": 100,
-              "message": "Subescala de Mentira: Extremo (probablemente inválido)\nGrave negación de la problemática; intento por parecer psicológicamente sano; alto grado de ingenuidad acerca de asuntos psicológicos; comprensión deficiente de las preguntas."
-            },
-            {
-              "minScore": 65,
-              "maxScore": 74,
-              "message": "Subescala de Mentira: Clínicamente significativo (cuestionable)\nPoco cooperativo con el proceso de evaluación, ingenuo; necesita que otros lo vean de manera positiva; falta de naturaleza reflexiva."
-            },
-            {
-              "minScore": 55,
-              "maxScore": 64,
-              "message": "Subescala de Mentira: Elevación leve (válido)\nRígido, moralista; cierto grado de negación o ingenuidad; creencias conservadoras."
-            },
-            {
-              "minScore": 45,
-              "maxScore": 54,
-              "message": "Subescala de Mentira: Esperada (válido)\nAdecuado, típico."
-            },
-            {
-              "minScore": 0,
-              "maxScore": 44,
-              "message": "Subescala de Mentira: Baja (cuestionable)\nPosible exageración en el informe para llamar la atención, comprensión deficiente de las preguntas."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Estrés y Afrontamiento",
-      "description": "Evalúan cómo las personas manejan situaciones estresantes.",
-      "tests": [
-        {
-          "type": "COPE",
-          "title": "Cuestionario de Afrontamiento (COPE)",
-          "questions": [
-            {
-              "questionText": "Cuando enfrento problemas, busco apoyo emocional.",
-              "options": ["Verdadero", "Falso"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Estilo de afrontamiento pasivo."},
-            {"minScore": 2, "maxScore": 3, "message": "Estilo de afrontamiento activo."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests Forenses",
-      "description": "Utilizados en contextos legales para evaluar competencia, riesgo de reincidencia o credibilidad.",
-      "tests": [
-        {
-          "type": "HCR_20",
-          "title": "HCR-20",
-          "questions": [
-            {
-              "questionText": "¿Ha mostrado comportamientos violentos en el pasado?",
-              "options": ["Sí", "No"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Bajo riesgo de reincidencia."},
-            {"minScore": 2, "maxScore": 3, "message": "Alto riesgo de reincidencia."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Autoestima y Bienestar Psicológico",
-      "description": "Evalúan la percepción de sí mismo y el bienestar emocional.",
-      "tests": [
-        {
-          "type": "ROSENBERG",
-          "title": "Escala de Autoestima de Rosenberg",
-          "questions": [
-            {
-              "questionText": "En general, me siento satisfecho conmigo mismo.",
-              "options": ["Verdadero", "Falso"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Autoestima baja."},
-            {"minScore": 2, "maxScore": 3, "message": "Autoestima alta."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Conducta y Síntomas Psiquiátricos",
-      "description": "Identifican patrones de conducta problemática o síntomas de trastornos mentales.",
-      "tests": [
-        {
-          "type": "CBCL",
-          "title": "CBCL (Child Behavior Checklist)",
-          "questions": [
-            {
-              "questionText": "El niño tiene dificultades para concentrarse.",
-              "options": ["Sí", "No"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Comportamiento dentro de lo normal."},
-            {"minScore": 2, "maxScore": 3, "message": "Posible problema de conducta."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Motivación y Valores",
-      "description": "Exploran lo que motiva a una persona y sus valores personales.",
-      "tests": [
-        {
-          "type": "SCHWARTZ",
-          "title": "Test de Valores de Schwartz",
-          "questions": [
-            {
-              "questionText": "Valoro más la independencia que la seguridad.",
-              "options": ["Verdadero", "Falso"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Orientación hacia valores tradicionales."},
-            {"minScore": 2, "maxScore": 3, "message": "Orientación hacia valores modernos."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Creatividad",
-      "description": "Miden habilidades creativas y pensamiento divergente.",
-      "tests": [
-        {
-          "type": "TORRANCE",
-          "title": "Test de Torrance",
-          "questions": [
-            {
-              "questionText": "¿Cuántos usos puedes imaginar para una caja de cartón?",
-              "options": ["1-2", "3-5", "Más de 5"],
-              "scores": [1, 2, 3]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Creatividad limitada."},
-            {"minScore": 2, "maxScore": 3, "message": "Creatividad elevada."}
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Tests de Adaptación Social",
-      "description": "Evalúan habilidades sociales y capacidad de adaptación.",
-      "tests": [
-        {
-          "type": "IHS",
-          "title": "Inventario de Habilidades Sociales (IHS)",
-          "questions": [
-            {
-              "questionText": "Me resulta fácil iniciar conversaciones con desconocidos.",
-              "options": ["Verdadero", "Falso"],
-              "scores": [1, 0]
-            }
-          ],
-          "results": [
-            {"minScore": 0, "maxScore": 1, "message": "Habilidades sociales bajas."},
-            {"minScore": 2, "maxScore": 3, "message": "Habilidades sociales altas."}
+            {"category": "T","minScore": 0, "maxScore": 1, "message": "Tendencia introvertida."},
+            {"category": "T","minScore": 2, "maxScore": 3, "message": "Personalidad equilibrada."},
+            {"category": "T","minScore": 4, "maxScore": 5, "message": "Tendencia extrovertida."}
           ]
         }
       ]
