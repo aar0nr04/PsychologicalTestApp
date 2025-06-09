@@ -11,7 +11,7 @@
             {"questionText": "1. Me preocupa hacer lo correcto.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}} ,
             {"questionText": "2. Es frecuente que me sienta inquieto/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
             {"questionText": "3. Es frecuente que me preocupe por lo que podría pasarle a mi familia.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "4. Siempre soy agradable con todos.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [1, 0]}},
+            {"questionText": "4. Siempre soy agradable con todos.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
             {"questionText": "5. Me pongo nervioso/a cuando las cosas no me salen bien.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
             {"questionText": "6. Muchas veces me siento acelerado/a o intranquilo/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
             {"questionText": "7. Es fácil que me sienta mal cuando me llaman la atención.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
