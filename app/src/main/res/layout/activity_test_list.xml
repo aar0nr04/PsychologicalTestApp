@@ -1,9 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_marginTop="70dp">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/logo_banner"
+        android:scaleType="fitCenter"
+        />
     <!-- Campo para el Titulo -->
     <TextView
         android:id="@+id/TestsAvailableTitle"
@@ -34,4 +42,13 @@
         android:text="Regresar"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- Replace with your Banner Ad Unit ID -->
+
 </LinearLayout>

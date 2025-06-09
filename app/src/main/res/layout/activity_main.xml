@@ -15,15 +15,22 @@
         android:gravity="center"
         android:padding="0dp">
 
-
         <!-- Login Button -->
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="384dp"
-            app:srcCompat="@drawable/logo3"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:srcCompat="@drawable/logo4"
             android:scaleType="fitCenter"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="Exploremos juntos el universo de \n nuestra mente"
+            android:textAlignment="center"
+            android:paddingBottom="20dp"
+            android:textSize="20dp"
+            />
         <Button
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"

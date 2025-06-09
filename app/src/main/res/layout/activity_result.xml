@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center">
+
+    <!-- Logo -->
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/logo_banner"
+        android:scaleType="fitCenter"
+        />
     <!-- Campo para el Titulo -->
     <TextView
         android:id="@+id/ResultadoTitle"
@@ -19,22 +29,18 @@
     <!-- TextView para mostrar el resultado -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fillViewport="true"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical">>
 
         <TextView
             android:id="@+id/resultTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Resultado"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-
-            android:ellipsize="end"
-            android:singleLine="false"
             android:padding="16dp"
         />
     </ScrollView>
@@ -63,6 +69,16 @@
         android:layout_height="wrap_content"
         android:text="Regresar al Menú"
         android:layout_gravity="center_horizontal"/>
+
+    <!-- AdView -->
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- Replace with your Banner Ad Unit ID -->
 
 
 </LinearLayout>

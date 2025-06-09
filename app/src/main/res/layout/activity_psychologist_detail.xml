@@ -49,4 +49,5 @@
             android:ellipsize="end"
             android:layout_marginTop="16dp" />
     </LinearLayout>
+
 </ScrollView>

@@ -1,0 +1,7 @@
+<!-- res/drawable/scrollview_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- Background color of the ScrollView -->
+    <stroke
+        android:width="1dp"
+        android:color="#808080" /> <!-- Gray 1px stroke -->
+</shape>

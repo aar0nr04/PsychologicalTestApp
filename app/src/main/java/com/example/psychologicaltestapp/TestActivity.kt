@@ -9,12 +9,21 @@ class TestActivity : AppCompatActivity() {
 
     private lateinit var test: Test
     private var currentQuestionIndex = 0
-    private val userResponses = mutableListOf<Int>() // Track user responses for each question
-    private var selectedOptionIndex: Int? = null // Track the selected option for the current question
+    private val userResponses = mutableListOf<Int?>() // Lista para almacenar respuestas (nullable)
+    private var selectedOptionIndex: Int? = null // Índice de la opción seleccionada (nullable)
+    private lateinit var progressBar: ProgressBar
+    private lateinit var backButton: Button
+    private lateinit var nextButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+
+        // Vincular vistas
+        progressBar = findViewById(R.id.progressBar)
+        backButton = findViewById(R.id.backButton)
+        nextButton = findViewById(R.id.nextButton)
+        nextButton.isEnabled = false // Deshabilitar "Siguiente" inicialmente
 
         try {
             // Obtener el tipo de test desde el Intent
@@ -29,17 +38,16 @@ class TestActivity : AppCompatActivity() {
             test = tests.find { it.type == testType }
                 ?: throw IllegalArgumentException("Test not found: $testType")
 
+            // Inicializar la lista de respuestas con null para cada pregunta
+            userResponses.addAll(List(test.questions.size) { null })
+
             // Mostrar la primera pregunta
             showQuestion()
 
-            // Configurar el botón "Regresar"
-            val backButton = findViewById<Button>(R.id.backButton)
+            // Configurar botones
             backButton.setOnClickListener {
-                finish() // Cerrar esta actividad y regresar al menú anterior
+                handleBackButtonClick()
             }
-
-            // Configurar el botón "Siguiente"
-            val nextButton = findViewById<Button>(R.id.nextButton)
             nextButton.setOnClickListener {
                 handleNextButtonClick()
             }
@@ -75,16 +83,15 @@ class TestActivity : AppCompatActivity() {
         question.options.forEachIndexed { index, option ->
             val button = Button(this).apply {
                 text = option
-                textSize = 16f // Tamaño de texto más grande
-                setPadding(32, 16, 32, 16) // Espaciado interno para hacer el botón más grande
-                setBackgroundResource(R.drawable.custom_button_style) // Estilo personalizado
+                textSize = 16f
+                setPadding(32, 16, 32, 16)
+                setBackgroundResource(R.drawable.custom_button_style)
                 tag = index // Usar el índice como tag para identificar la opción seleccionada
                 setOnClickListener {
-                    handleOptionSelected(index) // Manejar la selección de la opción
+                    handleOptionSelected(index)
                 }
             }
 
-            // Configurar los parámetros de diseño para agregar espacio entre los botones
             val layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -96,29 +103,59 @@ class TestActivity : AppCompatActivity() {
             optionsContainer.addView(button)
         }
 
+        // Restaurar la selección previa, si existe
+        val previousResponse = userResponses[currentQuestionIndex]
+        if (previousResponse != null) {
+            handleOptionSelected(previousResponse)
+        } else {
+            // Si no hay una respuesta previa, deseleccionar todas las opciones
+            selectedOptionIndex = null
+            nextButton.isEnabled = false
+        }
+
+        // Calcular el progreso
+        val progressPercent = ((currentQuestionIndex + 1) * 100) / test.questions.size
+
         // Mostrar el progreso
         progressTextView.text = "Pregunta ${currentQuestionIndex + 1} de ${test.questions.size}"
+
+        // Actualizar el progreso visual
+        progressBar.progress = progressPercent
     }
 
     private fun handleNextButtonClick() {
         val selectedOptionIndex = this.selectedOptionIndex
         if (selectedOptionIndex == null) {
-            // Si no se seleccionó ninguna opción, mostrar un mensaje de error
+            // Mostrar un mensaje de error si no se seleccionó ninguna opción
             Toast.makeText(this, "Por favor, selecciona una respuesta", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Guardar la respuesta del usuario
-        userResponses.add(selectedOptionIndex)
+        userResponses[currentQuestionIndex] = selectedOptionIndex
 
         // Avanzar a la siguiente pregunta
         currentQuestionIndex++
         showQuestion()
     }
 
+    private fun handleBackButtonClick() {
+        if (currentQuestionIndex > 0) {
+            // Retroceder a la pregunta anterior
+            currentQuestionIndex--
+            showQuestion()
+        } else {
+            // Si ya estamos en la primera pregunta, mostrar un mensaje
+            Toast.makeText(this, "Ya estás en la primera pregunta.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun handleOptionSelected(index: Int) {
         // Actualizar el índice de la opción seleccionada
         selectedOptionIndex = index
+
+        // Habilitar el botón "Siguiente"
+        nextButton.isEnabled = true
 
         // Obtener el contenedor que contiene todos los botones
         val optionsContainer = findViewById<LinearLayout>(R.id.optionsContainer)
@@ -131,16 +168,16 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun showResult() {
-        // Step 1: Calculate scores for each category
+        // Step 1: Calcular puntajes para cada categoría
         val categoryScores = mutableMapOf<String, Int>() // Mapa para almacenar puntajes por categoría
 
         test.questions.forEachIndexed { questionIndex, question ->
             question.scores.forEach { (category, scoreValues) ->
                 // Obtener el índice de la opción seleccionada para la pregunta actual
                 val selectedOptionIndex = userResponses[questionIndex]
-                val scoreToAdd = scoreValues[selectedOptionIndex]
+                    ?: throw IllegalStateException("No response recorded for question $questionIndex")
 
-                // Acumular el puntaje para la categoría
+                val scoreToAdd = scoreValues[selectedOptionIndex]
                 categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
             }
         }

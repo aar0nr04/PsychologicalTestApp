@@ -2,10 +2,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="25dp"
     android:gravity="center">
-
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/logo_banner"
+        android:scaleType="fitCenter"
+        />
     <!-- Campo para el Titulo -->
     <TextView
         android:id="@+id/RegisterTitle"
@@ -15,8 +21,19 @@
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/cardview_dark_background"
-        android:paddingBottom="30dp"
+        android:paddingBottom="0dp"
         android:scrollbars="vertical" />
+
+
+    <TextView
+        android:id="@+id/nameTextView"
+       android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+     android:text="Registrate para acceder a los mejores tests psicologicos"
+     android:textSize="15sp"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+       android:layout_marginTop="16dp" />
 
     <!-- Campo para el nombre -->
     <EditText
@@ -25,6 +42,7 @@
         android:layout_height="wrap_content"
         android:hint="Nombre"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:layout_marginBottom="16dp" />
 
     <!-- Campo para el correo electrónico -->
@@ -34,6 +52,7 @@
         android:layout_height="wrap_content"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         android:layout_marginBottom="16dp" />
 
     <!-- Campo para la contraseña -->
@@ -43,12 +62,21 @@
         android:layout_height="wrap_content"
         android:hint="Contraseña"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:layout_marginBottom="16dp" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardElevation="1dp"
+    app:cardCornerRadius="4dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:contentPadding="8dp">
     <!-- ScrollView para mostrar el texto largo -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="16dp">
 
         <TextView
@@ -60,7 +88,7 @@
             android:padding="8dp"
             android:scrollbars="vertical" />
     </ScrollView>
-
+    </androidx.cardview.widget.CardView>
     <!-- Botón para aceptar los términos -->
     <Button
         android:id="@+id/acceptTermsButton"
@@ -75,6 +103,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Registrarse"
-        android:enabled="false" />
+        android:enabled="true" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- Replace with your Banner Ad Unit ID -->
 
 </LinearLayout>
