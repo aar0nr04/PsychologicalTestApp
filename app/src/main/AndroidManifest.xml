@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.psychologicaltestapp">
-
     <!-- Required permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,32 +14,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PsychologicalTestApp"
         tools:replace="android:allowBackup">
-
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
         <!-- Google AdMob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8324237755469566~6714151343" /> <!-- Reemplaza con tu App ID -->
-
-
         <!-- Firebase meta-data -->
         <meta-data
             android:name="com.google.firebase.components.FirebaseComponents"
             android:value="com.google.firebase.components.ComponentDiscoveryService" />
         <meta-data
             android:name="firebase_analytics_collection_enabled"
-            android:value="true" />
-
-        <!-- MainActivity -->
+            android:value="true" /> <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Other activities -->
+        </activity> <!-- Other activities -->
         <activity
             android:name=".TestDetailsActivity"
             android:exported="false" />
@@ -65,7 +61,6 @@
         <activity
             android:name=".PsychologistDetailActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

@@ -24,7 +24,19 @@ data class Result(
     val maxScore: Int,
     val message: String
 )
+data class User(
+    val userId: String,
+    val email: String,
+    val name: String,
+    val testHistory: List<TestResult> = emptyList() // Store test results here
+)
 
+data class TestResult(
+    val testType: String,
+    val testName: String,
+    val resultMessage: String,
+    val date: String // Date when the test was taken
+)
 // Función para Cargar los Tests desde JSON
 fun loadTestsFromJson(context: Context): List<Category> {
     val categories = mutableListOf<Category>()

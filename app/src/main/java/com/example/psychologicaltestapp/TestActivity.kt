@@ -4,6 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TestActivity : AppCompatActivity() {
 
@@ -90,6 +98,7 @@ class TestActivity : AppCompatActivity() {
                 setOnClickListener {
                     handleOptionSelected(index)
                 }
+                contentDescription = "Opción $index" // Mejorar accesibilidad
             }
 
             val layoutParams = LinearLayout.LayoutParams(
@@ -174,9 +183,11 @@ class TestActivity : AppCompatActivity() {
         test.questions.forEachIndexed { questionIndex, question ->
             question.scores.forEach { (category, scoreValues) ->
                 // Obtener el índice de la opción seleccionada para la pregunta actual
-                val selectedOptionIndex = userResponses[questionIndex]
-                    ?: throw IllegalStateException("No response recorded for question $questionIndex")
-
+                val selectedOptionIndex = userResponses[questionIndex] ?: -1 // Default to -1 for unanswered questions
+                if (selectedOptionIndex == -1) {
+                    println("Warning: No response recorded for question $questionIndex")
+                    return@forEachIndexed
+                }
                 val scoreToAdd = scoreValues[selectedOptionIndex]
                 categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
             }
@@ -206,8 +217,29 @@ class TestActivity : AppCompatActivity() {
         }
 
         // Step 4: Pasar el mensaje de resultado a ResultActivity
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Guardar el resultado en Firestore si el usuario está autenticado
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser != null) {
+                    val userRepository = UserRepository()
+                    val testResult = TestResult(
+                        testType = test.type,
+                        testName = test.title,
+                        resultMessage = finalResultMessage,
+                        date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                    )
+                    userRepository.saveTestResult(currentUser.uid, testResult)
+                }
+            } catch (e: Exception) {
+                println("Error saving test result: ${e.message}")
+            }
+        }
+
+        // Paso 5: Navegar a ResultActivity con datos necesarios
         val intent = Intent(this, ResultActivity::class.java).apply {
-            putExtra("RESULT_MESSAGE", finalResultMessage)
+            putExtra("TEST_JSON", Gson().toJson(test)) // Pasar el objeto Test como JSON
+            putExtra("USER_RESPONSES", Gson().toJson(userResponses)) // Pasar las respuestas del usuario como JSON
         }
         startActivity(intent)
         finish() // Finalizar TestActivity para que el usuario no pueda volver a las preguntas
