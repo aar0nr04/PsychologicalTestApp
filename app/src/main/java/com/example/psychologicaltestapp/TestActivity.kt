@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,5 +1,6 @@
 package com.example.psychologicaltestapp
 
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +68,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        binding.profileButton.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 

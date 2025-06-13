@@ -16,7 +16,15 @@ class TestHistoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_test_history)
 
         val recyclerView = findViewById<RecyclerView>(R.id.testHistoryRecyclerView)
-        testHistoryAdapter = TestHistoryAdapter()
+
+        // Example: Create a list of test results (replace with actual data)
+        val testResults = listOf(
+            TestResult("Test 1", "2023-01-01", "85"),
+            TestResult("Test 2", "2023-01-02", "90")
+        )
+
+        // Pass the testResults to the adapter
+        testHistoryAdapter = TestHistoryAdapter(testResults)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = testHistoryAdapter
 

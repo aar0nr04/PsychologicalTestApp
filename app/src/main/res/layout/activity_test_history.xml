@@ -1,13 +1,36 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/testNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/testDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/testScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_green_dark" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/testHistoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:contentDescription="@string/test_history_description" />
+        android:layout_height="match_parent" />
+
 </LinearLayout>

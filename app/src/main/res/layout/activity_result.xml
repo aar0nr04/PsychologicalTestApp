@@ -10,11 +10,11 @@
 
     <!-- Logo -->
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        app:srcCompat="@drawable/logo_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        />
+        app:srcCompat="@drawable/logo_banner"/>
     <!-- Campo para el Titulo -->
     <TextView
         android:id="@+id/ResultadoTitle"

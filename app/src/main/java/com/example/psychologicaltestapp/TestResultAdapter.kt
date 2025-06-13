@@ -1,14 +1,14 @@
-package com.example.psychologicaltestapp
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.psychologicaltestapp.R
+import com.example.psychologicaltestapp.TestResult
 
-class TestHistoryAdapter(
+class TestResultAdapter(
     private val testResults: List<TestResult>
-) : RecyclerView.Adapter<TestHistoryAdapter.TestResultViewHolder>() {
+) : RecyclerView.Adapter<TestResultAdapter.TestResultViewHolder>() {
 
     // ViewHolder class
     class TestResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

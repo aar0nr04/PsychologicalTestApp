@@ -1,10 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Imagen de Banner -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/logo_banner"/>
+
+    <!-- Nombre del Usuario -->
+    <TextView
+        android:id="@+id/profileNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre del usuario"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp" />
+
+    <!-- Correo Electrónico -->
+    <TextView
+        android:id="@+id/profileEmailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correo electrónico"
+        android:textSize="14sp"
+        android:paddingTop="4dp" />
+
+    <!-- Etiqueta para Tests Realizados -->
+    <TextView
+        android:id="@+id/testsLabelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tests realizados:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingTop="16dp" />
+
+    <!-- RecyclerView para Mostrar los Tests -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resultsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</LinearLayout>

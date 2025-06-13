@@ -1,7 +1,6 @@
 package com.example.psychologicaltestapp
 
 import android.content.Intent
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -38,6 +37,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun showResult() {
+
         // Step 1: Calculate scores for each category
         val categoryScores = mutableMapOf<String, Int>()
 
