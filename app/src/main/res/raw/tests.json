@@ -6,44 +6,1052 @@
       "tests": [
         {
           "type": "AMAS-A",
-          "title": "AMAS-A",
+          "title": "AMAS-Afddf",
           "questions": [
-            {"questionText": "1. Me preocupa hacer lo correcto.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}} ,
-            {"questionText": "2. Es frecuente que me sienta inquieto/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "3. Es frecuente que me preocupe por lo que podría pasarle a mi familia.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "4. Siempre soy agradable con todos.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
-            {"questionText": "5. Me pongo nervioso/a cuando las cosas no me salen bien.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "6. Muchas veces me siento acelerado/a o intranquilo/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "7. Es fácil que me sienta mal cuando me llaman la atención.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "8. Siempre soy amable.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
-            {"questionText": "9. A veces me preocupo por las cosas que en realidad no tienen importancia.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "10. Es frecuente que la gente diga que soy inquieto/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "11. La vida se está complicando demasiado.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "12. Siempre soy educado/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
-            {"questionText": "13. Es fácil que hieran mis sentimientos.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "14. Es frecuente que sienta mi cuerpo tenso.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "15. Me preocupa el dinero.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "16. Me preocupa lo que va a pasar.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "17. Estoy nervioso/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "18. Me cuesta trabajo tomar decisiones.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "19. Me preocupa hacerme viejo/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "20. Me preocupa el futuro.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "21. Mis músculos se sienten tensos.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "22. Me preocupa cómo me está yendo en el trabajo.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "23. Es fácil que me desespere con los demás.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "24. Siempre digo la verdad.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
-            {"questionText": "25. Me preocupa lo que los demás piensen de mí.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "26. Me cuesta mucho trabajo estar quieto/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "27. Me preocupa la muerte.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "28. Siempre soy bueno/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [1, 0]}},
-            {"questionText": "29. Muchas veces me siento cansado/a.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "30. Me preocupa cuando me acuesto a dormir.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "31. Siento que alguien me va a decir que hago mal las cosas.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "32. Me caen bien todas las personas que conozco.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [1, 0], "T": [0, 0]}},
-            {"questionText": "33. Me siento preocupado/a la gran parte del tiempo.", "options": ["SÍ", "NO"], "scores":{"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "34. Me despierto pensando en mis problemas.", "options": ["SÍ", "NO"], "scores":{"IHS": [0, 0], "FIS": [1, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "35. Es frecuente que me sienta muy estresado/a.", "options": ["SÍ", "NO"], "scores": {"IHS": [0, 0], "FIS": [0, 0], "SOC": [1, 0], "M": [0, 0], "T": [1, 0]}},
-            {"questionText": "36. Parece que los demás hacen las cosas con más facilidad que yo.", "options": ["SÍ", "NO"], "scores": {"IHS": [1, 0], "FIS": [0, 0], "SOC": [0, 0], "M": [0, 0], "T": [1, 0]}}
+            {
+              "questionText": "1. Me preocupa hacer lo correcto.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "2. Es frecuente que me sienta inquieto/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "3. Es frecuente que me preocupe por lo que podría pasarle a mi familia.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "4. Siempre soy agradable con todos.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  1,
+                  0
+                ],
+                "T": [
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "5. Me pongo nervioso/a cuando las cosas no me salen bien.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "6. Muchas veces me siento acelerado/a o intranquilo/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "7. Es fácil que me sienta mal cuando me llaman la atención.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "8. Siempre soy amable.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  1,
+                  0
+                ],
+                "T": [
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "9. A veces me preocupo por las cosas que en realidad no tienen importancia.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "10. Es frecuente que la gente diga que soy inquieto/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "11. La vida se está complicando demasiado.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "12. Siempre soy educado/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  1,
+                  0
+                ],
+                "T": [
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "13. Es fácil que hieran mis sentimientos.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "14. Es frecuente que sienta mi cuerpo tenso.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "15. Me preocupa el dinero.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "16. Me preocupa lo que va a pasar.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "17. Estoy nervioso/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "18. Me cuesta trabajo tomar decisiones.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "19. Me preocupa hacerme viejo/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "20. Me preocupa el futuro.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "21. Mis músculos se sienten tensos.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "22. Me preocupa cómo me está yendo en el trabajo.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "23. Es fácil que me desespere con los demás.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "24. Siempre digo la verdad.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  1,
+                  0
+                ],
+                "T": [
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "25. Me preocupa lo que los demás piensen de mí.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "26. Me cuesta mucho trabajo estar quieto/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "27. Me preocupa la muerte.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "28. Siempre soy bueno/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  1,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "29. Muchas veces me siento cansado/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "30. Me preocupa cuando me acuesto a dormir.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "31. Siento que alguien me va a decir que hago mal las cosas.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "32. Me caen bien todas las personas que conozco.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  1,
+                  0
+                ],
+                "T": [
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "33. Me siento preocupado/a la gran parte del tiempo.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "34. Me despierto pensando en mis problemas.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  1,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "35. Es frecuente que me sienta muy estresado/a.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  0,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  1,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "questionText": "36. Parece que los demás hacen las cosas con más facilidad que yo.",
+              "options": [
+                "SÍ",
+                "NO"
+              ],
+              "scores": {
+                "IHS": [
+                  1,
+                  0
+                ],
+                "FIS": [
+                  0,
+                  0
+                ],
+                "SOC": [
+                  0,
+                  0
+                ],
+                "M": [
+                  0,
+                  0
+                ],
+                "T": [
+                  1,
+                  0
+                ]
+              }
+            }
           ],
           "results": [
             {
@@ -177,6 +1185,91 @@
               "minScore": 29,
               "maxScore": 30,
               "message": "ANSIEDAD TOTAL: Extrema :\nGrandes niveles de ansiedad con probable altercion de pensamiento y debilitamiento de la energia emocional; preocupacion y rumiacion excesivas; temores vagos; deficiencia en toma de decisiones y frecuente evidencia de falta de juicio; probable depresion concomitante."
+            }
+          ]
+        },
+        {
+          "type": "BDI-II",
+          "title": "Inventario de Depresión de Beck-II",
+          "description": "Este test evalúa los síntomas depresivos. Contesta según lo que has estado sintiendo últimamente.",
+          "instructions": [
+            "Lee cada punto con atención y selecciona la opción que mejor se adapta a lo que has estado sintiendo últimamente.",
+            "Asegúrate de marcar sólo una respuesta para cada pregunta."
+          ],
+          "questions": [
+            {
+              "questionText": "1. ¿Cómo te has sentido últimamente respecto a tu estado de ánimo?",
+              "options": [
+                "No me siento triste",
+                "Me siento triste gran parte del tiempo",
+                "Estoy triste todo el tiempo",
+                "Estoy tan triste o soy tan infeliz que no puedo soportarlo"
+              ],
+              "scores": {
+                "BDI": [0, 1, 2, 3]
+              }
+            },
+            {
+              "questionText": "2. ¿Qué opinas sobre tu futuro?",
+              "options": [
+                "No estoy desalentado/a respecto de mi futuro",
+                "Me siento más desalentado/a respecto a mi futuro que lo que solía estarlo",
+                "No espero que las cosas funcionen para mí",
+                "Siento que no hay esperanza para mi futuro y que sólo puede empeorar"
+              ],
+              "scores": {
+                "BDI": [0, 1, 2, 3]
+              }
+            },
+            {
+              "questionText": "3. ¿Cómo te percibes en términos de éxito?",
+              "options": [
+                "No me siento como un fracasado/a",
+                "He fracasado más de lo que hubiera debido",
+                "Cuando miro hacia atrás veo muchos fracasos",
+                "Siento que como persona soy un fracaso total"
+              ],
+              "scores": {
+                "BDI": [0, 1, 2, 3]
+              }
+            },
+            {
+              "questionText": "21. ¿Cómo está tu interés en el sexo?",
+              "options": [
+                "No he notado cambio alguno reciente en mi interés por el sexo",
+                "Estoy menos interesado/a en el sexo de lo que solía estarlo",
+                "Ahora estoy mucho menos interesado/a en el sexo",
+                "He perdido completamente el interés en el sexo"
+              ],
+              "scores": {
+                "BDI": [0, 1, 2, 3]
+              }
+            }
+          ],
+          "results": [
+            {
+              "category": "BDI",
+              "minScore": 0,
+              "maxScore": 13,
+              "message": "Mínima depresión"
+            },
+            {
+              "category": "BDI",
+              "minScore": 14,
+              "maxScore": 19,
+              "message": "Depresión leve"
+            },
+            {
+              "category": "BDI",
+              "minScore": 20,
+              "maxScore": 28,
+              "message": "Depresión moderada"
+            },
+            {
+              "category": "BDI",
+              "minScore": 29,
+              "maxScore": 63,
+              "message": "Depresión grave"
             }
           ]
         }
