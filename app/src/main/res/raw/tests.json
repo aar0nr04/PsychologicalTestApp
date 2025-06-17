@@ -1205,9 +1205,7 @@
                 "Estoy triste todo el tiempo",
                 "Estoy tan triste o soy tan infeliz que no puedo soportarlo"
               ],
-              "scores": {
-                "BDI": [0, 1, 2, 3]
-              }
+              "scores": {"BDI": [0, 1, 2, 3]}
             },
             {
               "questionText": "2. ¿Qué opinas sobre tu futuro?",
@@ -1217,9 +1215,7 @@
                 "No espero que las cosas funcionen para mí",
                 "Siento que no hay esperanza para mi futuro y que sólo puede empeorar"
               ],
-              "scores": {
-                "BDI": [0, 1, 2, 3]
-              }
+              "scores": {"BDI": [0, 1, 2, 3]}
             },
             {
               "questionText": "3. ¿Cómo te percibes en términos de éxito?",
@@ -1229,9 +1225,183 @@
                 "Cuando miro hacia atrás veo muchos fracasos",
                 "Siento que como persona soy un fracaso total"
               ],
-              "scores": {
-                "BDI": [0, 1, 2, 3]
-              }
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "4. ¿Qué tal disfrutas las actividades que antes te gustaban?",
+              "options": [
+                "Obtengo tanto placer como siempre por las cosas que disfruto",
+                "No disfruto tanto las cosas como solía hacerlo",
+                "Obtengo muy poco placer de las cosas que solía disfrutar",
+                "No puedo obtener ningún placer de las cosas de las que solía disfrutar"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "5. ¿Con qué frecuencia te sientes culpable?",
+              "options": [
+                "No me siento particularmente culpable",
+                "Me siento culpable respecto a varias cosas que he hecho o debería haber hecho",
+                "Me siento bastante culpable la mayor parte del tiempo",
+                "Me siento culpable todo el tiempo"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "6. ¿Sientes que mereces algún tipo de castigo?",
+              "options": [
+                "No siento que estoy siendo castigado/a",
+                "Siento que tal vez pueda ser castigado/a",
+                "Espero ser castigado/a",
+                "Siento que estoy siendo castigado/a"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "7. ¿Cómo te sientes acerca de ti mismo/a?",
+              "options": [
+                "Siento acerca de mí mismo/a lo mismo que siempre",
+                "He perdido la confianza en mí mismo/a",
+                "Estoy decepcionado/a conmigo mismo/a",
+                "No me gusto a mí mismo/a"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "8. ¿Te autoevalúas de manera crítica?",
+              "options": [
+                "No me crítico ni me culpo más de lo habitual",
+                "Estoy más crítico/a conmigo mismo/a de lo que solía estarlo",
+                "Me crítico a mí mismo/a por todos mis errores",
+                "Me culpo a mí mismo/a por todo lo malo que sucede"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "9. ¿Has tenido pensamientos relacionados con el suicidio?",
+              "options": [
+                "No tengo ningún pensamiento de matarme",
+                "He tenido pensamientos de matarme, pero no lo haría",
+                "Querría matarme",
+                "Me mataría si tuviera la oportunidad de hacerlo"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "10. ¿Cómo ha cambiado tu tendencia a llorar?",
+              "options": [
+                "No lloro más de lo que solía hacerlo",
+                "Lloro más de lo que solía hacerlo",
+                "Lloro por cualquier pequeñez",
+                "Siento ganas de llorar pero no puedo"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "11. ¿Te sientes inquieto/a o agitado/a?",
+              "options": [
+                "No estoy más inquieto/a o tenso/a que lo habitual",
+                "Me siento más inquieto/a o tenso/a que lo habitual",
+                "Estoy tan inquieto/a o agitado/a que me es difícil quedarme quieto/a",
+                "Estoy tan inquieto/a o agitado/a que tengo que estar siempre en movimiento o haciendo algo"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "12. ¿Cómo está tu interés en otras personas o actividades?",
+              "options": [
+                "No he perdido el interés en otras actividades o personas",
+                "Estoy menos interesado/a en otras personas o cosas",
+                "He perdido casi todo mi interés en otras personas o cosas",
+                "Me es difícil interesarme por algo"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "13. ¿Cómo te resulta tomar decisiones?",
+              "options": [
+                "Tomo decisiones tan bien como siempre",
+                "Me resulta más difícil que de costumbre tomar decisiones",
+                "Encuentro mucha más dificultad que antes para tomar decisiones",
+                "Tengo problemas para tomar cualquier decisión"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "14. ¿Cómo te percibes en términos de valor personal?",
+              "options": [
+                "No siento que yo sea valioso/a",
+                "No me considero a mí mismo/a tan valioso/a y útil como solía considerarme",
+                "Me siento menos valioso/a cuando me comparo con otros",
+                "Siento que no valgo nada"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "15. ¿Cómo está tu nivel de energía?",
+              "options": [
+                "Tengo tanta energía como siempre",
+                "Tengo menos energía que la que solía tener",
+                "No tengo suficiente energía para hacer demasiado",
+                "No tengo suficiente energía para hacer nada"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "16. ¿Has notado cambios en tus hábitos de sueño?",
+              "options": [
+                "No he experimentado ningún cambio en mis hábitos de sueño",
+                "Duermo un poco más de lo habitual",
+                "Duermo un poco menos de lo habitual",
+                "Duermo mucho más que lo habitual",
+                "Duermo mucho menos que lo habitual",
+                "Duermo la mayor parte del día",
+                "Me despierto 1-2 horas más temprano y no puedo volver a dormirme"
+              ],
+              "scores": {"BDI": [0, 1, -1, 2, -2, 3, -3]}
+            },
+            {
+              "questionText": "17. ¿Cómo te sientes en términos de irritabilidad?",
+              "options": [
+                "No estoy más irritable que lo habitual",
+                "Estoy más irritable que lo habitual",
+                "Estoy mucho más irritable que lo habitual",
+                "Estoy irritable todo el tiempo"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "18. ¿Has notado cambios en tu apetito?",
+              "options": [
+                "No he experimentado ningún cambio en mi apetito",
+                "Mi apetito es un poco menor que lo habitual",
+                "Mi apetito es un poco mayor que lo habitual",
+                "Mi apetito es mucho menor que antes",
+                "Mi apetito es mucho mayor que lo habitual",
+                "No tengo apetito en absoluto",
+                "Quiero comer todo el tiempo"
+              ],
+              "scores": {"BDI": [0, -1, 1, -2, 2, -3, 3]}
+            },
+            {
+              "questionText": "19. ¿Cómo está tu capacidad de concentración?",
+              "options": [
+                "Puedo concentrarme tan bien como siempre",
+                "No puedo concentrarme tan bien como habitualmente",
+                "Me es difícil mantener la mente en algo por mucho tiempo",
+                "Encuentro que no puedo concentrarme en nada"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
+            },
+            {
+              "questionText": "20. ¿Cómo te sientes en términos de cansancio o fatiga?",
+              "options": [
+                "No estoy más cansado/a o fatigado/a que lo habitual",
+                "Me fatigo o me canso más fácilmente que lo habitual",
+                "Estoy demasiado fatigado/a o cansado/a para hacer muchas de las cosas que solía hacer",
+                "Estoy demasiado fatigado/a o cansado/a para hacer la mayoría de las cosas que solía hacer"
+              ],
+              "scores": {"BDI": [0, 1, 2, 3]}
             },
             {
               "questionText": "21. ¿Cómo está tu interés en el sexo?",
@@ -1241,9 +1411,7 @@
                 "Ahora estoy mucho menos interesado/a en el sexo",
                 "He perdido completamente el interés en el sexo"
               ],
-              "scores": {
-                "BDI": [0, 1, 2, 3]
-              }
+              "scores": {"BDI": [0, 1, 2, 3]}
             }
           ],
           "results": [
@@ -1251,28 +1419,29 @@
               "category": "BDI",
               "minScore": 0,
               "maxScore": 13,
-              "message": "Mínima depresión"
+              "message": "Mínima depresión. \nEsta puntuación indica un rango considerado normal o con síntomas muy leves de depresión. Las personas con este nivel pueden experimentar episodios breves de tristeza o baja energía, pero en general logran desenvolverse adecuadamente en sus actividades diarias. Se recomienda el seguimiento ocasional si hay factores de riesgo o cambios recientes importantes."
             },
             {
               "category": "BDI",
               "minScore": 14,
               "maxScore": 19,
-              "message": "Depresión leve"
+              "message": "Depresión leve. \nLa persona puede experimentar síntomas como tristeza persistente, falta de motivación, dificultades para concentrarse o fatiga. Aunque el funcionamiento diario no está completamente comprometido, puede haber una disminución del rendimiento y del interés en actividades. Es recomendable buscar orientación psicológica para una evaluación más profunda."
             },
             {
               "category": "BDI",
               "minScore": 20,
               "maxScore": 28,
-              "message": "Depresión moderada"
+              "message": "Depresión moderada. \nIndica síntomas clínicamente significativos de depresión, que pueden afectar de manera notoria las relaciones interpersonales, el rendimiento laboral o académico, y el bienestar general. En este nivel, es aconsejable la intervención terapéutica profesional y, en algunos casos, una evaluación psiquiátrica."
             },
             {
               "category": "BDI",
               "minScore": 29,
               "maxScore": 63,
-              "message": "Depresión grave"
+              "message": "Depresión grave. \nSugiere una presencia intensa y persistente de síntomas depresivos, tales como desesperanza, pensamientos recurrentes de muerte o suicidio, desinterés total por actividades y afectación grave del funcionamiento diario. Es fundamental buscar ayuda profesional inmediata. Puede requerirse tratamiento psicológico y farmacológico."
             }
           ]
         }
+
       ]
     },
     {
