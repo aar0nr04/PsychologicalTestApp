@@ -1,6 +1,7 @@
 package com.example.psychologicaltestapp
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -68,68 +69,86 @@ class TestActivity : AppCompatActivity() {
 
     private fun showQuestion() {
         if (currentQuestionIndex >= test.questions.size) {
-            // Mostrar resultados si no hay más preguntas
             showResult()
             return
         }
 
         val question = test.questions[currentQuestionIndex]
-
-        // Vincular las vistas
         val questionTextView = findViewById<TextView>(R.id.questionTextView)
         val optionsContainer = findViewById<LinearLayout>(R.id.optionsContainer)
         val progressTextView = findViewById<TextView>(R.id.progressTextView)
 
-        // Mostrar la pregunta
         questionTextView.text = question.questionText
-
-        // Limpiar las opciones anteriores
         optionsContainer.removeAllViews()
 
-        // Agregar las opciones como botones estilizados
-        question.options.forEachIndexed { index, option ->
-            val button = Button(this).apply {
-                text = option
-                textSize = 16f
-                setPadding(32, 16, 32, 16)
-                setBackgroundResource(R.drawable.custom_button_style)
-                tag = index // Usar el índice como tag para identificar la opción seleccionada
-                setOnClickListener {
-                    handleOptionSelected(index)
+        val optionImages = question.optionImages
+        if (!optionImages.isNullOrEmpty()) {
+            // 🔍 Mostrar imágenes como opciones
+            optionImages.forEachIndexed { index, imagePath ->
+                val imageView = ImageView(this).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        600 // Ajusta a tu diseño
+                    ).apply {
+                        setMargins(0, 16, 0, 16)
+                    }
+                    scaleType = ImageView.ScaleType.CENTER_CROP
+                    setOnClickListener {
+                        handleOptionSelected(index)
+                    }
+                    contentDescription = "Opción imagen $index"
                 }
-                contentDescription = "Opción $index" // Mejorar accesibilidad
-            }
 
-            val layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 8, 0, 8) // Margen superior e inferior entre botones
-            }
-            button.layoutParams = layoutParams
+                try {
+                    val inputStream = assets.open(imagePath)
+                    val drawable = Drawable.createFromStream(inputStream, null)
+                    imageView.setImageDrawable(drawable)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
 
-            optionsContainer.addView(button)
+                optionsContainer.addView(imageView)
+            }
+        } else {
+            // ✍️ Mostrar texto como opciones
+            question.options?.forEachIndexed { index, option ->
+                val button = Button(this).apply {
+                    text = option
+                    textSize = 16f
+                    setPadding(32, 16, 32, 16)
+                    setBackgroundResource(R.drawable.custom_button_style)
+                    tag = index
+                    setOnClickListener {
+                        handleOptionSelected(index)
+                    }
+                    contentDescription = "Opción $index"
+                }
+
+                val layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, 8, 0, 8)
+                }
+                button.layoutParams = layoutParams
+
+                optionsContainer.addView(button)
+            }
         }
 
-        // Restaurar la selección previa, si existe
         val previousResponse = userResponses[currentQuestionIndex]
         if (previousResponse != null) {
             handleOptionSelected(previousResponse)
         } else {
-            // Si no hay una respuesta previa, deseleccionar todas las opciones
             selectedOptionIndex = null
             nextButton.isEnabled = false
         }
 
-        // Calcular el progreso
         val progressPercent = ((currentQuestionIndex + 1) * 100) / test.questions.size
-
-        // Mostrar el progreso
         progressTextView.text = "Pregunta ${currentQuestionIndex + 1} de ${test.questions.size}"
-
-        // Actualizar el progreso visual
         progressBar.progress = progressPercent
     }
+
 
     private fun handleNextButtonClick() {
         val selectedOptionIndex = this.selectedOptionIndex
@@ -180,7 +199,7 @@ class TestActivity : AppCompatActivity() {
         val categoryScores = mutableMapOf<String, Int>() // Mapa para almacenar puntajes por categoría
 
         test.questions.forEachIndexed { questionIndex, question ->
-            question.scores.forEach { (category, scoreValues) ->
+            question.scores?.forEach { (category, scoreValues) ->
                 // Obtener el índice de la opción seleccionada para la pregunta actual
                 val selectedOptionIndex = userResponses[questionIndex] ?: -1 // Default to -1 for unanswered questions
                 if (selectedOptionIndex == -1) {

@@ -99,9 +99,17 @@ private fun parseQuestions(questionsArray: JSONArray): List<Question> {
 private fun parseQuestion(questionObject: JSONObject): Question {
     val questionText = questionObject.optString("questionText", "Pregunta no disponible")
     val options = parseOptions(questionObject.optJSONArray("options"))
+    val optionImages = parseOptions(questionObject.optJSONArray("optionImages")) // Reutilizas misma función
+    val imageQuestion = questionObject.optString("imageQuestion", null)
     val scores = parseScores(questionObject.optJSONObject("scores"))
 
-    return Question(questionText, options, scores)
+    return Question(
+        questionText = questionText,
+        options = options,
+        optionImages = optionImages,
+        imageQuestion = imageQuestion,
+        scores = scores
+    )
 }
 
 private fun parseOptions(optionsArray: JSONArray?): List<String> {

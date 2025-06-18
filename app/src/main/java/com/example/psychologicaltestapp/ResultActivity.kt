@@ -42,14 +42,14 @@ class ResultActivity : AppCompatActivity() {
         val categoryScores = mutableMapOf<String, Int>()
 
         test.questions.forEachIndexed { questionIndex, question ->
-            question.scores.forEach { (category, scoreValues) ->
+            val scoresMap = question.scores ?: return@forEachIndexed
+            scoresMap.forEach { (category, scoreValues) ->
                 val selectedOptionIndex = userResponses[questionIndex]
                     ?: throw IllegalStateException("No response recorded for question $questionIndex")
                 val scoreToAdd = scoreValues[selectedOptionIndex]
                 categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
             }
         }
-
         // Step 2: Generate result messages
         val resultMessages = mutableListOf<String>()
         categoryScores.forEach { (category, score) ->

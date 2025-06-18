@@ -1,6 +1,187 @@
 {
   "categories": [
     {
+      "title": "Tests de Inteligencia",
+      "description": "Evalúan el nivel de inteligencia general (CI) o habilidades cognitivas específicas.",
+      "tests": [
+        {
+          "type": "TONI",
+          "title": "Test TONI",
+          "description": "Test de razonamiento abstracto no verbal.",
+          "questions": [
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "asssets/toni_q1_main",
+              "optionImages": ["assets/toni_q1_opt1", "assets/toni_q1_opt2"],
+              "scores": [1,0]
+
+            }
+          ]
+        },
+        {
+          "type": "WAIS",
+          "title": "WAIS (Wechsler Adult Intelligence Scale)",
+          "questions": [
+            {
+              "questionText": "¿Cuál es el número que sigue en la secuencia: 2, 4, 6, 8?",
+              "options": ["10", "12", "14", "16"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra completa mejor la siguiente analogía? \"Perro es a ladrido como gato es a ___\".",
+              "options": ["maullido", "ronroneo", "silbido", "gruñido"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "Si tienes 3 manzanas y regalas 2, ¿cuántas te quedan?",
+              "options": ["1", "2", "3", "0"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál de las siguientes palabras no pertenece al grupo?",
+              "options": ["manzana", "plátano", "zanahoria", "pera"],
+              "scores": [0, 0, 1, 0]
+            },
+            {
+              "questionText": "¿Qué figura geométrica tiene todos sus lados iguales?",
+              "options": ["triángulo", "cuadrado", "rectángulo", "círculo"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el sinónimo de 'feliz'?",
+              "options": ["triste", "alegre", "enojado", "indiferente"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra significa lo contrario de 'claro'?",
+              "options": ["oscuro", "brillante", "luminoso", "radiante"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "Si un tren sale a las 8:00 AM y llega a las 10:00 AM, ¿cuánto tiempo dura el viaje?",
+              "options": ["1 hora", "2 horas", "3 horas", "4 horas"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el resultado de multiplicar 7 x 8?",
+              "options": ["56", "64", "49", "72"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Qué instrumento mide la temperatura?",
+              "options": ["termómetro", "barómetro", "reloj", "balanza"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el planeta más cercano al Sol?",
+              "options": ["Tierra", "Marte", "Mercurio", "Venus"],
+              "scores": [0, 0, 1, 0]
+            },
+            {
+              "questionText": "¿Qué letra sigue en esta secuencia: A, C, F, J?",
+              "options": ["L", "M", "N", "O"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el animal más grande del mundo?",
+              "options": ["elefante", "ballena azul", "tiburón blanco", "rinoceronte"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra completa mejor la frase? 'El agua es a líquido como el hielo es a ___'.",
+              "options": ["sólido", "gas", "vapor", "fluido"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el resultado de sumar 25 + 37?",
+              "options": ["52", "62", "72", "82"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra no pertenece al grupo?",
+              "options": ["sol", "luna", "estrella", "árbol"],
+              "scores": [0, 0, 0, 1]
+            },
+            {
+              "questionText": "¿Cuál es el continente más grande del mundo?",
+              "options": ["Asia", "África", "Europa", "América"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra significa lo mismo que 'rápido'?",
+              "options": ["lento", "veloz", "pausado", "torpe"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el resultado de dividir 49 entre 7?",
+              "options": ["6", "7", "8", "9"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué letra sigue en esta secuencia: B, D, G, K?",
+              "options": ["M", "N", "O", "P"],
+              "scores": [0, 0, 1, 0]
+            },
+            {
+              "questionText": "¿Cuál es el océano más grande del mundo?",
+              "options": ["Atlántico", "Índico", "Pacífico", "Ártico"],
+              "scores": [0, 0, 1, 0]
+            },
+            {
+              "questionText": "¿Qué palabra completa mejor la analogía? 'Mano es a guante como pie es a ___'.",
+              "options": ["calcetín", "zapato", "camisa", "gorro"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el resultado de restar 85 - 47?",
+              "options": ["38", "48", "58", "68"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Qué opción representa mejor un triángulo?",
+              "options": ["○", "□", "△", "◇"],
+              "scores": [0, 0, 1, 0]
+            },
+            {
+              "questionText": "¿Cuál es el mes que tiene menos días?",
+              "options": ["enero", "febrero", "marzo", "abril"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué palabra significa lo contrario de 'amigo'?",
+              "options": ["enemigo", "compañero", "aliado", "hermano"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el resultado de elevar 3 al cuadrado?",
+              "options": ["6", "9", "12", "15"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Qué figura geométrica tiene tres lados?",
+              "options": ["cuadrado", "triángulo", "rectángulo", "pentágono"],
+              "scores": [0, 1, 0, 0]
+            },
+            {
+              "questionText": "¿Cuál es el río más largo del mundo?",
+              "options": ["Amazonas", "Nilo", "Yangtsé", "Misisipi"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "¿Qué letra sigue en esta secuencia: Z, Y, X, W?",
+              "options": ["V", "U", "T", "S"],
+              "scores": [1, 0, 0, 0]
+            }
+          ],
+          "results": [
+            {"minScore": 0, "maxScore": 10, "message": "Nivel de inteligencia bajo. Es posible que necesites trabajar en habilidades cognitivas básicas."},
+            {"minScore": 11, "maxScore": 20, "message": "Nivel de inteligencia promedio. Tienes habilidades cognitivas equilibradas."},
+            {"minScore": 21, "maxScore": 30, "message": "Nivel de inteligencia alto. Muestras habilidades cognitivas avanzadas."}
+          ]
+        }
+      ]
+    },
+    {
       "title": "Tests de Ansiedad y Depresión",
       "description": "Diseñados para detectar síntomas de ansiedad, depresión y otros trastornos emocionales.",
       "tests": [
@@ -1471,5 +1652,6 @@
         }
       ]
     }
+
   ]
 }
