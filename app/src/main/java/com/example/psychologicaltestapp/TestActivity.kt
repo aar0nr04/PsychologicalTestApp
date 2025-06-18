@@ -3,6 +3,7 @@ package com.example.psychologicaltestapp
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -101,6 +102,8 @@ class TestActivity : AppCompatActivity() {
 
                 try {
                     val inputStream = assets.open(imagePath)
+                    Log.d("TEST", "Cargando imagen de assets: $imagePath")
+
                     val drawable = Drawable.createFromStream(inputStream, null)
                     imageView.setImageDrawable(drawable)
                 } catch (e: Exception) {
