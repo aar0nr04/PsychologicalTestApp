@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Salud mental",
+    "description": "Tests diseñados para evaluar el estado emocional y psicológico.",
+    "tests": [
+      {
+        "type": "bdi-ii",
+        "title": "Inventario de Depresión de Beck",
+        "description": "Evalúa síntomas depresivos durante las últimas dos semanas."
+      },
+      {
+        "type": "ansiedad",
+        "title": "Test de Ansiedad Generalizada",
+        "description": "Ayuda a identificar niveles de ansiedad."
+      }
+    ]
+  },
+  {
+    "title": "Autoestima",
+    "description": "Herramientas para medir la percepción personal de uno mismo.",
+    "tests": [
+      {
+        "type": "autoestima",
+        "title": "Escala de Autoestima de Rosenberg",
+        "description": "Mide el nivel de autoestima general."
+      }
+    ]
+  }
+]

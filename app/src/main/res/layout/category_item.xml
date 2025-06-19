@@ -3,24 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:layout_marginTop="10dp"
-    android:paddingTop="20dp"
-    >
+    android:padding="16dp"
+
+    android:layout_margin="8dp"
+    android:elevation="4dp">
 
     <TextView
         android:id="@+id/categoryTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Título de la Categoría"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#333333" />
 
     <TextView
         android:id="@+id/categoryDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descripción de la categoría"
         android:textSize="16sp"
+        android:textColor="#666666"
         android:layout_marginTop="4dp"/>
 </LinearLayout>

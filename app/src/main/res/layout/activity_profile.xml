@@ -13,6 +13,9 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/logo_banner"/>
 
+
+
+
     <!-- Nombre del Usuario -->
     <TextView
         android:id="@+id/profileNameTextView"

@@ -14,6 +14,8 @@ data class Category(
 data class Test(
     val type: String,
     val title: String,
+    val description: String,
+    val instructions: String?, // <- NEW
     val questions: List<Question>,
     val results: List<Result>
 )
@@ -31,6 +33,26 @@ data class User(
     val name: String,
     val testHistory: List<TestResult> = emptyList() // Store test results here
 )
+data class TestSummary(
+    val type: String,
+    val title: String,
+    val description: String
+)
+
+data class CategorySummary(
+    val title: String,
+    val description: String,
+    val tests: List<TestSummary>
+)
+
+
+
+data class TestCategory(
+    val name: String,
+    val description: String,
+    val tests: List<Test>
+)
+
 
 // Function to Load Tests from JSON
 fun loadTestsFromJson(context: Context): List<Category> {
@@ -79,10 +101,12 @@ private fun parseTests(testsArray: JSONArray): List<Test> {
 private fun parseTest(testObject: JSONObject): Test {
     val type = testObject.optString("type", "Tipo no disponible")
     val title = testObject.optString("title", "Título del test no disponible")
+    val description = testObject.optString("description", "Descripción no disponible")
+    val instructions = testObject.optString("instructions", null) // nullable
     val questions = testObject.optJSONArray("questions")?.let { parseQuestions(it) } ?: emptyList()
     val results = testObject.optJSONArray("results")?.let { parseResults(it) } ?: emptyList()
 
-    return Test(type, title, questions, results)
+    return Test(type, title, description, instructions, questions, results) // ✅ now matches
 }
 
 private fun parseQuestions(questionsArray: JSONArray): List<Question> {
