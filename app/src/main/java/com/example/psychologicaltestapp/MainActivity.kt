@@ -1,5 +1,6 @@
 package com.example.psychologicaltestapp
 
+import PsychologistDirectoryActivity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
+
     }
 
     private fun setupButtons() {
@@ -117,10 +119,12 @@ class MainActivity : AppCompatActivity() {
             binding.loginButton.text = "Cerrar sesión"
             binding.testsButton.isEnabled = true
             binding.psychologistDirectoryButton.isEnabled = true
+            binding.registerButton.isEnabled = false
         } else {
             binding.loginButton.text = "Iniciar sesión"
             binding.testsButton.isEnabled = true // Or false depending on your logic when not logged in
             binding.psychologistDirectoryButton.isEnabled = true // Or false
+            binding.registerButton.isEnabled = true
         }
     }
 

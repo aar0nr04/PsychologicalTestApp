@@ -1,23 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="12dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
 
+    <!-- Test Title -->
     <TextView
-        android:id="@+id/testNameTextView"
+        android:id="@+id/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nombre del Test"
+        android:text="Test Title"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#000000" />
 
+    <!-- Test Description -->
     <TextView
-        android:id="@+id/testDescriptionTextView"
+        android:id="@+id/descriptionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descripción breve del test"
+        android:text="Test description goes here"
         android:textSize="14sp"
         android:textColor="#666666"
         android:layout_marginTop="4dp" />
+
 </LinearLayout>

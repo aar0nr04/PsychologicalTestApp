@@ -5,28 +5,32 @@ data class Psychologist(
     val id: String,
     val name: String,
     val specialty: String,
-    val imageUrl: String,
-    val description: String
+    val location: String,
+    val phone: String,
+    val email: String,
+    val description: String,
+    val imageUrl: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
         parcel.writeString(specialty)
-        parcel.writeString(imageUrl)
-        parcel.writeString(description)
+        parcel.writeString(location)
+        parcel.writeString(phone)
+        parcel.writeString(email)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<Psychologist> {
         override fun createFromParcel(parcel: Parcel): Psychologist {

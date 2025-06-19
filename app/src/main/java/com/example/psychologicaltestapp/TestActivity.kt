@@ -11,15 +11,22 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.AdError
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 
 class TestActivity : AppCompatActivity() {
 
+    private var mInterstitialAd: InterstitialAd? = null
     private lateinit var test: Test
     private var currentQuestionIndex = 0
     private val userResponses = mutableListOf<Int?>() // Lista para almacenar respuestas (nullable)
@@ -35,6 +42,7 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+
 
         // Vincular vistas
         progressBar = findViewById(R.id.progressBar)
@@ -78,6 +86,22 @@ class TestActivity : AppCompatActivity() {
             finish() // Cerrar la actividad
         }
     }
+    private fun loadInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,
+            "ca-app-pub-3940256099942544/1033173712", // ID de prueba, cambia en producción
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    mInterstitialAd = ad
+                }
+
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
+                }
+            })
+    }
 
     private fun showQuestion() {
         if (currentQuestionIndex >= test.questions.size) {
@@ -91,22 +115,22 @@ class TestActivity : AppCompatActivity() {
         val optionsGrid = findViewById<GridLayout>(R.id.optionsGrid)
 
         // Limpiar vistas anteriores
-        questionTextView.visibility = View.GONE
-        questionImage.visibility = View.GONE
-        optionsGrid.visibility = View.GONE
         optionsGrid.removeAllViews()
 
         // Mostrar texto de la pregunta (si hay)
-        question.text?.let {
-            questionTextView.text = it
+        if (!question.text.isNullOrEmpty()) {
+            questionTextView.text = question.text
             questionTextView.visibility = View.VISIBLE
+        } else {
+            questionTextView.visibility = View.GONE
         }
-
         // Mostrar imagen de la pregunta (si hay)
         question.imageQuestion?.let {
             val bmp = assets.open(it).use { BitmapFactory.decodeStream(it) }
             questionImage.setImageBitmap(bmp)
             questionImage.visibility = View.VISIBLE
+        } ?: run {
+            questionImage.visibility = View.GONE
         }
 
         // Mostrar opciones si hay imágenes o texto
@@ -177,7 +201,7 @@ class TestActivity : AppCompatActivity() {
 
 
 
-    val previousResponse = userResponses[currentQuestionIndex]
+        val previousResponse = userResponses[currentQuestionIndex]
         if (previousResponse != null) {
             handleOptionSelected(previousResponse)
         } else {
@@ -236,6 +260,7 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun showResult() {
+
         // Step 1: Calcular puntajes para cada categoría
         val categoryScores = mutableMapOf<String, Int>() // Mapa para almacenar puntajes por categoría
 
@@ -295,7 +320,32 @@ class TestActivity : AppCompatActivity() {
             }
         }
 
-        // Paso 5: Navegar a ResultActivity con datos necesarios
+        // Paso 5: Mostrar Interstitial Ad
+        intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("TEST_JSON", Gson().toJson(test))
+        intent.putExtra("USER_RESPONSES", Gson().toJson(userResponses))
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    startActivity(intent)
+                    mInterstitialAd = null
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    startActivity(intent)
+                    mInterstitialAd = null
+                }
+
+                override fun onAdShowedFullScreenContent() {
+                    mInterstitialAd = null
+                }
+            }
+            mInterstitialAd?.show(this)
+        } else {
+            startActivity(intent)
+        }
+        // Paso 6: Navegar a ResultActivity con datos necesarios
         val intent = Intent(this, ResultActivity::class.java).apply {
             putExtra("TEST_JSON", Gson().toJson(test)) // Pasar el objeto Test como JSON
             putExtra("USER_RESPONSES", Gson().toJson(userResponses)) // Pasar las respuestas del usuario como JSON

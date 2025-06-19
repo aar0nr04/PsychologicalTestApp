@@ -38,6 +38,8 @@ class ResultActivity : AppCompatActivity() {
 
     private fun showResult() {
 
+
+
         // Step 1: Calculate scores for each category
         val categoryScores = mutableMapOf<String, Int>()
 

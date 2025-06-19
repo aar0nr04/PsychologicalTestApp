@@ -40,8 +40,8 @@ class PsychologistAdapter(
             // Load image using Glide or Picasso
             Glide.with(itemView.context)
                 .load(psychologist.imageUrl)
-                .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
-                .error(R.drawable.error_image) // Error image if loading fails
+                .placeholder(R.drawable.default_profile_image) // tu vector drawable
+                .error(R.drawable.default_profile_image)       // por si falla
                 .into(profileImageView)
         }
     }
