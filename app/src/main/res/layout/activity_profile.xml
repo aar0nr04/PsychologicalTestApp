@@ -1,56 +1,70 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Imagen de Banner -->
-    <ImageView
+    <LinearLayout
+        android:id="@+id/profileLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/logo_banner"/>
+        android:padding="16dp"
+        android:layout_marginTop="50sp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/logo_banner"/>
+        <!-- Foto del usuario -->
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_profile_placeholder"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Nombre del usuario -->
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
 
+        <!-- Correo del usuario -->
+        <TextView
+            android:id="@+id/profileEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correo"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"/>
 
+        <!-- Historial de tests -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historial de tests:"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
 
-    <!-- Nombre del Usuario -->
-    <TextView
-        android:id="@+id/profileNameTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nombre del usuario"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
+        <LinearLayout
+            android:id="@+id/testHistoryContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <!-- Correo Electrónico -->
-    <TextView
-        android:id="@+id/profileEmailTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Correo electrónico"
-        android:textSize="14sp"
-        android:paddingTop="4dp" />
-
-    <!-- Etiqueta para Tests Realizados -->
-    <TextView
-        android:id="@+id/testsLabelTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tests realizados:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:paddingTop="16dp" />
-
-    <!-- RecyclerView para Mostrar los Tests -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/resultsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-</LinearLayout>
+        <!-- Botón cerrar sesión -->
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerrar sesión"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"/>
+    </LinearLayout>
+</ScrollView>

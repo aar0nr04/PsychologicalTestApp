@@ -3,4 +3,6 @@
     <string name="test_history_description">Historial de pruebas realizadas por el usuario</string>
     <string name="tests_recycler_description">descripcion</string>
     <string name="test_history_list">ewrwerwer</string>
+    <string name="spanish_flag">Bandera de España</string>
+    <string name="english_flag">Flag of the USA</string>
 </resources>

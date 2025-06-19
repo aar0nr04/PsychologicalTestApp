@@ -1,46 +1,83 @@
 package com.example.psychologicaltestapp
 
-
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
 import com.example.psychologicaltestapp.databinding.ActivityMainBinding
+import android.graphics.Color
+import android.widget.ImageView
+import androidx.appcompat.widget.SwitchCompat
 
+import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
 
+    // Declare the views as member properties
+
+    private lateinit var flagEs: ImageView
+    private lateinit var flagEn: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        // Cargar idioma guardado antes de setContentView
+        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val language = prefs.getString("app_language", "es") ?: "es"
+        setLocale(language)
+
         super.onCreate(savedInstanceState)
+        // It's generally recommended to initialize binding before accessing views
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding.root) // Use binding.root
+        val languageSwitch = findViewById<SwitchCompat>(R.id.languageSwitch)
+        // Initialize the views using findViewById or ViewBinding if available
+        // Or use binding.languageSwitch if you have it in your layout and ViewBinding is setup correctly
+        flagEs = findViewById(R.id.flag_es) // Or use binding.flagEs
+        flagEn = findViewById(R.id.flag_en) // Or use binding.flagEn
 
-        auth = FirebaseAuth.getInstance()
+        // Inicializar switch y colores de bandera según idioma guardado
+        languageSwitch.isChecked = (language == "en")
+        updateFlagColors(language)
 
- //       setupVideoBackground()
+        languageSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val newLang = if (isChecked) "en" else "es"
+            setLocale(newLang)
+            updateFlagColors(newLang)
+            recreate() // Recarga la actividad para aplicar idioma
+        }
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance() // Make sure auth is initialized
+
         setupAdMob()
         setupButtons()
-//        binding.videoBackground.setOnErrorListener { mediaPlayer, what, extra ->
-//            println("MediaPlayer error in TestActivity: what=$what, extra=$extra")
-//            true
-//        }
-        updateUI()
+        updateUI() // Call updateUI after auth is initialized and buttons are set up
     }
+    private fun updateFlagColors(languageCode: String) {
+        if (languageCode == "es") {
+            flagEs.clearColorFilter()
+            flagEn.setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.SRC_IN)
+        } else {
+            flagEn.clearColorFilter()
+            flagEs.setColorFilter(Color.GRAY, android.graphics.PorterDuff.Mode.SRC_IN)
+        }
+    }
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
 
-//    private fun setupVideoBackground() {
-//        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.clouds_video}")
-//        binding.videoBackground.setVideoURI(videoUri)
-//        binding.videoBackground.setOnPreparedListener { mediaPlayer ->
-//            mediaPlayer.isLooping = true
-//            mediaPlayer.setVolume(0f, 0f) // Mute the video
-//            binding.videoBackground.start()
-//        }
-//    }
+        // Guardar idioma en preferencias
+        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        prefs.edit().putString("app_language", languageCode).apply()
+    }
 
     private fun setupAdMob() {
         MobileAds.initialize(this) {}
@@ -76,14 +113,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI() {
-        if (auth.currentUser != null) {
+        if (this::auth.isInitialized && auth.currentUser != null) { // Check if auth is initialized
             binding.loginButton.text = "Cerrar sesión"
             binding.testsButton.isEnabled = true
             binding.psychologistDirectoryButton.isEnabled = true
         } else {
             binding.loginButton.text = "Iniciar sesión"
-            binding.testsButton.isEnabled = true
-            binding.psychologistDirectoryButton.isEnabled = true
+            binding.testsButton.isEnabled = true // Or false depending on your logic when not logged in
+            binding.psychologistDirectoryButton.isEnabled = true // Or false
         }
     }
 

@@ -13,19 +13,58 @@
 
         <!-- Logo -->
         <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             app:srcCompat="@drawable/logo4"
             android:scaleType="fitCenter" />
 
         <!-- Welcome Message -->
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="70dp"
             android:text="Exploremos juntos el universo de \n nuestra mente"
             android:textAlignment="center"
             android:paddingBottom="20dp"
             android:textSize="20dp" />
+
+        <LinearLayout
+            android:id="@+id/languageSelector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/flag_es"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/flag_es"
+                android:contentDescription="Español"
+                android:layout_marginEnd="8dp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/languageSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:minWidth="88dp"
+
+                android:minHeight="48dp" />
+
+            <ImageView
+                android:id="@+id/flag_en"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/flag_en"
+                android:contentDescription="Inglés" />
+        </LinearLayout>
+
+
+
+
 
         <!-- Profile Button -->
         <Button
