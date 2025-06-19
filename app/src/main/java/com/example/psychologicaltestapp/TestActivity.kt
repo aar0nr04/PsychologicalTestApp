@@ -101,17 +101,18 @@ class TestActivity : AppCompatActivity() {
                 }
 
                 try {
+                    Log.d("TEST_ASSETS", "Intentando abrir assets: $imagePath")
                     val inputStream = assets.open(imagePath)
-                    Log.d("TEST", "Cargando imagen de assets: $imagePath")
-
+                    Log.d("TEST_ASSETS", "✅ Abrió con éxito: $imagePath")
                     val drawable = Drawable.createFromStream(inputStream, null)
                     imageView.setImageDrawable(drawable)
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    Log.e("TEST_ASSETS", "❌ No se pudo abrir: $imagePath", e)
                 }
 
                 optionsContainer.addView(imageView)
             }
+
         } else {
             // ✍️ Mostrar texto como opciones
             question.options?.forEachIndexed { index, option ->

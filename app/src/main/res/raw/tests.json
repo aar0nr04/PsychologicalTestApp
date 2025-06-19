@@ -11,8 +11,8 @@
           "questions": [
             {
               "questionText": "Selecciona la opción correcta",
-              "imageQuestion": "asssets/toni_q1_main.png",
-              "optionImages": ["assets/toni_q1_opt1.png", "assets/toni_q1_opt2.png"],
+              "imageQuestion": "toni_q1_main.png",
+              "optionImages": ["toni_q1_opt1.png", "toni_q1_opt2.png"],
               "scores": [1,0]
 
             }
