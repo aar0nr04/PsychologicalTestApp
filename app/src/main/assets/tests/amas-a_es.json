@@ -1,6 +1,6 @@
 {
   "type": "AMAS-A",
-  "title": "AMAS-Afddf",
+  "title": "Escala de Ansiedad Multidimensional para Adultos (AMAS-A)",
   "questions": [
     {
       "questionText": "1. Me preocupa hacer lo correcto.",
@@ -1181,4 +1181,4 @@
       "message": "ANSIEDAD TOTAL: Extrema :\nGrandes niveles de ansiedad con probable altercion de pensamiento y debilitamiento de la energia emocional; preocupacion y rumiacion excesivas; temores vagos; deficiencia en toma de decisiones y frecuente evidencia de falta de juicio; probable depresion concomitante."
     }
   ]
-},
+}

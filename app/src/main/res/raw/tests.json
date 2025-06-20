@@ -8,6 +8,7 @@
           "type": "TONI",
           "title": "Test TONI",
           "description": "Test de razonamiento abstracto no verbal.",
+          "instructions": "Selecciona la imagen que completa la serie.",
           "questions": [
             {
               "questionText": "Selecciona la opción correcta",
@@ -15,6 +16,18 @@
               "optionImages": ["toni_q1_opt1.png", "toni_q1_opt2.png"],
               "scores": [1,0]
 
+            }
+          ],
+          "results": [
+            {
+              "minScore": 0,
+              "maxScore": 0,
+              "resultText": "Resultado bajo. Puede requerir apoyo en habilidades de razonamiento abstracto."
+            },
+            {
+              "minScore": 1,
+              "maxScore": 1,
+              "resultText": "Resultado adecuado. Buen nivel de razonamiento abstracto."
             }
           ]
         },
@@ -187,7 +200,9 @@
       "tests": [
         {
           "type": "AMAS-A",
-          "title": "AMAS-Afddf",
+          "title": "AMAS-A (Wechsler Adult Intelligence Scale)",
+          "description": "Evalúa la inteligencia general de adultos.",
+          "instructions": "Responde cada pregunta seleccionando la opción más lógica.",
           "questions": [
             {
               "questionText": "1. Me preocupa hacer lo correcto.",
@@ -1369,14 +1384,10 @@
             }
           ]
         },
-        {
-          "type": "BDI-II",
+        {"type": "BDI-II",
           "title": "Inventario de Depresión de Beck-II",
-          "description": "Este test evalúa los síntomas depresivos. Contesta según lo que has estado sintiendo últimamente.",
-          "instructions": [
-            "Lee cada punto con atención y selecciona la opción que mejor se adapta a lo que has estado sintiendo últimamente.",
-            "Asegúrate de marcar sólo una respuesta para cada pregunta."
-          ],
+          "description": "Evalúa la inteligencia general de adultos.",
+          "instructions": "\"Lee cada punto con atención y selecciona la opción que mejor se adapta a lo que has estado sintiendo últimamente.\",\n            \"Asegúrate de marcar sólo una respuesta para cada pregunta.\"",
           "questions": [
             {
               "questionText": "1. ¿Cómo te has sentido últimamente respecto a tu estado de ánimo?",

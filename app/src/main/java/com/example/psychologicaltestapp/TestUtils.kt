@@ -15,9 +15,9 @@ data class Test(
     val type: String,
     val title: String,
     val description: String,
-    val instructions: String?, // <- NEW
-    val questions: List<Question>,
-    val results: List<Result>
+    val instructions: String?, // está bien que esta sea opcional
+    val questions: List<Question>, // <-- ¡Esto debería ser NO nullable!
+    val results: List<Result> // <-- ¡Esto también!
 )
 
 data class Result(

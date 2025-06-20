@@ -39,7 +39,6 @@ class ResultActivity : AppCompatActivity() {
     private fun showResult() {
 
 
-
         // Step 1: Calculate scores for each category
         val categoryScores = mutableMapOf<String, Int>()
 
@@ -52,42 +51,52 @@ class ResultActivity : AppCompatActivity() {
                 categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
             }
         }
-        // Step 2: Generate result messages
+// Step 2: Generate result messages
         val resultMessages = mutableListOf<String>()
         categoryScores.forEach { (category, score) ->
-            val matchingResults = test.results.filter { it.category == category && score in it.minScore..it.maxScore }
-            if (matchingResults.isNotEmpty()) {
-                val combinedMessage = matchingResults.joinToString("\n\n") { it.message }
+            val matchingResults = test.results?.filter {
+                // Assuming Result class has non-nullable category, minScore, maxScore
+                it.category == category && score in it.minScore..it.maxScore
+            }
+
+            // Check if matchingResults is NOT null AND THEN if it's not empty
+            if (matchingResults != null && matchingResults.isNotEmpty()) {
+                // Inside this block, Kotlin smart-casts matchingResults to a non-nullable List<Result>
+                val combinedMessage = matchingResults.joinToString("\n\n") { result ->
+                    result.message // Assuming Result.message is non-nullable
+                }
                 resultMessages.add("Categoría: $category\nPuntuación: $score\n$combinedMessage")
             } else {
+                // This 'else' covers two cases:
+                // 1. test.results was null (so matchingResults became null)
+                // 2. test.results was not null, but the filter found no matches (matchingResults was an empty list)
                 resultMessages.add("Categoría: $category\nPuntuación: $score\nResultado no encontrado.")
             }
-        }
+            // Step 3: Combine all result messages into a single text
+            val finalResultMessage = resultMessages.joinToString("\n\n")
 
-        // Step 3: Combine all result messages into a single text
-        val finalResultMessage = resultMessages.joinToString("\n\n")
+            // Step 4: Save the result to the user's profile
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null) {
+                val testResult = TestResult(
+                    testType = test.type,
+                    testName = test.title,
+                    resultMessage = finalResultMessage,
+                    date = DateFormat.format("yyyy-MM-dd HH:mm:ss", Date()).toString()
+                )
+                val userRepository = UserRepository()
+                userRepository.saveTestResult(currentUser.uid, testResult)
+            }
 
-        // Step 4: Save the result to the user's profile
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser != null) {
-            val testResult = TestResult(
-                testType = test.type,
-                testName = test.title,
-                resultMessage = finalResultMessage,
-                date = DateFormat.format("yyyy-MM-dd HH:mm:ss", Date()).toString()
-            )
-            val userRepository = UserRepository()
-            userRepository.saveTestResult(currentUser.uid, testResult)
-        }
+            // Step 5: Show the result to the user
+            binding.resultTextView.text = finalResultMessage
 
-        // Step 5: Show the result to the user
-        binding.resultTextView.text = finalResultMessage
-
-        // Manejar el botón "Regresar al Menú Principal"
-        binding.backToMenuButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish() // Finaliza esta actividad para evitar que el usuario regrese aquí al presionar "Atrás"
+            // Manejar el botón "Regresar al Menú Principal"
+            binding.backToMenuButton.setOnClickListener {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish() // Finaliza esta actividad para evitar que el usuario regrese aquí al presionar "Atrás"
+            }
         }
     }
 }

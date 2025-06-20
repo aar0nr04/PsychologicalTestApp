@@ -42,7 +42,7 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
-
+        loadInterstitialAd()
 
         // Vincular vistas
         progressBar = findViewById(R.id.progressBar)
@@ -109,7 +109,7 @@ class TestActivity : AppCompatActivity() {
             return
         }
 
-        val question = test.questions[currentQuestionIndex]
+        val question = test.questions.get(currentQuestionIndex)
         val questionTextView = findViewById<TextView>(R.id.questionText)
         val questionImage = findViewById<ImageView>(R.id.questionImage)
         val optionsGrid = findViewById<GridLayout>(R.id.optionsGrid)
@@ -284,11 +284,12 @@ class TestActivity : AppCompatActivity() {
             // Encontrar todos los resultados que coincidan con la categoría y el puntaje
             val matchingResults = test.results.filter { it.category == category && score in it.minScore..it.maxScore }
 
-            if (matchingResults.isNotEmpty()) {
-                // Combinar todos los mensajes de resultado en una sola cadena
+            if (matchingResults != null && matchingResults.isNotEmpty()) {
                 val combinedMessage = matchingResults.joinToString("\n\n") { it.message }
                 resultMessages.add("Categoría: $category\nPuntuación: $score\n$combinedMessage")
             } else {
+                // This 'else' branch will be taken if test.results was null OR
+                // if test.results was not null but the filter yielded an empty list.
                 resultMessages.add("Categoría: $category\nPuntuación: $score\nResultado no encontrado.")
             }
         }

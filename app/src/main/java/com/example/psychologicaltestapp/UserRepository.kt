@@ -12,7 +12,13 @@ data class TestResult(
     val resultMessage: String = "", // Mensaje detallado del resultado
     val date: String = ""      // Fecha de la prueba
 )
-
+class PsychologicalTest {
+    var type: String? = null
+    var title: String? = null
+    var description: String? = null
+    var instructions: String? = null
+    var questions: List<Question>? = null
+}
 class UserRepository {
     // Initialize Firestore instance
     private val firestore = FirebaseFirestore.getInstance()
