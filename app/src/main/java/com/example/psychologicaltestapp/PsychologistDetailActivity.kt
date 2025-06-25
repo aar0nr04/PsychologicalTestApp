@@ -15,8 +15,10 @@ class PsychologistDetailActivity : AppCompatActivity() {
         binding = ActivityPsychologistDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Recibir el objeto Psychologist
         val psychologist = intent.getParcelableExtra<Psychologist>("PSYCHOLOGIST")
 
+        // Si el objeto no es nulo, mostrar los datos
         psychologist?.let {
             binding.nameTextView.text = it.name
             binding.specialtyTextView.text = it.specialty
@@ -27,6 +29,9 @@ class PsychologistDetailActivity : AppCompatActivity() {
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.error_image)
                 .into(binding.profileImageView)
+        } ?: run {
+            // Si el objeto es nulo, terminar la actividad
+            finish()
         }
     }
 }

@@ -41,11 +41,12 @@ class TestActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        loadInterstitialAd()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
 
-        loadInterstitialAd()
+
         Log.d("TestActivity", "Interstitial ad loading initiated")
 
         // Vincular vistas
@@ -91,21 +92,34 @@ class TestActivity : AppCompatActivity() {
         }
     }
     private fun loadInterstitialAd() {
-        val adRequest = AdRequest.Builder().build()
-
-        InterstitialAd.load(this,
-            "ca-app-pub-3940256099942544/1033173712", // ID de prueba, cambia en producción
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    mInterstitialAd = ad
+        val request = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", request, object : InterstitialAdLoadCallback() {
+            override fun onAdLoaded(ad: InterstitialAd) {
+                mInterstitialAd = ad
+                mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        startResultActivity() // cuando el ad se cierra, muestra resultados
+                        mInterstitialAd = null
+                    }
+                    override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                        startResultActivity()
+                        mInterstitialAd = null
+                    }
                 }
-
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    mInterstitialAd = null
-                }
-            })
+            }
+            override fun onAdFailedToLoad(error: LoadAdError) {
+                mInterstitialAd = null
+            }
+        })
     }
+    private fun showInterstitialOrResults() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.show(this)
+        } else {
+            startResultActivity()
+        }
+    }
+
 
     private fun showQuestion() {
         if (currentQuestionIndex >= test.questions.size) {
@@ -356,6 +370,7 @@ class TestActivity : AppCompatActivity() {
             putExtra("USER_RESPONSES", Gson().toJson(userResponses)) // Pasar las respuestas del usuario como JSON
         }
         startActivity(intent)
+        showInterstitialOrResults()
         finish() // Finalizar TestActivity para que el usuario no pueda volver a las preguntas
     }
     private fun updateSelectedOptionUI(selectedIndex: Int, optionLayouts: List<LinearLayout>) {
@@ -369,5 +384,12 @@ class TestActivity : AppCompatActivity() {
             }
         }
     }
-
+    private fun startResultActivity() {
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra("TEST_JSON", Gson().toJson(test))
+            putExtra("USER_RESPONSES", Gson().toJson(userResponses))
+        }
+        startActivity(intent)
+        finish()
+    }
 }

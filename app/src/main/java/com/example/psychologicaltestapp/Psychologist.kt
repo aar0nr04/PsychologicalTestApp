@@ -18,8 +18,10 @@ data class Psychologist(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
@@ -27,8 +29,9 @@ data class Psychologist(
         parcel.writeString(location)
         parcel.writeString(phone)
         parcel.writeString(email)
+        parcel.writeString(description)
+        parcel.writeString(imageUrl)
     }
-
 
     override fun describeContents(): Int = 0
 
