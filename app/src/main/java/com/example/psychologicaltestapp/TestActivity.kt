@@ -46,6 +46,7 @@ class TestActivity : AppCompatActivity() {
 
 
         loadInterstitialAd()
+        Log.d("TestActivity", "Interstitial ad loading initiated")
 
         // Vincular vistas
         progressBar = findViewById(R.id.progressBar)

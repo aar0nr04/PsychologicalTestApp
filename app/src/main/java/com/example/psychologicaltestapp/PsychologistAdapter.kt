@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.psychologicaltestapp.R
 
 class PsychologistAdapter(
-    private val psychologists: List<Psychologist>,
+    private var psychologists: List<Psychologist>,
     private val onPsychologistClick: (Psychologist) -> Unit
 ) : RecyclerView.Adapter<PsychologistAdapter.PsychologistViewHolder>() {
 
@@ -45,4 +45,10 @@ class PsychologistAdapter(
                 .into(profileImageView)
         }
     }
+    fun updateList(newList: List<Psychologist>) {
+        psychologists = newList
+        notifyDataSetChanged()
+    }
+
+
 }
