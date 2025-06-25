@@ -39,9 +39,12 @@ class TestActivity : AppCompatActivity() {
     private lateinit var optionsContainer: LinearLayout
     private lateinit var optionsGrid: GridLayout
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+
+
         loadInterstitialAd()
 
         // Vincular vistas
@@ -110,16 +113,16 @@ class TestActivity : AppCompatActivity() {
         }
 
         val question = test.questions.get(currentQuestionIndex)
-        val questionTextView = findViewById<TextView>(R.id.questionText)
+        val questionTextView = findViewById<TextView>(R.id.questionTextView)
         val questionImage = findViewById<ImageView>(R.id.questionImage)
         val optionsGrid = findViewById<GridLayout>(R.id.optionsGrid)
 
         // Limpiar vistas anteriores
         optionsGrid.removeAllViews()
 
-        // Mostrar texto de la pregunta (si hay)
-        if (!question.text.isNullOrEmpty()) {
-            questionTextView.text = question.text
+// Mostrar texto de la pregunta (si hay)
+        if (!question.questionText.isNullOrEmpty()) {
+            questionTextView.text = question.questionText
             questionTextView.visibility = View.VISIBLE
         } else {
             questionTextView.visibility = View.GONE
