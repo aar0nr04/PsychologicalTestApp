@@ -1,120 +1,147 @@
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="0dp">
-
-        <!-- Logo -->
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            app:srcCompat="@drawable/logo4"
-            android:scaleType="fitCenter" />
-
-        <!-- Welcome Message -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="Exploremos juntos el universo de \n nuestra mente"
-            android:textAlignment="center"
-            android:paddingBottom="20dp"
-            android:textSize="20dp" />
+    <!-- ScrollView para el contenido principal -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:id="@+id/languageSelector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal"
-            android:padding="8dp">
-
-            <ImageView
-                android:id="@+id/flag_es"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/flag_es"
-                android:contentDescription="Español"
-                android:layout_marginEnd="8dp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/languageSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:minWidth="88dp"
-
-                android:minHeight="48dp" />
-
-            <ImageView
-                android:id="@+id/flag_en"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/flag_en"
-                android:contentDescription="Inglés" />
-        </LinearLayout>
-
-
-
-
-
-        <!-- Profile Button -->
-        <Button
-            android:id="@+id/profileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PERFIL"
-            android:layout_marginBottom="10dp" />
-
-        <!-- Login Button -->
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Iniciar sesión"
-            android:layout_marginBottom="10dp" />
-
-        <!-- Register Button -->
-        <Button
-            android:id="@+id/registerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrarse"
-            android:layout_marginBottom="10dp" />
-
-        <!-- View Tests Button -->
-        <Button
-            android:id="@+id/testsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hacer Test"
-            android:layout_marginBottom="10dp" />
-
-        <!-- View Psychologist Directory Button -->
-        <Button
-            android:id="@+id/psychologistDirectoryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Directorio de psicólogos"
-            android:layout_marginBottom="10dp" />
-
-        <!-- AdView -->
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" /> <!-- Replace with your Banner Ad Unit ID -->
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="16dp">
 
-    </LinearLayout>
-</RelativeLayout>
+            <!-- Logo -->
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/logo4"
+                android:scaleType="fitCenter"
+                android:contentDescription="Logo" />
+
+            <!-- Welcome message -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bienvnido Usuario!\nExploremos juntos el universo de \n nuestra mente"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="#949494"
+                android:paddingBottom="20dp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Language selector -->
+            <LinearLayout
+                android:id="@+id/languageSelector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/flag_es"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/flag_es"
+                    android:contentDescription="Español"
+                    android:layout_marginEnd="8dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/languageSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="88dp"
+                    android:minHeight="48dp"
+                    android:layout_marginEnd="10dp" />
+
+                <ImageView
+                    android:id="@+id/flag_en"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/flag_en"
+                    android:contentDescription="Inglés" />
+            </LinearLayout>
+
+            <!-- Botones principales -->
+            <Button
+                android:id="@+id/profileButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PERFIL"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/loginButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Iniciar sesión"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/registerButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrarse"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/testsButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hacer Test"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/psychologistDirectoryButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Directorio de psicólogos"
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Banner de anuncio fijo abajo -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
