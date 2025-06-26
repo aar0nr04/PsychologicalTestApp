@@ -41,7 +41,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         ads:layout_constraintTop_toBottomOf="@id/ResultadoTitle"
-        ads:layout_constraintBottom_toTopOf="@id/tipsButton"
+        ads:layout_constraintBottom_toTopOf="@id/aiTipsButton"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="8dp">
@@ -58,7 +58,7 @@
 
     <!-- Botón: Tips -->
     <Button
-        android:id="@+id/tipsButton"
+        android:id="@+id/aiTipsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tips"
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Consulta un Experto"
-        ads:layout_constraintTop_toBottomOf="@id/tipsButton"
+        ads:layout_constraintTop_toBottomOf="@id/aiTipsButton"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
