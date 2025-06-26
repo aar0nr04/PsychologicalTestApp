@@ -13,6 +13,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import android.util.Log
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -22,12 +24,15 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var testHistoryContainer: LinearLayout
     private lateinit var logoutButton: Button
 
-    private val userRepository = UserRepository()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        Toast.makeText(this, "ProfileActivity abierta", Toast.LENGTH_SHORT).show()
+        Log.d("ProfileActivity", "onCreate iniciado")
 
+        // Inicializa vistas
         profileImage = findViewById(R.id.profileImage)
         profileName = findViewById(R.id.profileName)
         profileEmail = findViewById(R.id.profileEmail)
@@ -38,16 +43,19 @@ class ProfileActivity : AppCompatActivity() {
 
         if (user == null) {
             Toast.makeText(this, "Debes iniciar sesión", Toast.LENGTH_SHORT).show()
+            Log.d("ProfileActivity", "Usuario no logueado, cerrando actividad")
             finish()
             return
         }
 
         profileName.text = user.displayName ?: "Nombre no disponible"
         profileEmail.text = user.email ?: "Correo no disponible"
+        Toast.makeText(this, "Usuario: ${profileName.text}", Toast.LENGTH_SHORT).show()
 
         user.photoUrl?.let {
             Glide.with(this).load(it).into(profileImage)
-        }
+            Log.d("ProfileActivity", "Imagen cargada con Glide")
+        } ?: Log.d("ProfileActivity", "No hay foto de perfil")
 
         loadTestHistory(user.uid)
 
@@ -67,6 +75,8 @@ class ProfileActivity : AppCompatActivity() {
             .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
+                Toast.makeText(this, "Historial cargado con ${result.size()} items", Toast.LENGTH_SHORT).show()
+                Log.d("ProfileActivity", "Historial cargado con ${result.size()} items")
                 if (result.isEmpty) {
                     val emptyView = TextView(this)
                     emptyView.text = "No has realizado ningún test aún."
@@ -84,6 +94,9 @@ class ProfileActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al cargar historial", Toast.LENGTH_SHORT).show()
+                Log.e("ProfileActivity", "Error al cargar historial", it)
             }
     }
+
+
 }

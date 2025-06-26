@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psychologicaltestapp.R
-import com.example.psychologicaltestapp.TestResult
+
 
 class TestResultAdapter(
     private val testResults: List<TestResult>

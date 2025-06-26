@@ -1,5 +1,7 @@
 package com.example.psychologicaltestapp
 
+import TestResult
+import UserRepository
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
@@ -279,50 +281,38 @@ class TestActivity : AppCompatActivity() {
 
     private fun showResult() {
 
-        // Step 1: Calcular puntajes para cada categoría
-        val categoryScores = mutableMapOf<String, Int>() // Mapa para almacenar puntajes por categoría
+        // Paso 1: Calcular puntajes para cada categoría
+        val categoryScores = mutableMapOf<String, Int>()
 
         test.questions.forEachIndexed { questionIndex, question ->
             question.scores?.forEach { (category, scoreValues) ->
-                // Obtener el índice de la opción seleccionada para la pregunta actual
-                val selectedOptionIndex = userResponses[questionIndex] ?: -1 // Default to -1 for unanswered questions
-                if (selectedOptionIndex == -1) {
-                    println("Warning: No response recorded for question $questionIndex")
-                    return@forEachIndexed
-                }
+                val selectedOptionIndex = userResponses[questionIndex] ?: -1
+                if (selectedOptionIndex == -1) return@forEachIndexed
                 val scoreToAdd = scoreValues[selectedOptionIndex]
                 categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
             }
         }
 
-        // Step 2: Generar mensajes de resultado para cada categoría
-        val resultMessages = mutableListOf<String>()
-
-        categoryScores.forEach { (category, score) ->
-            // Encontrar todos los resultados que coincidan con la categoría y el puntaje
+        // Paso 2: Generar mensaje final
+        val resultMessages = categoryScores.map { (category, score) ->
             val matchingResults = test.results.filter { it.category == category && score in it.minScore..it.maxScore }
-
-            if (matchingResults != null && matchingResults.isNotEmpty()) {
+            if (matchingResults.isNotEmpty()) {
                 val combinedMessage = matchingResults.joinToString("\n\n") { it.message }
-                resultMessages.add("Categoría: $category\nPuntuación: $score\n$combinedMessage")
+                "Categoría: $category\nPuntuación: $score\n$combinedMessage"
             } else {
-                // This 'else' branch will be taken if test.results was null OR
-                // if test.results was not null but the filter yielded an empty list.
-                resultMessages.add("Categoría: $category\nPuntuación: $score\nResultado no encontrado.")
+                "Categoría: $category\nPuntuación: $score\nResultado no encontrado."
             }
         }
 
-        // Step 3: Combinar todos los mensajes de resultado en un solo texto
         val finalResultMessage = if (resultMessages.isNotEmpty()) {
             resultMessages.joinToString("\n\n")
         } else {
             "No se pudo calcular el resultado."
         }
 
-        // Step 4: Pasar el mensaje de resultado a ResultActivity
+        // Paso 3: Guardar resultado en Firestore si corresponde
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Guardar el resultado en Firestore si el usuario está autenticado
                 val currentUser = FirebaseAuth.getInstance().currentUser
                 if (currentUser != null) {
                     val userRepository = UserRepository()
@@ -339,40 +329,34 @@ class TestActivity : AppCompatActivity() {
             }
         }
 
-        // Paso 5: Mostrar Interstitial Ad
-        intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra("TEST_JSON", Gson().toJson(test))
-        intent.putExtra("USER_RESPONSES", Gson().toJson(userResponses))
+        // Paso 4: Preparar Intent
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra("TEST_JSON", Gson().toJson(test))
+            putExtra("USER_RESPONSES", Gson().toJson(userResponses))
+        }
 
+        // Paso 5: Mostrar anuncio si está listo
         if (mInterstitialAd != null) {
             mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     startActivity(intent)
+                    finish()
                     mInterstitialAd = null
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                     startActivity(intent)
-                    mInterstitialAd = null
-                }
-
-                override fun onAdShowedFullScreenContent() {
+                    finish()
                     mInterstitialAd = null
                 }
             }
             mInterstitialAd?.show(this)
         } else {
             startActivity(intent)
+            finish()
         }
-        // Paso 6: Navegar a ResultActivity con datos necesarios
-        val intent = Intent(this, ResultActivity::class.java).apply {
-            putExtra("TEST_JSON", Gson().toJson(test)) // Pasar el objeto Test como JSON
-            putExtra("USER_RESPONSES", Gson().toJson(userResponses)) // Pasar las respuestas del usuario como JSON
-        }
-        startActivity(intent)
-        showInterstitialOrResults()
-        finish() // Finalizar TestActivity para que el usuario no pueda volver a las preguntas
     }
+
     private fun updateSelectedOptionUI(selectedIndex: Int, optionLayouts: List<LinearLayout>) {
         optionLayouts.forEachIndexed { index, layout ->
             if (index == selectedIndex) {

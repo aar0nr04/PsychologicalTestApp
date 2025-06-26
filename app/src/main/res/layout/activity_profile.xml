@@ -8,13 +8,9 @@
     <!-- ScrollView con el contenido -->
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/adView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/profileLayout"
@@ -93,7 +89,8 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- AdView fijo abajo -->
+    <!-- AdView fijo abajo (comentado temporalmente) -->
+    <!--
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
@@ -103,5 +100,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

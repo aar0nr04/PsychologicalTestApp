@@ -1,5 +1,6 @@
 package com.example.psychologicaltestapp
 
+import TestResult
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -1,5 +1,7 @@
 package com.example.psychologicaltestapp
 
+import TestResult
+import UserRepository
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
