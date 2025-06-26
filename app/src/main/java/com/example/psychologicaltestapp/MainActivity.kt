@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
+    private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
 
     // Declare the views as member properties
 
@@ -78,13 +79,29 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
         prefs.edit().putString("app_language", languageCode).apply()
     }
-
     private fun setupAdMob() {
         MobileAds.initialize(this) {}
+
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
+        // Cargar Interstitial Ad
+        com.google.android.gms.ads.interstitial.InterstitialAd.load(
+            this,
+            "ca-app-pub-3940256099942544/1033173712", // ID de prueba de Google, cambia en producción
+            adRequest,
+            object : com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: com.google.android.gms.ads.interstitial.InterstitialAd) {
+                    interstitialAd = ad
+                }
+
+                override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
+                    interstitialAd = null
+                }
+            }
+        )
     }
+
 
     private fun setupButtons() {
         binding.loginButton.setOnClickListener {
@@ -97,8 +114,35 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.testsButton.setOnClickListener {
-            startActivity(Intent(this, TestListActivity::class.java))
+            if (interstitialAd != null) {
+                interstitialAd?.fullScreenContentCallback = object : com.google.android.gms.ads.FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        abrirTestListActivity()
+
+                        // Recargar otro Interstitial Ad después de mostrarlo
+                        val adRequest = AdRequest.Builder().build()
+                        com.google.android.gms.ads.interstitial.InterstitialAd.load(
+                            this@MainActivity,
+                            "ca-app-pub-3940256099942544/1033173712",
+                            adRequest,
+                            object : com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback() {
+                                override fun onAdLoaded(ad: com.google.android.gms.ads.interstitial.InterstitialAd) {
+                                    interstitialAd = ad
+                                }
+
+                                override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
+                                    interstitialAd = null
+                                }
+                            }
+                        )
+                    }
+                }
+                interstitialAd?.show(this)
+            } else {
+                abrirTestListActivity()
+            }
         }
+
 
         binding.psychologistDirectoryButton.setOnClickListener {
             startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
@@ -111,6 +155,9 @@ class MainActivity : AppCompatActivity() {
         binding.profileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+    }
+    private fun abrirTestListActivity() {
+        startActivity(Intent(this, TestListActivity::class.java))
     }
 
     private fun updateUI() {
