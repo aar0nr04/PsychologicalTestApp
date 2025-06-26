@@ -44,7 +44,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.4.0"
 
     //Interstitial ads
-    implementation 'com.google.android.gms:play-services-ads:23.0.0' // o la más reciente
+    implementation 'com.google.android.gms:play-services-ads:24.4.0' // o la más reciente
 
 
     // For control over item selection of both touch and mouse driven selection
@@ -66,5 +66,5 @@ dependencies {
     implementation 'androidx.activity:activity:1.10.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     kapt 'com.github.bumptech.glide:compiler:4.16.0' // Use kapt for annotation processing
-    implementation 'com.google.android.gms:play-services-ads:22.5.0' // Latest version
+
 }
