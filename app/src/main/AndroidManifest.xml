@@ -63,6 +63,7 @@
             android:name=".PsychologistDetailActivity"
             android:exported="false" />
         <activity android:name=".AiTipsActivity" />
+        <activity android:name=".SettingsActivity" />
 
     </application>
 

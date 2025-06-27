@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.widget.Button
 import com.example.psychologicaltestapp.databinding.ActivityResultBinding
+import com.example.psychologicaltestapp.utils.DialogHelper
+import com.example.psychologicaltestapp.utils.PremiumManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import java.util.*
@@ -106,7 +108,9 @@ class ResultActivity : AppCompatActivity() {
         // Botón IA Tips
         binding.aiTipsButton.setOnClickListener {
 
-            val prompt = """
+            if (PremiumManager.isUserPremium(this)) {
+
+                val prompt = """
             Soy un experto en psicología. Un usuario ha completado el test "${test.title}".
             Estos son sus resultados:
 
@@ -114,6 +118,14 @@ class ResultActivity : AppCompatActivity() {
 
             Por favor, proporciona 3 recomendaciones prácticas y sencillas, en lenguaje amigable, que puedan ayudarle a mejorar su bienestar emocional.
         """.trimIndent()
+
+                val intent = Intent(this, AiTipsActivity::class.java)
+                intent.putExtra("prompt", prompt)
+                startActivity(intent)
+
+            } else {
+                DialogHelper.mostrarDialogoPremium(this)
+            }
         }
     }
     private fun generarPromptConResultados(): String {

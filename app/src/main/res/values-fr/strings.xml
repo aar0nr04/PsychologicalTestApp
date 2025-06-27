@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Psychological Test App</string>
+    <string name="iniciar_sesion">Se connecter</string>
+    <string name="cerrar_sesion">Se déconnecter</string>
+    <string name="hacer_test">Faire le test</string>
+    <string name="directorio_psicologos">Annuaire des psychologues</string>
+    <string name="registrarse">S\'inscrire</string>
+    <string name="perfil">Profil</string>
+    <string name="hazte_premium">Devenir Premium</string>
+    <string name="ya_eres_premium">Vous êtes déjà Premium !</string>
+    <string name="test_history_list">Historique des tests</string>
+    <string name="settings">settings</string>
+    <string name="settings_desc">settings_desc</string>
+</resources>

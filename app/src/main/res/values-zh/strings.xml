@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">心理测试应用</string>
+    <string name="iniciar_sesion">登录</string>
+    <string name="cerrar_sesion">注销</string>
+    <string name="hacer_test">开始测试</string>
+    <string name="directorio_psicologos">心理学家目录</string>
+    <string name="registrarse">注册</string>
+    <string name="perfil">个人资料</string>
+    <string name="hazte_premium">升级为高级版</string>
+    <string name="ya_eres_premium">您已是高级用户！</string>
+    <string name="settings">settings</string>
+    <string name="settings_desc">settings_desc</string>
+</resources>

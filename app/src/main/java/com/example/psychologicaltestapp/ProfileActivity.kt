@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import android.util.Log
+import com.example.psychologicaltestapp.utils.DialogHelper
+import com.example.psychologicaltestapp.utils.PremiumManager
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -23,7 +25,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var profileEmail: TextView
     private lateinit var testHistoryContainer: LinearLayout
     private lateinit var logoutButton: Button
-
+    private lateinit var buttonPremiumProfile: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,7 @@ class ProfileActivity : AppCompatActivity() {
         profileEmail = findViewById(R.id.profileEmail)
         testHistoryContainer = findViewById(R.id.testHistoryContainer)
         logoutButton = findViewById(R.id.logoutButton)
+        buttonPremiumProfile = findViewById(R.id.buttonPremiumProfile)
 
         val user = FirebaseAuth.getInstance().currentUser
 
@@ -64,6 +67,13 @@ class ProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+        }
+        buttonPremiumProfile.setOnClickListener {
+            if (PremiumManager.isUserPremium(this)) {
+                Toast.makeText(this, "¡Ya eres Premium!", Toast.LENGTH_SHORT).show()
+            } else {
+                DialogHelper.mostrarDialogoPremium(this)
+            }
         }
     }
 

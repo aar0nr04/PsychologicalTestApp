@@ -27,56 +27,25 @@
 
             <!-- Logo -->
             <ImageView
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/logo4"
                 android:scaleType="fitCenter"
-                android:contentDescription="Logo" />
+                android:contentDescription="Logo"
+                android:layout_marginTop="25dp" />
 
             <!-- Welcome message -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bienvnido Usuario!\nExploremos juntos el universo de \n nuestra mente"
+                android:text="¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textColor="#949494"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:lineSpacingExtra="4dp" />
 
             <!-- Language selector -->
-            <LinearLayout
-                android:id="@+id/languageSelector"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginBottom="24dp"
-                android:padding="8dp">
-
-                <ImageView
-                    android:id="@+id/flag_es"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/flag_es"
-                    android:contentDescription="Español"
-                    android:layout_marginEnd="8dp" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/languageSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minWidth="88dp"
-                    android:minHeight="48dp"
-                    android:layout_marginEnd="10dp" />
-
-                <ImageView
-                    android:id="@+id/flag_en"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/flag_en"
-                    android:contentDescription="Inglés" />
-            </LinearLayout>
 
             <!-- Botones principales -->
             <Button
@@ -84,10 +53,21 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PERFIL"
+                android:text="Perfil"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:contentDescription="Ir a tu perfil" />
+            <Button
+                android:id="@+id/settingsButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings"
+            android:layout_marginBottom="12dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:contentDescription="@string/settings_desc" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -97,7 +77,8 @@
                 android:text="Iniciar sesión"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:contentDescription="Iniciar sesión" />
 
             <Button
                 android:id="@+id/registerButton"
@@ -107,7 +88,8 @@
                 android:text="Registrarse"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:contentDescription="Crear una cuenta" />
 
             <Button
                 android:id="@+id/testsButton"
@@ -117,7 +99,8 @@
                 android:text="Hacer Test"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:contentDescription="Realizar un test psicológico" />
 
             <Button
                 android:id="@+id/psychologistDirectoryButton"
@@ -127,8 +110,21 @@
                 android:text="Directorio de psicólogos"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:contentDescription="Explorar el directorio de psicólogos" />
 
+            <Button
+                android:id="@+id/buttonPremium"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🎀 Hazte Premium 🎀"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:contentDescription="Conviértete en usuario Premium"
+                android:backgroundTint="#E91E63"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

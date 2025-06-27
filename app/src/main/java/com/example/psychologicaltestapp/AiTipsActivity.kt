@@ -96,5 +96,4 @@ class AiTipsActivity : AppCompatActivity() {
             }
         })
     }
-
 }
