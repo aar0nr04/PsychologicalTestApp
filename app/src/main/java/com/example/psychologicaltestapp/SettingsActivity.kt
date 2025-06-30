@@ -13,6 +13,7 @@ import java.util.*
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var languageSpinner: Spinner
+    private val languageCodes = arrayOf("es", "en", "fr", "pt", "it", "de", "zh")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +21,7 @@ class SettingsActivity : AppCompatActivity() {
 
         languageSpinner = findViewById(R.id.languageSpinner)
 
-        val languages =
-            arrayOf("Español", "English", "Français", "Português", "Italiano", "Deutsch", "中文")
-        val languageCodes = arrayOf("es", "en", "fr", "pt", "it", "de", "zh")
+        val languages = arrayOf("Español", "English", "Français", "Português", "Italiano", "Deutsch", "中文")
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languages)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -34,16 +33,11 @@ class SettingsActivity : AppCompatActivity() {
         languageSpinner.setSelection(selectedIndex)
 
         languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val newLang = languageCodes[position]
                 if (newLang != currentLang) {
                     setLocale(newLang)
-                    recreate()
+                    finish()  // Cierra SettingsActivity y regresa a la anterior
                 }
             }
 
@@ -52,7 +46,8 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
     }
-    fun setLocale(languageCode: String) {
+
+    private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
         val config = Configuration()
