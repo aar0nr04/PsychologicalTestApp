@@ -20,7 +20,9 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
+    companion object {
+        const val SETTINGS_REQUEST_CODE = 1001
+    }
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
@@ -107,8 +109,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
         binding.settingsButton.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivityForResult(intent, SETTINGS_REQUEST_CODE)
         }
+
 
 
         binding.buttonPremium.setOnClickListener {
@@ -189,6 +193,13 @@ class MainActivity : AppCompatActivity() {
             val config = Configuration()
             config.setLocale(locale)
             return context.createConfigurationContext(config)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
+            recreate()
         }
     }
 }

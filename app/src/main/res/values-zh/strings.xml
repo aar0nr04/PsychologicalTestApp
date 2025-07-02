@@ -1,13 +1,33 @@
 <resources>
     <string name="app_name">心理测试应用</string>
-    <string name="iniciar_sesion">登录</string>
-    <string name="cerrar_sesion">注销</string>
-    <string name="hacer_test">开始测试</string>
-    <string name="directorio_psicologos">心理学家目录</string>
-    <string name="registrarse">注册</string>
-    <string name="perfil">个人资料</string>
-    <string name="hazte_premium">升级为高级版</string>
-    <string name="ya_eres_premium">您已是高级用户！</string>
-    <string name="settings">settings</string>
-    <string name="settings_desc">settings_desc</string>
+
+    <string name="logo_desc">应用徽标</string>
+    <string name="go_to_profile">进入您的个人资料</string>
+    <string name="settings_desc">应用设置</string>
+    <string name="login_desc">登录您的账户</string>
+    <string name="register_desc">创建新账户</string>
+    <string name="take_test_desc">进行心理测试</string>
+    <string name="psychologist_directory_desc">浏览心理学家目录</string>
+    <string name="go_premium_desc">成为高级用户</string>
+    <string name="change_to_spanish">切换语言为西班牙语</string>
+    <string name="change_to_english">切换语言为英语</string>
+
+    <string name="profile">个人资料</string>
+    <string name="settings">设置</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="take_test">开始测试</string>
+    <string name="psychologist_directory">心理学家目录</string>
+    <string name="go_premium">&#x1F380; 升级为高级用户 &#x1F380;</string>
+    <string name="test_history_list">测试历史</string>
+
+    <string name="spanish">ES</string>
+    <string name="english">EN</string>
+    <string name="german">DE</string>
+    <string name="french">FR</string>
+    <string name="italian">IT</string>
+    <string name="portuguese">PT</string>
+    <string name="chinese">ZH</string>
+
+    <string name="welcome_message">欢迎用户！\n让我们一起探索我们内心的宇宙</string>
 </resources>

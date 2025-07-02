@@ -31,21 +31,19 @@
                 android:layout_height="150dp"
                 android:src="@drawable/logo4"
                 android:scaleType="fitCenter"
-                android:contentDescription="Logo"
+                android:contentDescription="@string/logo_desc"
                 android:layout_marginTop="25dp" />
 
-            <!-- Welcome message -->
+            <!-- Mensaje de bienvenida -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente"
+                android:text="@string/welcome_message"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textColor="#949494"
                 android:paddingBottom="10dp"
                 android:lineSpacingExtra="4dp" />
-
-            <!-- Language selector -->
 
             <!-- Botones principales -->
             <Button
@@ -53,76 +51,77 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Perfil"
+                android:text="@string/profile"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:contentDescription="Ir a tu perfil" />
+                android:contentDescription="@string/go_to_profile" />
+
             <Button
                 android:id="@+id/settingsButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/settings"
-            android:layout_marginBottom="12dp"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:contentDescription="@string/settings_desc" />
+                android:layout_marginBottom="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:contentDescription="@string/settings_desc" />
 
             <Button
                 android:id="@+id/loginButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Iniciar sesión"
+                android:text="@string/login"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:contentDescription="Iniciar sesión" />
+                android:contentDescription="@string/login_desc" />
 
             <Button
                 android:id="@+id/registerButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrarse"
+                android:text="@string/register"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:contentDescription="Crear una cuenta" />
+                android:contentDescription="@string/register_desc" />
 
             <Button
                 android:id="@+id/testsButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hacer Test"
+                android:text="@string/take_test"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:contentDescription="Realizar un test psicológico" />
+                android:contentDescription="@string/take_test_desc" />
 
             <Button
                 android:id="@+id/psychologistDirectoryButton"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Directorio de psicólogos"
+                android:text="@string/psychologist_directory"
                 android:layout_marginBottom="12dp"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:contentDescription="Explorar el directorio de psicólogos" />
+                android:contentDescription="@string/psychologist_directory_desc" />
 
             <Button
                 android:id="@+id/buttonPremium"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🎀 Hazte Premium 🎀"
+                android:text="@string/go_premium"
                 android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textAllCaps="false"
-                android:contentDescription="Conviértete en usuario Premium"
+                android:contentDescription="@string/go_premium_desc"
                 android:backgroundTint="#E91E63"
                 android:textColor="#FFFFFF" />
 

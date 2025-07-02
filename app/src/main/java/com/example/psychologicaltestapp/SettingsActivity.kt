@@ -36,8 +36,9 @@ class SettingsActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val newLang = languageCodes[position]
                 if (newLang != currentLang) {
+                    setLocale(newLang)
                     saveLanguage(newLang)
-                    finish()  // Cierra SettingsActivity, la anterior se mostrará con nuevo idioma
+                    recreate()
                 }
             }
 
@@ -45,6 +46,14 @@ class SettingsActivity : AppCompatActivity() {
                 // No hacer nada
             }
         }
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     private fun saveLanguage(languageCode: String) {

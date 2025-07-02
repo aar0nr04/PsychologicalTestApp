@@ -1,15 +1,33 @@
 <resources>
-    <string name="app_name">Psychological Test App</string>
-    <string name="welcome_message">¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente</string>
-    <string name="perfil">Perfil</string>
-    <string name="iniciar_sesion">Iniciar sesión</string>
-    <string name="cerrar_sesion">Cerrar sesión</string>
-    <string name="registrarse">Registrarse</string>
-    <string name="hacer_test">Hacer Test</string>
-    <string name="directorio_psicologos">Directorio de psicólogos</string>
-    <string name="hazte_premium">Hazte Premium</string>
-    <string name="ya_eres_premium">¡Ya eres Premium!</string>
+    <string name="app_name">PsychologicalTestApp</string>
+
+    <string name="logo_desc">Logo de la aplicación</string>
+    <string name="go_to_profile">Ir a tu perfil</string>
+    <string name="settings_desc">Configuración de la aplicación</string>
+    <string name="login_desc">Iniciar sesión en tu cuenta</string>
+    <string name="register_desc">Crear una nueva cuenta</string>
+    <string name="take_test_desc">Realizar un test psicológico</string>
+    <string name="psychologist_directory_desc">Explorar el directorio de psicólogos</string>
+    <string name="go_premium_desc">Conviértete en usuario Premium</string>
+    <string name="change_to_spanish">Cambiar idioma a español</string>
+    <string name="change_to_english">Cambiar idioma a inglés</string>
     <string name="test_history_list">Historial de tests</string>
-    <string name="settings">Preferencias</string>
-    <string name="settings_desc">Ir a preferencias</string>
+
+    <string name="profile">Perfil</string>
+    <string name="settings">Configuración</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="take_test">Hacer Test</string>
+    <string name="psychologist_directory">Directorio de psicólogos</string>
+    <string name="go_premium">&#x1F380; Hazte Premium &#x1F380;</string>
+
+    <string name="spanish">ES</string>
+    <string name="english">EN</string>
+    <string name="german">DE</string>
+    <string name="french">FR</string>
+    <string name="italian">IT</string>
+    <string name="portuguese">PT</string>
+    <string name="chinese">ZH</string>
+
+    <string name="welcome_message">¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente</string>
 </resources>
