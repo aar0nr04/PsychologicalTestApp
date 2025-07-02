@@ -43,9 +43,14 @@ android {
 dependencies {
     implementation "androidx.recyclerview:recyclerview:1.4.0"
 
+    // Coroutines Core
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
+
+    // Coroutines Android
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0'
+
     //Interstitial ads
     implementation 'com.google.android.gms:play-services-ads:24.4.0' // o la más reciente
-
 
     // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.2.0"

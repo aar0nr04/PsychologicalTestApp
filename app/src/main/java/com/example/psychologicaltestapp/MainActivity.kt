@@ -9,13 +9,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
 import com.example.psychologicaltestapp.databinding.ActivityMainBinding
-import android.graphics.Color
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.widget.SwitchCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.psychologicaltestapp.utils.DialogHelper
 import com.example.psychologicaltestapp.utils.PremiumManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,26 +24,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
-    private lateinit var flagEs: ImageView
-    private lateinit var flagEn: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        loadLocale()
-        applySavedLanguage()
-        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val language = prefs.getString("app_language", "es") ?: "es"
-
-
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = FirebaseAuth.getInstance()
 
-        setupAdMob()
+        auth = FirebaseAuth.getInstance()
         setupButtons()
         applyPremiumButtonAnimation()
         updateUI()
+        setupAdMob()
+
+        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val language = prefs.getString("app_language", "es") ?: "es"
+
+        // Cambiar idioma sin bloquear la UI
+        lifecycleScope.launch(Dispatchers.IO) {
+            setLocale(language)
+
+            withContext(Dispatchers.Main) {
+                recreate()
+            }
+        }
     }
+
     private fun setLocale(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
@@ -174,5 +181,25 @@ class MainActivity : AppCompatActivity() {
         val config = Configuration()
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
+    }
+    override fun onResume() {
+        super.onResume()
+        recreate()
+    }
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val language = prefs.getString("app_language", "es") ?: "es"
+        val context = LanguageHelper.setLocale(newBase, language)
+        super.attachBaseContext(context)
+    }
+    object LanguageHelper {
+        fun setLocale(context: Context, language: String): Context {
+            val locale = Locale(language)
+            Locale.setDefault(locale)
+
+            val config = Configuration()
+            config.setLocale(locale)
+            return context.createConfigurationContext(config)
+        }
     }
 }

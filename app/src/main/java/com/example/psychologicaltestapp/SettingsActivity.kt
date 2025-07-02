@@ -8,7 +8,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import java.util.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -47,14 +53,28 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setLocale(languageCode: String) {
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
+    fun setLocale(languageCode: String) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val locale = Locale(languageCode)
+                Locale.setDefault(locale)
+                val config = Configuration()
+                config.setLocale(locale)
 
-        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        prefs.edit().putString("app_language", languageCode).apply()
+                // Guardar en SharedPreferences
+                val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+                prefs.edit().putString("app_language", languageCode).apply()
+            }
+
+            // Cambiar config en el hilo principal
+            withContext(Dispatchers.Main) {
+                resources.updateConfiguration(Configuration().apply {
+                    setLocale(Locale(languageCode))
+                }, resources.displayMetrics)
+
+                recreate()
+            }
+        }
     }
+
 }
