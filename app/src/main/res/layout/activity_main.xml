@@ -27,8 +27,8 @@
 
             <!-- Logo -->
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
                 android:src="@drawable/logo4"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/logo_desc"

@@ -59,5 +59,8 @@ class SettingsActivity : AppCompatActivity() {
     private fun saveLanguage(languageCode: String) {
         val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
         prefs.edit().putString("app_language", languageCode).apply()
+
+        setResult(RESULT_OK)  // Esto notifica al MainActivity que hubo un cambio
     }
+
 }
