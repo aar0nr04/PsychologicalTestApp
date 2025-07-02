@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        applySavedLanguage()
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
@@ -39,15 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
         val language = prefs.getString("app_language", "es") ?: "es"
-
-        // Cambiar idioma sin bloquear la UI
-        lifecycleScope.launch(Dispatchers.IO) {
-            setLocale(language)
-
-            withContext(Dispatchers.Main) {
-                recreate()
-            }
-        }
     }
 
     private fun setLocale(languageCode: String) {
@@ -182,10 +174,7 @@ class MainActivity : AppCompatActivity() {
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
     }
-    override fun onResume() {
-        super.onResume()
-        recreate()
-    }
+
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val language = prefs.getString("app_language", "es") ?: "es"

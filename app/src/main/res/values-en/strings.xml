@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">Psychological Test App</string>
-    <string name="welcome_message">Welcome User!\nLets explore the universe of \nour mind together</string>
+    <string name="welcome_message">Welcome!\nLet\'s explore the universe\nof our minds</string>
     <string name="perfil">Profile</string>
-    <string name="iniciar_sesion">Log in</string>
-    <string name="cerrar_sesion">Log out</string>
+    <string name="iniciar_sesion">Login</string>
+    <string name="cerrar_sesion">Logout</string>
     <string name="registrarse">Register</string>
     <string name="hacer_test">Take Test</string>
     <string name="directorio_psicologos">Psychologist Directory</string>
-    <string name="hazte_premium">Become Premium</string>
+    <string name="hazte_premium">Go Premium</string>
     <string name="ya_eres_premium">You are already Premium!</string>
     <string name="test_history_list">Test History</string>
-    <string name="settings">settings</string>
-    <string name="settings_desc">settings_desc</string>
+    <string name="settings">Settings</string>
+    <string name="settings_desc">Go to settings</string>
 </resources>

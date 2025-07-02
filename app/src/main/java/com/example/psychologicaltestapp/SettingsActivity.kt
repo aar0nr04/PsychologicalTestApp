@@ -8,13 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import java.util.*
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -42,8 +36,8 @@ class SettingsActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val newLang = languageCodes[position]
                 if (newLang != currentLang) {
-                    setLocale(newLang)
-                    finish()  // Cierra SettingsActivity y regresa a la anterior
+                    saveLanguage(newLang)
+                    finish()  // Cierra SettingsActivity, la anterior se mostrará con nuevo idioma
                 }
             }
 
@@ -53,28 +47,8 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    fun setLocale(languageCode: String) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val locale = Locale(languageCode)
-                Locale.setDefault(locale)
-                val config = Configuration()
-                config.setLocale(locale)
-
-                // Guardar en SharedPreferences
-                val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-                prefs.edit().putString("app_language", languageCode).apply()
-            }
-
-            // Cambiar config en el hilo principal
-            withContext(Dispatchers.Main) {
-                resources.updateConfiguration(Configuration().apply {
-                    setLocale(Locale(languageCode))
-                }, resources.displayMetrics)
-
-                recreate()
-            }
-        }
+    private fun saveLanguage(languageCode: String) {
+        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        prefs.edit().putString("app_language", languageCode).apply()
     }
-
 }
