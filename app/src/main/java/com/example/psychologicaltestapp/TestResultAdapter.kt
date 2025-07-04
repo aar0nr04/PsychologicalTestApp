@@ -1,41 +1,42 @@
+package com.example.psychologicaltestapp
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psychologicaltestapp.R
-
 
 class TestResultAdapter(
-    private val testResults: List<TestResult>
-) : RecyclerView.Adapter<TestResultAdapter.TestResultViewHolder>() {
+    private val results: List<TestResult>,
+    private val onItemClick: (TestResult) -> Unit
+) : RecyclerView.Adapter<TestResultAdapter.ViewHolder>() {
 
-    // ViewHolder class
-    class TestResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val testTypeTextView: TextView = itemView.findViewById(R.id.testTypeTextView)
-        val testNameTextView: TextView = itemView.findViewById(R.id.testNameTextView)
-        val scoreTextView: TextView = itemView.findViewById(R.id.scoreTextView)
-        val resultMessageTextView: TextView = itemView.findViewById(R.id.resultMessageTextView)
-        val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val testType: TextView = itemView.findViewById(R.id.testTypeTextView)
+        val testName: TextView = itemView.findViewById(R.id.testNameTextView)
+        val score: TextView = itemView.findViewById(R.id.scoreTextView)
+        val resultMessage: TextView = itemView.findViewById(R.id.resultMessageTextView)
+        val date: TextView = itemView.findViewById(R.id.dateTextView)
     }
 
-    // Inflate the layout for each item
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestResultViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_test_result, parent, false)
-        return TestResultViewHolder(view)
+        return ViewHolder(view)
     }
 
-    // Bind data to the views in each item
-    override fun onBindViewHolder(holder: TestResultViewHolder, position: Int) {
-        val testResult = testResults[position]
-        holder.testTypeTextView.text = testResult.testType
-        holder.testNameTextView.text = testResult.testName
-        holder.scoreTextView.text = "Score: ${testResult.score}"
-        holder.resultMessageTextView.text = testResult.resultMessage
-        holder.dateTextView.text = "Date: ${testResult.date}"
-    }
+    override fun getItemCount(): Int = results.size
 
-    // Return the number of items
-    override fun getItemCount(): Int = testResults.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val result = results[position]
+        holder.testType.text = result.testType
+        holder.testName.text = result.testName
+        holder.score.text = "Puntuación: ${result.score}"
+        holder.resultMessage.text = result.resultMessage
+        holder.date.text = "Fecha: ${result.date}"
+
+        holder.itemView.setOnClickListener {
+            onItemClick(result)
+        }
+    }
 }

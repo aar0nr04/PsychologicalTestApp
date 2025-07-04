@@ -1,6 +1,6 @@
 package com.example.psychologicaltestapp
 
-import TestResult
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class TestHistoryActivity : AppCompatActivity() {
 
-    private lateinit var testHistoryAdapter: TestHistoryAdapter
+    private lateinit var testHistoryAdapter: TestResultAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,21 +18,26 @@ class TestHistoryActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.testHistoryRecyclerView)
 
-        // Example: Create a list of test results (replace with actual data)
         val testResults = listOf(
             TestResult("Test 1", "2023-01-01", "85"),
             TestResult("Test 2", "2023-01-02", "90")
         )
 
-        // Pass the testResults to the adapter
-        testHistoryAdapter = TestHistoryAdapter(testResults)
+        // Aquí defines la acción al dar click sobre un ítem
+        testHistoryAdapter = TestResultAdapter(testResults) { selectedResult ->
+            val intent = Intent(this, ResultActivity::class.java).apply {
+                putExtra("TEST_JSON", selectedResult.testJson ?: "")
+                putExtra("USER_RESPONSES", selectedResult.userResponsesJson ?: "")
+            }
+            startActivity(intent)
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = testHistoryAdapter
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
-            // Redirect to login or show an error message
-            Toast.makeText(this, "Debes iniciar sesión para guardar los resultados.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Debes iniciar sesión para ver tu historial.", Toast.LENGTH_SHORT).show()
             return
         }
     }
