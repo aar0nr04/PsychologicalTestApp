@@ -23,8 +23,10 @@ import java.util.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 
 class TestActivity : AppCompatActivity() {
 
@@ -43,8 +45,16 @@ class TestActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        loadInterstitialAd()
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_test)
+
+        // Inicializar AdMob
+        MobileAds.initialize(this) {}
+
+        val adView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+        loadInterstitialAd()
         setContentView(R.layout.activity_test)
 
 
