@@ -1,11 +1,11 @@
 package com.example.psychologicaltestapp
 
-import Psychologist
 import PsychologistAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -79,6 +79,7 @@ class PsychologistDirectoryActivity : AppCompatActivity() {
     }
 
     private fun openDetail(psychologist: Psychologist) {
+        Log.d("TestApp", "Mandando psicólogo: $psychologist")
         val intent = Intent(this, PsychologistDetailActivity::class.java)
         intent.putExtra("PSYCHOLOGIST", psychologist)
         startActivity(intent)

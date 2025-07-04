@@ -1,6 +1,5 @@
 package com.example.psychologicaltestapp
 
-import Psychologist
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -15,22 +14,29 @@ class PsychologistDetailActivity : AppCompatActivity() {
         binding = ActivityPsychologistDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Recibir el objeto Psychologist
-        val psychologist = intent.getParcelableExtra<Psychologist>("PSYCHOLOGIST")
+        val psychologist = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("PSYCHOLOGIST", Psychologist::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Psychologist>("PSYCHOLOGIST")
+        }
+        android.util.Log.d("TestApp", "Recibido en DetailActivity: $psychologist")
 
-        // Si el objeto no es nulo, mostrar los datos
         psychologist?.let {
             binding.nameTextView.text = it.name
             binding.specialtyTextView.text = it.specialty
             binding.descriptionTextView.text = it.description
 
-            Glide.with(this)
-                .load(it.imageUrl)
-                .placeholder(R.drawable.placeholder_image)
-                .error(R.drawable.error_image)
-                .into(binding.profileImageView)
+            if (it.imageUrl.isNotEmpty()) {
+                Glide.with(this)
+                    .load(it.imageUrl)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.error_image)
+                    .into(binding.profileImageView)
+            } else {
+                binding.profileImageView.setImageResource(R.drawable.placeholder_image)
+            }
         } ?: run {
-            // Si el objeto es nulo, terminar la actividad
             finish()
         }
     }
