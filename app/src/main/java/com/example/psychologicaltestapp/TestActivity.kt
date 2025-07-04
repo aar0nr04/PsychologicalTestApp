@@ -121,8 +121,6 @@ class TestActivity : AppCompatActivity() {
             startResultActivity()
         }
     }
-
-
     private fun showQuestion() {
         if (currentQuestionIndex >= test.questions.size) {
             showResult()
@@ -233,8 +231,6 @@ class TestActivity : AppCompatActivity() {
         progressTextView.text = "Pregunta ${currentQuestionIndex + 1} de ${test.questions.size}"
         progressBar.progress = progressPercent
     }
-
-
     private fun handleNextButtonClick() {
         val selectedOptionIndex = this.selectedOptionIndex
         if (selectedOptionIndex == null) {
@@ -281,36 +277,64 @@ class TestActivity : AppCompatActivity() {
 
     private fun showResult() {
 
-        // Paso 1: Calcular puntajes para cada categoría
-        val categoryScores = mutableMapOf<String, Int>()
+        if (test.results.any { it.category.isNullOrEmpty() }) {
+            // Test sin categorías, como TONI
 
-        test.questions.forEachIndexed { questionIndex, question ->
-            question.scores?.forEach { (category, scoreValues) ->
-                val selectedOptionIndex = userResponses[questionIndex] ?: -1
+            var totalScore = 0
+
+            test.questions.forEachIndexed { index, question ->
+                val selectedOptionIndex = userResponses[index] ?: -1
                 if (selectedOptionIndex == -1) return@forEachIndexed
-                val scoreToAdd = scoreValues[selectedOptionIndex]
-                categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
+                val scoresArray = question.scoresArray ?: return@forEachIndexed
+                if (selectedOptionIndex < scoresArray.size) {
+                    totalScore += scoresArray[selectedOptionIndex]
+                }
             }
-        }
 
-        // Paso 2: Generar mensaje final
-        val resultMessages = categoryScores.map { (category, score) ->
-            val matchingResults = test.results.filter { it.category == category && score in it.minScore..it.maxScore }
-            if (matchingResults.isNotEmpty()) {
-                val combinedMessage = matchingResults.joinToString("\n\n") { it.message }
-                "Categoría: $category\nPuntuación: $score\n$combinedMessage"
+            val matchingResult = test.results.find { totalScore in it.minScore..it.maxScore }
+
+            val finalResultMessage = if (matchingResult != null) {
+                "Puntuación total: $totalScore\n${matchingResult.message}"
             } else {
-                "Categoría: $category\nPuntuación: $score\nResultado no encontrado."
+                "Puntuación total: $totalScore\nResultado no encontrado."
             }
-        }
 
-        val finalResultMessage = if (resultMessages.isNotEmpty()) {
-            resultMessages.joinToString("\n\n")
+            guardarYMostrarResultado(finalResultMessage)
+
         } else {
-            "No se pudo calcular el resultado."
-        }
+            // Test por categorías (actual funcionamiento)
+            val categoryScores = mutableMapOf<String, Int>()
 
-        // Paso 3: Guardar resultado en Firestore si corresponde
+            test.questions.forEachIndexed { questionIndex, question ->
+                question.scores?.forEach { (category, scoreValues) ->
+                    val selectedOptionIndex = userResponses[questionIndex] ?: -1
+                    if (selectedOptionIndex == -1) return@forEachIndexed
+                    val scoreToAdd = scoreValues[selectedOptionIndex]
+                    categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
+                }
+            }
+
+            val resultMessages = categoryScores.map { (category, score) ->
+                val matchingResults = test.results.filter { it.category == category && score in it.minScore..it.maxScore }
+                if (matchingResults.isNotEmpty()) {
+                    val combinedMessage = matchingResults.joinToString("\n\n") { it.message }
+                    "Categoría: $category\nPuntuación: $score\n$combinedMessage"
+                } else {
+                    "Categoría: $category\nPuntuación: $score\nResultado no encontrado."
+                }
+            }
+
+            val finalResultMessage = if (resultMessages.isNotEmpty()) {
+                resultMessages.joinToString("\n\n")
+            } else {
+                "No se pudo calcular el resultado."
+            }
+
+            guardarYMostrarResultado(finalResultMessage)
+        }
+    }
+    private fun guardarYMostrarResultado(finalResultMessage: String) {
+
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val currentUser = FirebaseAuth.getInstance().currentUser
@@ -329,13 +353,11 @@ class TestActivity : AppCompatActivity() {
             }
         }
 
-        // Paso 4: Preparar Intent
         val intent = Intent(this, ResultActivity::class.java).apply {
             putExtra("TEST_JSON", Gson().toJson(test))
             putExtra("USER_RESPONSES", Gson().toJson(userResponses))
         }
 
-        // Paso 5: Mostrar anuncio si está listo
         if (mInterstitialAd != null) {
             mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {

@@ -124,16 +124,32 @@ private fun parseQuestions(questionsArray: JSONArray): List<Question> {
 private fun parseQuestion(questionObject: JSONObject): Question {
     val questionText = questionObject.optString("questionText", "Pregunta no disponible")
     val options = parseOptions(questionObject.optJSONArray("options"))
-    val optionImages = parseOptions(questionObject.optJSONArray("optionImages")) // Reutilizas misma función
+    val optionImages = parseOptions(questionObject.optJSONArray("optionImages"))
     val imageQuestion = questionObject.optString("imageQuestion", null)
-    val scores = parseScores(questionObject.optJSONObject("scores"))
+
+    val scoresObject = questionObject.optJSONObject("scores")
+    val scoresArrayJson = questionObject.optJSONArray("scores")
+
+    val scores = parseScores(scoresObject)
+
+    val scoresArray = if (scoresArrayJson != null && scoresObject == null) {
+        // Si scores es un array en lugar de objeto, parsear a List<Int>
+        val list = mutableListOf<Int>()
+        for (i in 0 until scoresArrayJson.length()) {
+            list.add(scoresArrayJson.optInt(i, 0))
+        }
+        list
+    } else {
+        null
+    }
 
     return Question(
         questionText = questionText,
         options = options,
         optionImages = optionImages,
         imageQuestion = imageQuestion,
-        scores = scores
+        scores = scores,
+        scoresArray = scoresArray
     )
 }
 

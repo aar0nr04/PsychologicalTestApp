@@ -23,7 +23,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Logo -->
+            <!-- Logo banner arriba -->
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:src="@drawable/logo_banner"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Profile Picture -->
+            <!-- Foto perfil -->
             <ImageView
                 android:id="@+id/profileImageView"
                 android:layout_width="150dp"
@@ -43,7 +43,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Name -->
+            <!-- Nombre -->
             <TextView
                 android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp" />
 
-            <!-- Specialty -->
+            <!-- Especialidad -->
             <TextView
                 android:id="@+id/specialtyTextView"
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp" />
 
-            <!-- Description -->
+            <!-- Descripción -->
             <TextView
                 android:id="@+id/descriptionTextView"
                 android:layout_width="wrap_content"
@@ -77,10 +77,20 @@
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center" />
 
+            <!-- Botón agendar cita -->
+            <Button
+                android:id="@+id/bookAppointmentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agendar Cita"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp" />
+
         </LinearLayout>
+
     </ScrollView>
 
-    <!-- AdView fijo en la parte inferior -->
+    <!-- Banner de anuncios fijo abajo -->
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"

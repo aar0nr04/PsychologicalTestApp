@@ -2,9 +2,10 @@ package com.example.psychologicaltestapp
 
 
 data class Question(
-    val questionText: String? = null,          // texto de la pregunta (corregido)
-    val imageQuestion: String? = null,    // imagen principal
-    val options: List<String>? = null,    // textos de las opciones
-    val optionImages: List<String>? = null, // imágenes de las opciones
-    val scores: Map<String, List<Int>>? = null  // Asegúrate de tener esto
+    val questionText: String?,
+    val options: List<String>?,
+    val optionImages: List<String>?,
+    val imageQuestion: String?,
+    val scores: Map<String, List<Int>>?,  // Para tests con categorías
+    val scoresArray: List<Int>?           // Para tests sin categorías
 )

@@ -1,9 +1,15 @@
 package com.example.psychologicaltestapp
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.psychologicaltestapp.databinding.ActivityPsychologistDetailBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Calendar
 
 class PsychologistDetailActivity : AppCompatActivity() {
 
@@ -14,30 +20,66 @@ class PsychologistDetailActivity : AppCompatActivity() {
         binding = ActivityPsychologistDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val psychologist = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("PSYCHOLOGIST", Psychologist::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra<Psychologist>("PSYCHOLOGIST")
-        }
-        android.util.Log.d("TestApp", "Recibido en DetailActivity: $psychologist")
+        val psychologist = intent.getParcelableExtra<Psychologist>("PSYCHOLOGIST")
 
-        psychologist?.let {
-            binding.nameTextView.text = it.name
-            binding.specialtyTextView.text = it.specialty
-            binding.descriptionTextView.text = it.description
+        psychologist?.let { psy ->
+            binding.nameTextView.text = psy.name
+            binding.specialtyTextView.text = psy.specialty
+            binding.descriptionTextView.text = psy.description
 
-            if (it.imageUrl.isNotEmpty()) {
-                Glide.with(this)
-                    .load(it.imageUrl)
-                    .placeholder(R.drawable.placeholder_image)
-                    .error(R.drawable.error_image)
-                    .into(binding.profileImageView)
-            } else {
-                binding.profileImageView.setImageResource(R.drawable.placeholder_image)
+            Glide.with(this)
+                .load(psy.imageUrl)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.error_image)
+                .into(binding.profileImageView)
+
+            binding.bookAppointmentButton.setOnClickListener {
+                showAppointmentDialog(psy.id)
             }
+
         } ?: run {
             finish()
         }
+    }
+
+    private fun showAppointmentDialog(psychologistId: String) {
+        val calendar = Calendar.getInstance()
+
+        // Selección de Fecha
+        DatePickerDialog(this, { _, year, month, dayOfMonth ->
+            val selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+
+            // Selección de Hora
+            TimePickerDialog(this, { _, hourOfDay, minute ->
+                val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+
+                // Aquí puedes pedir notas opcionales con un diálogo si quieres. Por ahora vacío.
+                saveAppointmentRequest(psychologistId, selectedDate, selectedTime, "")
+
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+    }
+
+    private fun saveAppointmentRequest(psychologistId: String, date: String, time: String, notes: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val request = AppointmentRequest(
+            userId = userId,
+            psychologistId = psychologistId,
+            proposedDate = date,
+            proposedTime = time,
+            notes = notes,
+            status = "pending"
+        )
+
+        FirebaseFirestore.getInstance()
+            .collection("appointment_requests")
+            .add(request)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Solicitud enviada, esperando respuesta", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al enviar solicitud: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 }

@@ -13,24 +13,131 @@
             {
               "questionText": "Selecciona la opción correcta",
               "imageQuestion": "toni_q1_main.png",
-              "optionImages": ["toni_q1_opt1.png", "toni_q1_opt2.png"],
-              "scores": [1,0]
-
+              "optionImages": ["toni_q1_opt3.png", "toni_q1_opt4.png", "toni_q1_opt5.png", "toni_q1_opt6.png"],
+              "scores": [1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q2_main.png",
+              "optionImages": ["toni_q2_opt1.png", "toni_q2_opt2.png", "toni_q2_opt3.png", "toni_q2_opt4.png", "toni_q2_opt5.png", "toni_q2_opt6.png"],
+              "scores": [0, 1, 0, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q3_main.png",
+              "optionImages": ["toni_q3_opt1.png", "toni_q3_opt2.png", "toni_q3_opt3.png", "toni_q3_opt4.png", "toni_q3_opt5.png", "toni_q3_opt6.png"],
+              "scores": [0, 0, 1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q4_main.png",
+              "optionImages": ["toni_q4_opt1.png", "toni_q4_opt2.png", "toni_q4_opt3.png", "toni_q4_opt4.png", "toni_q4_opt5.png", "toni_q4_opt6.png"],
+              "scores": [0, 0, 0, 1, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q5_main.png",
+              "optionImages": ["toni_q5_opt2.png", "toni_q5_opt3.png", "toni_q5_opt4.png", "toni_q5_opt5.png", "toni_q5_opt6.png"],
+              "scores": [1, 0, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q6_main.png",
+              "optionImages": ["toni_q6_opt1.png", "toni_q6_opt2.png", "toni_q6_opt3.png", "toni_q6_opt4.png", "toni_q6_opt5.png", "toni_q6_opt6.png"],
+              "scores": [0, 0, 1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q7_main.png",
+              "optionImages": ["toni_q7_opt1.png", "toni_q7_opt2.png", "toni_q7_opt3.png", "toni_q7_opt4.png", "toni_q7_opt5.png", "toni_q7_opt6.png"],
+              "scores": [0, 0, 0, 1, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q8_main.png",
+              "optionImages": ["toni_q8_opt1.png", "toni_q8_opt2.png", "toni_q8_opt3.png", "toni_q8_opt4.png", "toni_q8_opt5.png", "toni_q8_opt6.png"],
+              "scores": [0, 0, 1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q9_main.png",
+              "optionImages": ["toni_q9_opt1.png", "toni_q9_opt2.png", "toni_q9_opt3.png", "toni_q9_opt5.png", "toni_q9_opt6.png"],
+              "scores": [0, 1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q10_main.png",
+              "optionImages": ["toni_q10_opt1.png", "toni_q10_opt2.png", "toni_q10_opt3.png", "toni_q10_opt4.png", "toni_q10_opt5.png", "toni_q10_opt6.png"],
+              "scores": [0, 0, 1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q11_main.png",
+              "optionImages": ["toni_q11_opt1.png", "toni_q11_opt2.png", "toni_q11_opt3.png", "toni_q11_opt4.png", "toni_q11_opt5.png", "toni_q11_opt6.png"],
+              "scores": [1, 0, 0, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q12_main.png",
+              "optionImages": ["toni_q12_opt1.png", "toni_q12_opt2.png", "toni_q12_opt3.png", "toni_q12_opt4.png", "toni_q12_opt5.png"],
+              "scores": [0, 0, 0, 0, 1]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q13_main.png",
+              "optionImages": ["toni_q13_opt1.png", "toni_q13_opt2.png", "toni_q13_opt3.png", "toni_q13_opt4.png", "toni_q13_opt5.png", "toni_q13_opt6.png"],
+              "scores": [0, 0, 0, 1, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q14_main.png",
+              "optionImages": ["toni_q14_opt1.png", "toni_q14_opt2.png", "toni_q14_opt3.png", "toni_q14_opt4.png", "toni_q14_opt5.png", "toni_q14_opt6.png"],
+              "scores": [0, 0, 1, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q15_main.png",
+              "optionImages": ["toni_q15_opt1.png", "toni_q15_opt2.png", "toni_q15_opt3.png", "toni_q15_opt4.png"],
+              "scores": [0, 0, 1, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q16_main.png",
+              "optionImages": ["toni_q16_opt2.png", "toni_q16_opt3.png", "toni_q16_opt4.png", "toni_q16_opt5.png", "toni_q16_opt6.png"],
+              "scores": [0, 0, 1, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q17_main.png",
+              "optionImages": ["toni_q17_opt1.png", "toni_q17_opt2.png", "toni_q17_opt3.png", "toni_q17_opt4.png", "toni_q17_opt5.png", "toni_q17_opt6.png"],
+              "scores": [1, 0, 0, 0, 0, 0]
+            },
+            {
+              "questionText": "Selecciona la opción correcta",
+              "imageQuestion": "toni_q18_main.png",
+              "optionImages": ["toni_q18_opt1.png", "toni_q18_opt2.png", "toni_q18_opt3.png", "toni_q18_opt4.png", "toni_q18_opt5.png", "toni_q18_opt6.png"],
+              "scores": [0, 0, 1, 0, 0, 0]
             }
           ],
           "results": [
             {
               "minScore": 0,
-              "maxScore": 0,
+              "maxScore": 6,
               "resultText": "Resultado bajo. Puede requerir apoyo en habilidades de razonamiento abstracto."
             },
             {
-              "minScore": 1,
-              "maxScore": 1,
-              "resultText": "Resultado adecuado. Buen nivel de razonamiento abstracto."
+              "minScore": 7,
+              "maxScore": 12,
+              "resultText": "Resultado medio. Nivel de razonamiento abstracto aceptable, aunque con áreas de mejora."
+            },
+            {
+              "minScore": 13,
+              "maxScore": 18,
+              "resultText": "Resultado alto. Excelente nivel de razonamiento abstracto."
             }
           ]
-        },
+        }
+,
         {
           "type": "WAIS",
           "title": "WAIS (Wechsler Adult Intelligence Scale)",
