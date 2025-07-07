@@ -32,8 +32,17 @@ data class User(
     val userId: String,
     val email: String,
     val name: String,
-    val testHistory: List<TestResult> = emptyList() // Store test results here
+    val testHistory: List<TestResult> = emptyList(),
+
+    // Billing-related fields
+    val isPremium: Boolean = false,
+    val subscriptionType: String? = null, // Example: "monthly", "lifetime"
+    val purchaseToken: String? = null,    // Google Play purchase token
+    val subscriptionExpiry: Long? = null, // Timestamp of subscription end date (for server validation)
+    val referredBy: String? = null,       // Optional: track referral userId or code
+    val signUpDate: Long = System.currentTimeMillis()
 )
+
 data class TestSummary(
     val type: String,
     val title: String,

@@ -23,7 +23,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/default_profile_image.xml"
+        android:src="@drawable/default_profile_image"
         android:scaleType="centerCrop"
         android:background="@drawable/circle_background"
         android:contentDescription="Foto de perfil"
