@@ -3,6 +3,7 @@ package com.example.psychologicaltestapp
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,12 +63,16 @@ class ProfileActivity : AppCompatActivity() {
                     testResults.add(testResult)
                 }
                 adapter.notifyDataSetChanged()
+
+                // Mostrar u ocultar mensaje vacío
+                findViewById<TextView>(R.id.emptyMessage).visibility =
+                    if (testResults.isEmpty()) TextView.VISIBLE else TextView.GONE
             }
             .addOnFailureListener { exception ->
                 showErrorDialog("Error al cargar resultados: ${exception.message}")
-
             }
     }
+
     private fun showErrorDialog(message: String) {
         AlertDialog.Builder(this)
             .setTitle("Error")
