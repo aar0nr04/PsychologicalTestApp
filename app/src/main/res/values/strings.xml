@@ -30,4 +30,16 @@
     <string name="chinese">ZH</string>
 
     <string name="welcome_message">¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente</string>
+
+    <string-array name="psychologist_types">
+        <item>Empático</item>
+        <item>Rudo</item>
+        <item>Neutral</item>
+        <item>Coach</item>
+        <item>Sabio</item>
+        <item>Bromista</item>
+        <item>Misterioso</item>
+    </string-array>
+
+
 </resources>

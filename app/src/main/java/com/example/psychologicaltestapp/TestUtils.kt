@@ -63,6 +63,15 @@ data class TestCategory(
     val tests: List<Test>
 )
 
+enum class PsychologistType(val displayName: String, val description: String) {
+    EMPATHIC("Empático", "Te acompaña con calidez y comprensión."),
+    TOUGH("Rudo", "Va directo al grano, sin rodeos."),
+    NEUTRAL("Neutral", "Objetivo y equilibrado."),
+    COACH("Coach", "Motivador y enfocado en metas."),
+    WISE("Sabio", "Te guía con calma y experiencia."),
+    FUNNY("Bromista", "Aligera el ánimo con humor."),
+    MYSTERIOUS("Misterioso", "Intrigante y profundo.")
+}
 
 // Function to Load Tests from JSON
 fun loadTestsFromJson(context: Context): List<Category> {
