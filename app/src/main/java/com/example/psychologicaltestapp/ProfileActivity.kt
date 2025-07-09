@@ -46,7 +46,7 @@ class ProfileActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
-        // Configurar historial de tests
+        // Configurar historial de tests con resumen corto en la lista
         adapter = TestHistoryAdapter(testResults) { selectedResult ->
             val intent = Intent(this, ResultActivity::class.java).apply {
                 putExtra("TEST_JSON", selectedResult.testJson ?: "")

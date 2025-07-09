@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt' // Apply kapt plugin
-    id("com.google.gms.google-services")
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -70,7 +70,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'androidx.activity:activity:1.10.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-    kapt 'com.github.bumptech.glide:compiler:4.16.0' // Use kapt for annotation processing
 
     //AI
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -88,4 +87,10 @@ dependencies {
 
     // If you're using Kotlin, you might also want the KTX (Kotlin extensions) library
     implementation("com.google.firebase:firebase-auth-ktx")
+    // TESTING (lo que necesitas restaurar)
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    kapt 'com.github.bumptech.glide:compiler:4.16.0'
 }
