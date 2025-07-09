@@ -40,7 +40,10 @@ data class User(
     val purchaseToken: String? = null,    // Google Play purchase token
     val subscriptionExpiry: Long? = null, // Timestamp of subscription end date (for server validation)
     val referredBy: String? = null,       // Optional: track referral userId or code
-    val signUpDate: Long = System.currentTimeMillis()
+    val signUpDate: Long = System.currentTimeMillis(),
+
+    // NEW: User role type: "psychologist" or "patient"
+    val userType: String? = "patient"
 )
 
 data class TestSummary(

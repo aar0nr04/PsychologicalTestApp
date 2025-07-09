@@ -16,6 +16,9 @@
         android:theme="@style/Theme.PsychologicalTestApp"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".AppointmentDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyAppointmentRequestsActivity"
             android:exported="false" />
         <activity

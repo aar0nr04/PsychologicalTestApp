@@ -1,5 +1,6 @@
 package com.example.psychologicaltestapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,14 @@ class MyAppointmentRequestsActivity : AppCompatActivity() {
         binding = ActivityMyAppointmentRequestsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = AppointmentRequestAdapter()
+        adapter = AppointmentRequestAdapter { appointmentRequest ->
+            // Aquí defines qué pasa al hacer click en un ítem
+            // Por ejemplo, abrir detalle:
+            val intent = Intent(this, AppointmentDetailActivity::class.java).apply {
+                putExtra("appointmentId", appointmentRequest.id)
+            }
+            startActivity(intent)
+        }
         binding.recyclerViewRequests.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewRequests.adapter = adapter
 

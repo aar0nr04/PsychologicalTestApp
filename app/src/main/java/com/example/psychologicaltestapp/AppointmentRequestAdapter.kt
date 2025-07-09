@@ -1,12 +1,14 @@
 package com.example.psychologicaltestapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.psychologicaltestapp.databinding.ItemAppointmentRequestBinding
 
-class AppointmentRequestAdapter :
-    RecyclerView.Adapter<AppointmentRequestAdapter.RequestViewHolder>() {
+class AppointmentRequestAdapter(
+    private val onItemClick: (AppointmentRequest) -> Unit
+) : RecyclerView.Adapter<AppointmentRequestAdapter.RequestViewHolder>() {
 
     private var items = listOf<AppointmentRequest>()
 
@@ -38,6 +40,10 @@ class AppointmentRequestAdapter :
             binding.textViewTime.text = request.proposedTime
             binding.textViewStatus.text = request.status.capitalize()
             binding.textViewNotes.text = request.notes
+
+            binding.root.setOnClickListener {
+                onItemClick(request)
+            }
         }
     }
 }

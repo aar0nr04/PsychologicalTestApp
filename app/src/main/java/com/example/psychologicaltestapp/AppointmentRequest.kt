@@ -1,6 +1,7 @@
 package com.example.psychologicaltestapp
 
 data class AppointmentRequest(
+    val id: String = "",               // <-- este campo
     val userId: String = "",
     val psychologistId: String = "",
     val proposedDate: String = "",

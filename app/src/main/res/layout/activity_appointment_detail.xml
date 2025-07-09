@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Foto del psicólogo -->
+    <ImageView
+        android:id="@+id/psychologistPhoto"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_profile_image"
+        android:background="@drawable/circle_background" />
+
+    <!-- Nombre del psicólogo -->
+    <TextView
+        android:id="@+id/psychologistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre Psicólogo"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Estado de la cita -->
+    <TextView
+        android:id="@+id/appointmentStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado: Pendiente"
+        android:layout_marginTop="8dp"
+        android:textColor="#FF5722"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Detalles de la cita -->
+    <TextView
+        android:id="@+id/appointmentDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detalles de la cita"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botón para enviar mensaje (más adelante) -->
+    <Button
+        android:id="@+id/buttonSendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar Mensaje"
+        android:layout_marginTop="24dp" />
+
+</LinearLayout>

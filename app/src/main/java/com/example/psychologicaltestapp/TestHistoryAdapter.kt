@@ -1,5 +1,4 @@
 package com.example.psychologicaltestapp
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +6,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class TestHistoryAdapter(
-    private val testResults: List<TestResult>,
+    private var testResults: List<TestResult>,
     private val onItemClick: (TestResult) -> Unit
+
 ) : RecyclerView.Adapter<TestHistoryAdapter.TestResultViewHolder>() {
 
+    fun submitList(newList: List<TestResult>) {
+        testResults = newList
+        notifyDataSetChanged()
+    }
     class TestResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val testTypeTextView: TextView = itemView.findViewById(R.id.testTypeTextView)
         val testNameTextView: TextView = itemView.findViewById(R.id.testNameTextView)
