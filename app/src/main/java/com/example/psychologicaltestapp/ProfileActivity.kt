@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +23,24 @@ class ProfileActivity : AppCompatActivity() {
     private val testResults = mutableListOf<TestResult>()
     private lateinit var adapter: TestHistoryAdapter
 
+    private lateinit var appointmentRequestsRecyclerView: RecyclerView
+    private lateinit var appointmentAdapter: AppointmentRequestAdapter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
         recyclerView = findViewById(R.id.testHistoryRecyclerView)
         adView = findViewById(R.id.adView)
+
+        appointmentRequestsRecyclerView = findViewById(R.id.appointmentRequestsRecyclerView)
+        appointmentAdapter = AppointmentRequestAdapter()
+        appointmentRequestsRecyclerView.layoutManager = LinearLayoutManager(this)
+        appointmentRequestsRecyclerView.adapter = appointmentAdapter
+
+        loadUserAppointments()  // llamas a tu función para obtener citas
+
 
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
@@ -46,6 +59,22 @@ class ProfileActivity : AppCompatActivity() {
 
         loadTestResults()
     }
+    private fun loadUserAppointments() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("appointment_requests")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { result ->
+                val appointments = result.map { it.toObject(AppointmentRequest::class.java) }
+                appointmentAdapter.submitList(appointments)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error cargando citas: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
     private fun loadTestResults() {
         val currentUser = FirebaseAuth.getInstance().currentUser ?: return
