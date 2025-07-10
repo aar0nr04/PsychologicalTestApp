@@ -6,26 +6,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.widget.Toast
 import com.example.psychologicaltestapp.databinding.ActivityResultBinding
 import com.example.psychologicaltestapp.utils.DialogHelper
 import com.example.psychologicaltestapp.utils.PremiumManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import java.util.*
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
     private lateinit var test: Test
-    private lateinit var userResponses: List<Int?>
+    private var userResponses: List<Int?> = emptyList()
     private var finalResultMessage: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
 
         // Inflar el layout usando View Binding
         binding = ActivityResultBinding.inflate(layoutInflater)
@@ -36,15 +36,28 @@ class ResultActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
-        // Obtener datos del Intent
+        // Obtener datos del Intent con validación
         val testJson = intent.getStringExtra("TEST_JSON")
-            ?: throw IllegalArgumentException("Test data not provided")
         val responsesJson = intent.getStringExtra("USER_RESPONSES")
-            ?: throw IllegalArgumentException("User responses not provided")
 
-        // Parseo de datos
-        test = Gson().fromJson(testJson, Test::class.java)
-        userResponses = Gson().fromJson(responsesJson, Array<Int?>::class.java).toList()
+        if (testJson.isNullOrBlank() || responsesJson.isNullOrBlank()) {
+            Toast.makeText(this, "Datos del test incompletos o inválidos.", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
+
+        try {
+            test = Gson().fromJson(testJson, Test::class.java)
+            userResponses = Gson().fromJson(responsesJson, Array<Int?>::class.java).toList()
+        } catch (e: JsonSyntaxException) {
+            Toast.makeText(this, "Error al interpretar los datos del test.", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error inesperado: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
 
         // Calcular y mostrar resultados
         showResult()
@@ -78,18 +91,23 @@ class ResultActivity : AppCompatActivity() {
     private fun showResult() {
         val categoryScores = mutableMapOf<String, Int>()
 
-        test.questions.forEachIndexed { questionIndex, question ->
-            val scoresMap = question.scores ?: return@forEachIndexed
-            scoresMap.forEach { (category, scoreValues) ->
-                val selectedOptionIndex = userResponses[questionIndex]
-                    ?: throw IllegalStateException("No response recorded for question $questionIndex")
-                val scoreToAdd = scoreValues[selectedOptionIndex]
-                categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
+        try {
+            test.questions.forEachIndexed { questionIndex, question ->
+                val scoresMap = question.scores ?: return@forEachIndexed
+                val selectedOptionIndex = userResponses.getOrNull(questionIndex)
+                    ?: throw IllegalStateException("No hay respuesta para la pregunta $questionIndex")
+
+                scoresMap.forEach { (category, scoreValues) ->
+                    val scoreToAdd = scoreValues.getOrNull(selectedOptionIndex) ?: 0
+                    categoryScores[category] = (categoryScores[category] ?: 0) + scoreToAdd
+                }
             }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error calculando resultados: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            return
         }
 
         val resultMessages = mutableListOf<String>()
-
         categoryScores.forEach { (category, score) ->
             val matchingResults = test.results.filter {
                 it.category == category && score in it.minScore..it.maxScore

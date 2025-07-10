@@ -46,13 +46,20 @@ class ProfileActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
-        // Configurar historial de tests con resumen corto en la lista
+        // Configurar historial de tests
         adapter = TestHistoryAdapter(testResults) { selectedResult ->
-            val intent = Intent(this, ResultActivity::class.java).apply {
-                putExtra("TEST_JSON", selectedResult.testJson ?: "")
-                putExtra("USER_RESPONSES", selectedResult.userResponsesJson ?: "")
+            val testJson = selectedResult.testJson
+            val responsesJson = selectedResult.userResponsesJson
+
+            if (!testJson.isNullOrBlank() && !responsesJson.isNullOrBlank()) {
+                val intent = Intent(this, ResultActivity::class.java).apply {
+                    putExtra("TEST_JSON", testJson)
+                    putExtra("USER_RESPONSES", responsesJson)
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Este test no contiene información completa para visualizarlo.", Toast.LENGTH_LONG).show()
             }
-            startActivity(intent)
         }
         testHistoryRecyclerView.layoutManager = LinearLayoutManager(this)
         testHistoryRecyclerView.adapter = adapter
@@ -82,7 +89,7 @@ class ProfileActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val appointments = result.map { doc ->
                     val appointment = doc.toObject(AppointmentRequest::class.java)
-                    appointment.copy(id = doc.id)  // asigna el id del documento aquí
+                    appointment.copy(id = doc.id)
                 }
                 appointmentAdapter.submitList(appointments)
             }
