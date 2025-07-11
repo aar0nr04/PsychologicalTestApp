@@ -1,6 +1,5 @@
 package com.example.psychologicaltestapp
 
-import TestResult
 import UserRepository
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -47,6 +46,7 @@ class ResultActivity : AppCompatActivity() {
         }
 
         try {
+            // Reconstruir el objeto Test y la lista de respuestas del usuario
             test = Gson().fromJson(testJson, Test::class.java)
             userResponses = Gson().fromJson(responsesJson, Array<Int?>::class.java).toList()
         } catch (e: JsonSyntaxException) {
@@ -59,34 +59,10 @@ class ResultActivity : AppCompatActivity() {
             return
         }
 
-        // Calcular y mostrar resultados
+        // Mostrar el resultado del test
         showResult()
-
-        // Botón: Regresar al Menú
-        binding.backToMenuButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        // Botón: IA Tips
-        binding.aiTipsButton.setOnClickListener {
-            if (PremiumManager.isUserPremium(this)) {
-                val prompt = generarPromptConResultados()
-                val intent = Intent(this, AiTipsActivity::class.java)
-                intent.putExtra("prompt", prompt)
-                startActivity(intent)
-            } else {
-                DialogHelper.mostrarDialogoPremium(this)
-            }
-        }
-
-        // Botón: Consulta un Experto
-        binding.psychologistButton.setOnClickListener {
-            val intent = Intent(this, PsychologistDirectoryActivity::class.java)
-            startActivity(intent)
-        }
     }
+
 
     private fun showResult() {
         val categoryScores = mutableMapOf<String, Int>()
@@ -131,12 +107,17 @@ class ResultActivity : AppCompatActivity() {
                 testType = test.type,
                 testName = test.title,
                 resultMessage = finalResultMessage,
-                date = DateFormat.format("yyyy-MM-dd HH:mm:ss", Date()).toString()
+                date = DateFormat.format("yyyy-MM-dd HH:mm:ss", Date()).toString(),
+                testJson = Gson().toJson(test),
+                userResponsesJson = Gson().toJson(userResponses),
+                userId = currentUser.uid,
+                createdAt = com.google.firebase.Timestamp.now()
             )
             val userRepository = UserRepository()
             userRepository.saveTestResult(currentUser.uid, testResult)
         }
     }
+
 
     private fun generarPromptConResultados(): String {
         return """

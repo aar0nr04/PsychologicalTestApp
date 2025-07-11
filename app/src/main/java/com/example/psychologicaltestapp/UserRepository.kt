@@ -1,13 +1,7 @@
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.psychologicaltestapp.TestResult
 
-data class TestResult(
-    val testType: String = "",
-    val testName: String = "",
-    val score: String = "0",
-    val resultMessage: String = "",
-    val date: String = ""
-)
 
 class UserRepository {
 
@@ -34,7 +28,7 @@ class UserRepository {
             }
     }
 
-    fun saveTestResult(userId: String, testResult: TestResult, onComplete: (() -> Unit)? = null, onError: ((Exception) -> Unit)? = null) {
+    fun saveTestResult(userId: String, testResult: com.example.psychologicaltestapp.TestResult, onComplete: (() -> Unit)? = null, onError: ((Exception) -> Unit)? = null) {
         firestore.collection("users")
             .document(userId)
             .collection("test_results")

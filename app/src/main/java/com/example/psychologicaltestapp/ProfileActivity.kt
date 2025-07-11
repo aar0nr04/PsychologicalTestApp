@@ -1,5 +1,6 @@
 package com.example.psychologicaltestapp
 
+import UserRepository
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -100,15 +101,12 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun loadTestResults() {
         val currentUser = FirebaseAuth.getInstance().currentUser ?: return
+        val userRepository = UserRepository()
 
-        db.collection("users")
-            .document(currentUser.uid)
-            .collection("test_results")
-            .get()
-            .addOnSuccessListener { result ->
-                val testResults = result.mapNotNull { it.toObject(TestResult::class.java) }
-                if (testResults.isNotEmpty()) {
-                    adapter.submitList(testResults)
+        userRepository.getTestResultsForUser(currentUser.uid) { results ->
+            runOnUiThread {
+                if (results.isNotEmpty()) {
+                    adapter.submitList(results)
                     testHistoryTitle.visibility = View.VISIBLE
                     testHistoryRecyclerView.visibility = View.VISIBLE
                     emptyMessage.visibility = View.GONE
@@ -118,9 +116,7 @@ class ProfileActivity : AppCompatActivity() {
                     emptyMessage.visibility = View.VISIBLE
                 }
             }
-            .addOnFailureListener {
-                Toast.makeText(this, "Error al cargar historial", Toast.LENGTH_SHORT).show()
-            }
+        }
     }
 
     private fun showErrorDialog(message: String) {

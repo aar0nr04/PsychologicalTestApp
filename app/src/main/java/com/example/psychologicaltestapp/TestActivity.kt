@@ -1,6 +1,5 @@
 package com.example.psychologicaltestapp
 
-import TestResult
 import UserRepository
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -256,7 +255,6 @@ class TestActivity : AppCompatActivity() {
         currentQuestionIndex++
         showQuestion()
     }
-
     private fun handleBackButtonClick() {
         if (currentQuestionIndex > 0) {
             // Retroceder a la pregunta anterior
@@ -267,7 +265,6 @@ class TestActivity : AppCompatActivity() {
             Toast.makeText(this, "Ya estás en la primera pregunta.", Toast.LENGTH_SHORT).show()
         }
     }
-
     private fun handleOptionSelected(index: Int) {
         // Actualizar el índice de la opción seleccionada
         selectedOptionIndex = index
@@ -284,7 +281,6 @@ class TestActivity : AppCompatActivity() {
             button.setBackgroundResource(if (i == index) R.drawable.custom_button_selected else R.drawable.custom_button_style)
         }
     }
-
     private fun showResult() {
 
         if (test.results.any { it.category.isNullOrEmpty() }) {
@@ -354,8 +350,10 @@ class TestActivity : AppCompatActivity() {
                         testType = test.type,
                         testName = test.title,
                         resultMessage = finalResultMessage,
-                        date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                        date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date()),
+                        userResponsesJson = Gson().toJson(userResponses)
                     )
+
                     userRepository.saveTestResult(currentUser.uid, testResult)
                 }
             } catch (e: Exception) {
@@ -367,6 +365,7 @@ class TestActivity : AppCompatActivity() {
             putExtra("TEST_JSON", Gson().toJson(test))
             putExtra("USER_RESPONSES", Gson().toJson(userResponses))
         }
+
 
         if (mInterstitialAd != null) {
             mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
