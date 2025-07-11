@@ -1,55 +1,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
-    <!-- Foto del psicólogo -->
-    <ImageView
-        android:id="@+id/psychologistPhoto"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_profile_image"
-        android:background="@drawable/circle_background" />
-
-    <!-- Nombre del psicólogo -->
-    <TextView
-        android:id="@+id/psychologistName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre Psicólogo"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
-        android:layout_gravity="center_horizontal" />
-
-    <!-- Estado de la cita -->
-    <TextView
-        android:id="@+id/appointmentStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Estado: Pendiente"
-        android:layout_marginTop="8dp"
-        android:textColor="#FF5722"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal" />
-
-    <!-- Detalles de la cita -->
-    <TextView
-        android:id="@+id/appointmentDetails"
+    <!-- Banner superior -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/topAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detalles de la cita"
-        android:layout_marginTop="16dp" />
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
-    <!-- Botón para enviar mensaje (más adelante) -->
-    <Button
-        android:id="@+id/buttonSendMessage"
+    <!-- Contenido principal -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp">
+
+        <!-- Foto del psicólogo -->
+        <ImageView
+            android:id="@+id/psychologistPhoto"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_profile_image"
+            android:background="@drawable/circle_background" />
+
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/psychologistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Psicólogo"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp" />
+
+        <!-- Estado -->
+        <TextView
+            android:id="@+id/appointmentStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado: Pendiente"
+            android:textColor="#FF5722"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp" />
+
+        <!-- Detalles -->
+        <TextView
+            android:id="@+id/appointmentDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Detalles de la cita"
+            android:textSize="16sp" />
+
+        <!-- Chat -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="12dp" />
+
+        <!-- Mensaje y botón -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Escribe tu mensaje"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_bg" />
+
+            <Button
+                android:id="@+id/sendMessageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enviar" />
+        </LinearLayout>
+
+        <!-- Botón para reagendar -->
+        <Button
+            android:id="@+id/buttonSendMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volver a agendar"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+    <!-- Banner inferior -->
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/bottomAdView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enviar Mensaje"
-        android:layout_marginTop="24dp" />
-
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 </LinearLayout>
