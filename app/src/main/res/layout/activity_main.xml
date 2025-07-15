@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     android:background="#FAFAFA">
 
+    <include
+        layout="@layout/view_global_header"
+        android:id="@+id/topBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- ScrollView para el contenido principal -->
     <ScrollView
         android:id="@+id/scrollView"

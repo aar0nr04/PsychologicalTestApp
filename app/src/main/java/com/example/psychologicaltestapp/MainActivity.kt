@@ -3,57 +3,43 @@ package com.example.psychologicaltestapp
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.auth.FirebaseAuth
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.AdRequest
-import com.example.psychologicaltestapp.databinding.ActivityMainBinding
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.firebase.auth.FirebaseAuth
+import com.example.psychologicaltestapp.databinding.ActivityMainBinding
 import com.example.psychologicaltestapp.utils.DialogHelper
 import com.example.psychologicaltestapp.utils.PremiumManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     companion object {
         const val SETTINGS_REQUEST_CODE = 1001
     }
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        applySavedLanguage()
         setContentView(binding.root)
 
+        // TopBar gesture listener
+        setupTopBar()
+
         auth = FirebaseAuth.getInstance()
+
         setupButtons()
         applyPremiumButtonAnimation()
         updateUI()
         setupAdMob()
-
-        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val language = prefs.getString("app_language", "es") ?: "es"
     }
 
-    private fun setLocale(languageCode: String) {
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-        val config = resources.configuration
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-
-        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        prefs.edit().putString("app_language", languageCode).apply()
-    }
     private fun setupAdMob() {
         MobileAds.initialize(this) {}
 
@@ -68,12 +54,14 @@ class MainActivity : AppCompatActivity() {
                 override fun onAdLoaded(ad: com.google.android.gms.ads.interstitial.InterstitialAd) {
                     interstitialAd = ad
                 }
+
                 override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
                     interstitialAd = null
                 }
             }
         )
     }
+
     private fun setupButtons() {
         binding.loginButton.setOnClickListener {
             if (auth.currentUser != null) {
@@ -108,12 +96,11 @@ class MainActivity : AppCompatActivity() {
         binding.profileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+
         binding.settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivityForResult(intent, SETTINGS_REQUEST_CODE)
         }
-
-
 
         binding.buttonPremium.setOnClickListener {
             if (PremiumManager.isUserPremium(this)) {
@@ -123,6 +110,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun cargarOtroInterstitial() {
         val adRequest = AdRequest.Builder().build()
         com.google.android.gms.ads.interstitial.InterstitialAd.load(
@@ -133,19 +121,23 @@ class MainActivity : AppCompatActivity() {
                 override fun onAdLoaded(ad: com.google.android.gms.ads.interstitial.InterstitialAd) {
                     interstitialAd = ad
                 }
+
                 override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
                     interstitialAd = null
                 }
             }
         )
     }
+
     private fun applyPremiumButtonAnimation() {
         val pulse = AnimationUtils.loadAnimation(this, R.anim.pulse)
         binding.buttonPremium.startAnimation(pulse)
     }
+
     private fun abrirTestListActivity() {
         startActivity(Intent(this, TestListActivity::class.java))
     }
+
     private fun updateUI() {
         if (this::auth.isInitialized && auth.currentUser != null) {
             binding.loginButton.text = "Cerrar sesión"
@@ -159,25 +151,6 @@ class MainActivity : AppCompatActivity() {
             binding.registerButton.isEnabled = true
         }
     }
-    private fun applySavedLanguage() {
-        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val langCode = prefs.getString("app_language", Locale.getDefault().language) ?: "es"
-
-        val locale = Locale(langCode)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-    }
-    private fun loadLocale() {
-        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val language = prefs.getString("app_language", Locale.getDefault().language) ?: "es"
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
-    }
 
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -185,11 +158,11 @@ class MainActivity : AppCompatActivity() {
         val context = LanguageHelper.setLocale(newBase, language)
         super.attachBaseContext(context)
     }
+
     object LanguageHelper {
         fun setLocale(context: Context, language: String): Context {
             val locale = Locale(language)
             Locale.setDefault(locale)
-
             val config = Configuration()
             config.setLocale(locale)
             return context.createConfigurationContext(config)

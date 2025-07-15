@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="#FAFAFA">
 
-    <!-- ScrollView con margen inferior para el AdView -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:gravity="center_horizontal"
             android:padding="16dp">
 
-            <!-- Logo -->
+            <!-- Banner logo -->
             <ImageView
                 android:id="@+id/bannerLogo"
                 android:layout_width="match_parent"
@@ -30,7 +29,7 @@
                 android:src="@drawable/logo_banner"
                 android:layout_margin="16dp" />
 
-            <!-- Imagen de perfil -->
+            <!-- Foto de perfil -->
             <ImageView
                 android:id="@+id/profileImageView"
                 android:layout_width="100dp"
@@ -41,7 +40,7 @@
                 android:background="@drawable/circle_background"
                 android:layout_marginTop="8dp" />
 
-            <!-- Nombre de usuario -->
+            <!-- Nombre -->
             <TextView
                 android:id="@+id/userNameTextView"
                 android:layout_width="wrap_content"
@@ -52,16 +51,31 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp" />
 
-            <!-- Spinner -->
+            <!-- Spinner de psicólogo (si aplica) -->
             <Spinner
                 android:id="@+id/psychologistTypeSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_margin="16dp" />
 
+            <!-- Vista de calendario (solo psicólogos) -->
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="16dp" />
 
+            <!-- Citas del día para psicólogo -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dayScheduleRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
 
-            <!-- Sección de citas -->
+            <!-- Título citas -->
             <TextView
                 android:id="@+id/appointmentsTitle"
                 android:layout_width="wrap_content"
@@ -72,6 +86,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp" />
 
+            <!-- Lista de citas -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/appointmentRequestsRecyclerView"
                 android:layout_width="match_parent"
@@ -79,7 +94,7 @@
                 android:nestedScrollingEnabled="false"
                 android:layout_margin="8dp" />
 
-            <!-- Sección de historial de tests -->
+            <!-- Título historial -->
             <TextView
                 android:id="@+id/testHistoryTitle"
                 android:layout_width="wrap_content"
@@ -90,7 +105,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="16dp" />
 
-            <!-- Mensaje si no hay tests -->
+            <!-- Mensaje vacío -->
             <TextView
                 android:id="@+id/emptyMessage"
                 android:layout_width="wrap_content"
@@ -102,6 +117,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp" />
 
+            <!-- Lista historial -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/testHistoryRecyclerView"
                 android:layout_width="match_parent"
@@ -112,7 +128,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- AdMob Banner fijo abajo -->
+    <!-- Banner Ad -->
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
