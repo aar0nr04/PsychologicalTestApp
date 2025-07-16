@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Calendar
 
-class PsychologistDetailActivity : AppCompatActivity() {
+class PsychologistDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPsychologistDetailBinding
 

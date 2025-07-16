@@ -17,7 +17,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class AppointmentDetailActivity : AppCompatActivity() {
+class AppointmentDetailActivity : BaseActivity() {
 
     private lateinit var psychologistPhoto: ImageView
     private lateinit var psychologistName: TextView

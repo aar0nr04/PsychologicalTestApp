@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 
-class TestHistoryActivity : AppCompatActivity() {
+class TestHistoryActivity : BaseActivity() {
 
     private lateinit var testHistoryAdapter: TestResultAdapter
 

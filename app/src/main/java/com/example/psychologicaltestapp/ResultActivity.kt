@@ -16,7 +16,7 @@ import java.util.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 
-class ResultActivity : AppCompatActivity() {
+class ResultActivity : BaseActivity() {
 
     private lateinit var binding: ActivityResultBinding
     private lateinit var test: Test

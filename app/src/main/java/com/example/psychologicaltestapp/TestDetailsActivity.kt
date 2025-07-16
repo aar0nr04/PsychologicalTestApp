@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.example.psychologicaltestapp.databinding.ActivityTestDetailsBinding
 
-class TestDetailsActivity : AppCompatActivity() {
+class TestDetailsActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var testAdapter: TestAdapter

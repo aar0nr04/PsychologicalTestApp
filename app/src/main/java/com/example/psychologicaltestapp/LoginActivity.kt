@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.psychologicaltestapp.AuthRepository
 
 class
-LoginActivity : AppCompatActivity() {
+LoginActivity : BaseActivity() {
 
     private lateinit var authRepository: AuthRepository
 

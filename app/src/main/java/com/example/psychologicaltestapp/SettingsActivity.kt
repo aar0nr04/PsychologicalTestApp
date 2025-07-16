@@ -10,7 +10,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     private lateinit var languageSpinner: Spinner
     private val languageCodes = arrayOf("es", "en", "fr", "pt", "it", "de", "zh")

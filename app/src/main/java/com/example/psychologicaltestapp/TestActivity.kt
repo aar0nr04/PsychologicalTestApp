@@ -27,7 +27,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 
-class TestActivity : AppCompatActivity() {
+class TestActivity : BaseActivity() {
 
     private var mInterstitialAd: InterstitialAd? = null
     private lateinit var test: Test

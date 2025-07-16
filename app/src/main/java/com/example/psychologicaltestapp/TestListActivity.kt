@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import android.widget.Toast
 import com.example.psychologicaltestapp.databinding.ActivityTestListBinding
 
-class TestListActivity : AppCompatActivity() {
+class TestListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTestListBinding
     private lateinit var categoryAdapter: CategoryAdapter

@@ -10,7 +10,7 @@ import java.io.IOException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import android.util.Log
 
-class AiTipsActivity : AppCompatActivity() {
+class AiTipsActivity : BaseActivity() {
 
     private lateinit var aiTipsTextView: TextView
     private lateinit var regenerateButton: Button

@@ -27,7 +27,6 @@ class MainActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,7 +37,6 @@ class MainActivity : BaseActivity() {
         setupTopBar()
 
         auth = FirebaseAuth.getInstance()
-
 
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onScroll(
@@ -54,17 +52,28 @@ class MainActivity : BaseActivity() {
             }
         })
 
-        binding.scrollView.setOnTouchListener { _, event ->
-            gestureDetector.onTouchEvent(event)
-            false
-        }
+binding.scrollView.setOnTouchListener { view, event -> // Changed the first parameter to 'view'
+    gestureDetector.onTouchEvent(event)
+
+    if (event.action == MotionEvent.ACTION_UP) {
+        // Call performClick on the view that received the touch event
+        view.performClick() // Llamada a performClick para accesibilidad
+    }
+
+    false // Return false if you want other listeners to consume the event, true otherwise
+}
 
         setupButtons()
         applyPremiumButtonAnimation()
         updateUI()
         setupAdMob()
     }
-
+    private fun setupTopBar() {
+        // Inicializa y configura la barra superior
+        val topBar = findViewById<View>(R.id.topBar)
+        // Configura las propiedades de topBar según sea necesario
+        topBar.setVisibility(View.VISIBLE) // Ejemplo de configuración
+    }
     private fun setupAdMob() {
         MobileAds.initialize(this) {}
 
