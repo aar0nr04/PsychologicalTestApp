@@ -87,6 +87,7 @@ dependencies {
 
     // If you're using Kotlin, you might also want the KTX (Kotlin extensions) library
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation 'com.google.firebase:firebase-database-ktx:21.0.0'
     // TESTING (lo que necesitas restaurar)
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

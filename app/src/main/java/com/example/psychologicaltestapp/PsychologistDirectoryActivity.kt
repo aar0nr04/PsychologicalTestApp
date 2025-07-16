@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,13 @@ class PsychologistDirectoryActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         loadPsychologists()
+
+        //boton de agregar psicologo
+        findViewById<Button>(R.id.becomePsychologistButton).setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.putExtra("registerAsPsychologist", true)
+            startActivity(intent)
+        }
 
         val searchField = findViewById<EditText>(R.id.searchField)
         searchField.addTextChangedListener(object : TextWatcher {
@@ -84,6 +92,8 @@ class PsychologistDirectoryActivity : AppCompatActivity() {
         intent.putExtra("PSYCHOLOGIST", psychologist)
         startActivity(intent)
     }
+
+
 
     private fun addFakePsychologists() {
         val db = FirebaseFirestore.getInstance()

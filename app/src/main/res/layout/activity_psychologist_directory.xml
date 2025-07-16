@@ -31,6 +31,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp" />
+    <Button
+        android:id="@+id/becomePsychologistButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Eres psicólogo? Regístrate aquí"
+        android:layout_margin="16dp"/>
 
     <!-- Lista de psicólogos debajo del campo de búsqueda -->
     <androidx.recyclerview.widget.RecyclerView

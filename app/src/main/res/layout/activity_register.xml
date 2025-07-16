@@ -64,6 +64,44 @@
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:layout_marginBottom="16dp" />
+    <Button
+        android:id="@+id/toggleRoleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse como Psicólogo"
+        android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:id="@+id/psychologistFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/editSpecialty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Especialidad" />
+
+        <EditText
+            android:id="@+id/editLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Número de cédula profesional" />
+
+        <EditText
+            android:id="@+id/editPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono" />
+
+        <EditText
+            android:id="@+id/editAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sobre ti" />
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

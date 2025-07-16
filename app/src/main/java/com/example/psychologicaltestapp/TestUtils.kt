@@ -43,7 +43,11 @@ data class User(
     val signUpDate: Long = System.currentTimeMillis(),
 
     // NEW: User role type: "psychologist" or "patient"
-    val userType: String? = "patient"
+    val userType: String? = "patient",
+    val specialty: String? = null,
+    val licenseNumber: String? = null,
+    val phone: String? = null,
+    val about: String? = null
 )
 
 data class TestSummary(
