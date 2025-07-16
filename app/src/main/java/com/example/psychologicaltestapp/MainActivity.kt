@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.google.android.gms.ads.AdRequest
@@ -24,15 +27,37 @@ class MainActivity : BaseActivity() {
     private lateinit var auth: FirebaseAuth
     private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // TopBar gesture listener
+        val topBar = findViewById<View>(R.id.topBar)
         setupTopBar()
 
         auth = FirebaseAuth.getInstance()
+
+
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onScroll(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                distanceX: Float,
+                distanceY: Float
+            ): Boolean {
+                if (distanceY < -30) { // gesto hacia abajo
+                    topBar.visibility = View.VISIBLE
+                }
+                return true
+            }
+        })
+
+        binding.scrollView.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            false
+        }
 
         setupButtons()
         applyPremiumButtonAnimation()
