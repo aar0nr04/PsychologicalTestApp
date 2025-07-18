@@ -1606,6 +1606,18 @@
               "minScore": 29,
               "maxScore": 63,
               "message": "Depresión grave. \nSugiere una presencia intensa y persistente de síntomas depresivos, tales como desesperanza, pensamientos recurrentes de muerte o suicidio, desinterés total por actividades y afectación grave del funcionamiento diario. Es fundamental buscar ayuda profesional inmediata. Puede requerirse tratamiento psicológico y farmacológico."
+            },
+            {
+              "category": "C",
+              "minScore": 29,
+              "maxScore": 63,
+              "message": "Depresión grave. \nSugiere una presencia intensa y persistente de síntomas depresivos, tales como desesperanza, pensamientos recurrentes de muerte o suicidio, desinterés total por actividades y afectación grave del funcionamiento diario. Es fundamental buscar ayuda profesional inmediata. Puede requerirse tratamiento psicológico y farmacológico."
+            },
+            {
+              "category": "V",
+              "minScore": 29,
+              "maxScore": 63,
+              "message": "Depresión grave. \nSugiere una presencia intensa y persistente de síntomas depresivos, tales como desesperanza, pensamientos recurrentes de muerte o suicidio, desinterés total por actividades y afectación grave del funcionamiento diario. Es fundamental buscar ayuda profesional inmediata. Puede requerirse tratamiento psicológico y farmacológico."
             }
           ]
         }

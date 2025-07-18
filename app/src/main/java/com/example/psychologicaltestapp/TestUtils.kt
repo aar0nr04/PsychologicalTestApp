@@ -32,7 +32,7 @@ data class User(
     val userId: String,
     val email: String,
     val name: String,
-    val testHistory: List<TestResult> = emptyList(),
+    val testHistory: List<TestResult> = emptyList(), //borrar
 
     // Billing-related fields
     val isPremium: Boolean = false,
@@ -48,6 +48,7 @@ data class User(
     val licenseNumber: String? = null,
     val phone: String? = null,
     val about: String? = null
+
 )
 
 data class TestSummary(
