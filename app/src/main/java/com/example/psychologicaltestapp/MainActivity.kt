@@ -4,139 +4,63 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
-import com.google.firebase.auth.FirebaseAuth
-import com.example.psychologicaltestapp.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.example.psychologicaltestapp.databinding.ActivityMainRedesignedBinding
 import com.example.psychologicaltestapp.utils.DialogHelper
 import com.example.psychologicaltestapp.utils.PremiumManager
-import kotlinx.coroutines.*
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
-class MainActivity : BaseActivity() {
-    companion object {
-        const val SETTINGS_REQUEST_CODE = 1001
-    }
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainRedesignedBinding
     private lateinit var auth: FirebaseAuth
-    private var interstitialAd: com.google.android.gms.ads.interstitial.InterstitialAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainRedesignedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // TopBar gesture listener
-        val topBar = findViewById<View>(R.id.topBar)
-        setupTopBar()
-
         auth = FirebaseAuth.getInstance()
-
-        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onScroll(
-                e1: MotionEvent?,
-                e2: MotionEvent,
-                distanceX: Float,
-                distanceY: Float
-            ): Boolean {
-                if (distanceY < -30) { // gesto hacia abajo
-                    topBar.visibility = View.VISIBLE
-                }
-                return true
-            }
-        })
-
-binding.scrollView.setOnTouchListener { view, event -> // Changed the first parameter to 'view'
-    gestureDetector.onTouchEvent(event)
-
-    if (event.action == MotionEvent.ACTION_UP) {
-        // Call performClick on the view that received the touch event
-        view.performClick() // Llamada a performClick para accesibilidad
-    }
-
-    false // Return false if you want other listeners to consume the event, true otherwise
-}
 
         setupButtons()
         applyPremiumButtonAnimation()
         updateUI()
-        setupAdMob()
-    }
-    private fun setupTopBar() {
-        // Inicializa y configura la barra superior
-        val topBar = findViewById<View>(R.id.topBar)
-        // Configura las propiedades de topBar según sea necesario
-        topBar.setVisibility(View.VISIBLE) // Ejemplo de configuración
-    }
-    private fun setupAdMob() {
-        MobileAds.initialize(this) {}
-
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
-
-        com.google.android.gms.ads.interstitial.InterstitialAd.load(
-            this,
-            "ca-app-pub-3940256099942544/1033173712",
-            adRequest,
-            object : com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: com.google.android.gms.ads.interstitial.InterstitialAd) {
-                    interstitialAd = ad
-                }
-
-                override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
-                    interstitialAd = null
-                }
-            }
-        )
     }
 
     private fun setupButtons() {
-        binding.loginButton.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             if (auth.currentUser != null) {
                 auth.signOut()
+                updateUI()
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
         }
 
-        binding.testsButton.setOnClickListener {
-            if (interstitialAd != null) {
-                interstitialAd?.fullScreenContentCallback = object : com.google.android.gms.ads.FullScreenContentCallback() {
-                    override fun onAdDismissedFullScreenContent() {
-                        abrirTestListActivity()
-                        cargarOtroInterstitial()
-                    }
-                }
-                interstitialAd?.show(this)
-            } else {
-                abrirTestListActivity()
-            }
-        }
-
-        binding.psychologistDirectoryButton.setOnClickListener {
-            startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
-        }
-
-        binding.registerButton.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
-
-        binding.profileButton.setOnClickListener {
+        binding.btnPerfil.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-        binding.settingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivityForResult(intent, SETTINGS_REQUEST_CODE)
+        binding.btnConfig.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
-        binding.buttonPremium.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        binding.btnTest.setOnClickListener {
+            startActivity(Intent(this, TestListActivity::class.java))
+        }
+
+        binding.btnDirectory.setOnClickListener {
+            startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
+        }
+
+        binding.btnPremium.setOnClickListener {
             if (PremiumManager.isUserPremium(this)) {
                 Toast.makeText(this, "¡Ya eres Premium!", Toast.LENGTH_SHORT).show()
             } else {
@@ -145,44 +69,18 @@ binding.scrollView.setOnTouchListener { view, event -> // Changed the first para
         }
     }
 
-    private fun cargarOtroInterstitial() {
-        val adRequest = AdRequest.Builder().build()
-        com.google.android.gms.ads.interstitial.InterstitialAd.load(
-            this,
-            "ca-app-pub-3940256099942544/1033173712",
-            adRequest,
-            object : com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback() {
-                override fun onAdLoaded(ad: com.google.android.gms.ads.interstitial.InterstitialAd) {
-                    interstitialAd = ad
-                }
-
-                override fun onAdFailedToLoad(adError: com.google.android.gms.ads.LoadAdError) {
-                    interstitialAd = null
-                }
-            }
-        )
-    }
-
     private fun applyPremiumButtonAnimation() {
         val pulse = AnimationUtils.loadAnimation(this, R.anim.pulse)
-        binding.buttonPremium.startAnimation(pulse)
-    }
-
-    private fun abrirTestListActivity() {
-        startActivity(Intent(this, TestListActivity::class.java))
+        binding.btnPremium.startAnimation(pulse)
     }
 
     private fun updateUI() {
-        if (this::auth.isInitialized && auth.currentUser != null) {
-            binding.loginButton.text = "Cerrar sesión"
-            binding.testsButton.isEnabled = true
-            binding.psychologistDirectoryButton.isEnabled = true
-            binding.registerButton.isEnabled = false
+        if (auth.currentUser != null) {
+            binding.btnLogin.text = "Cerrar sesión"
+            binding.btnRegister.isEnabled = false
         } else {
-            binding.loginButton.text = "Iniciar sesión"
-            binding.testsButton.isEnabled = true
-            binding.psychologistDirectoryButton.isEnabled = true
-            binding.registerButton.isEnabled = true
+            binding.btnLogin.text = "Iniciar sesión"
+            binding.btnRegister.isEnabled = true
         }
     }
 
@@ -200,13 +98,6 @@ binding.scrollView.setOnTouchListener { view, event -> // Changed the first para
             val config = Configuration()
             config.setLocale(locale)
             return context.createConfigurationContext(config)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
-            recreate()
         }
     }
 }

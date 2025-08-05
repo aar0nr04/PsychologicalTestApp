@@ -14,6 +14,9 @@ android {
         targetSdkVersion 35
         versionCode 1
         versionName "1.0"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,6 +45,7 @@ android {
 
 dependencies {
     implementation "androidx.recyclerview:recyclerview:1.4.0"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Coroutines Core
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
