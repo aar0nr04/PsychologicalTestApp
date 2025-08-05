@@ -9,7 +9,9 @@
     <!-- Header global (asegúrate de que exista el archivo view_global_header.xml) -->
     <include
         android:id="@+id/view_global_header"
-        layout="@layout/view_global_header" />
+        layout="@layout/view_global_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <!-- Logo de la app -->
     <ImageView
@@ -66,42 +68,58 @@
             android:id="@+id/btnPerfil"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:text="👤 Perfil"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnConfig"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:text="⚙️ Configuración"
             android:textAllCaps="false"
-            android:layout_marginTop="8dp" />
-
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:text="🔐 Iniciar sesión"
             android:textAllCaps="false"
-            android:layout_marginTop="8dp" />
-
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:text="📝 Registrarse"
             android:textAllCaps="false"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTest"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:text="🧠 Hacer Test"
             android:textAllCaps="false"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDirectory"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:text="📘 Directorio de psicólogos"
             android:textAllCaps="false"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 
     <!-- Botón Premium -->
