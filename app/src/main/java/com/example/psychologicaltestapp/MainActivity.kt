@@ -76,10 +76,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI() {
         if (auth.currentUser != null) {
-            binding.btnLogin.text = "Cerrar sesión"
+            binding.btnLogin.text = "\uD83D\uDD13 Cerrar sesión"
             binding.btnRegister.isEnabled = false
         } else {
-            binding.btnLogin.text = "Iniciar sesión"
+            binding.btnLogin.text = "\uD83D\uDD10 Iniciar sesión"
             binding.btnRegister.isEnabled = true
         }
     }
