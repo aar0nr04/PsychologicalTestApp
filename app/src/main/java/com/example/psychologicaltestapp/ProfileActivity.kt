@@ -1,6 +1,5 @@
 package com.example.psychologicaltestapp
 
-import UserRepository
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -12,26 +11,34 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psychologicaltestapp.utils.DialogHelper
+import com.example.psychologicaltestapp.adapters.AppointmentRequestAdapter
+import com.example.psychologicaltestapp.adapters.UpcomingAppointmentsAdapter
+import com.example.psychologicaltestapp.adapters.TestHistoryAdapter
+import com.example.psychologicaltestapp.models.AppointmentRequest
+import om.example.psychologicaltestapp.models.TestResultc
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
+
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var adView: AdView
     private lateinit var testHistoryRecyclerView: RecyclerView
-    private lateinit var testHistoryTitle: TextView
+    private lateinit var testHistoryHeader: TextView
     private lateinit var emptyMessage: TextView
     private lateinit var appointmentRequestsRecyclerView: RecyclerView
     private lateinit var appointmentAdapter: AppointmentRequestAdapter
     private lateinit var calendarView: CalendarView
     private lateinit var dayScheduleRecyclerView: RecyclerView
     private lateinit var dayScheduleAdapter: AppointmentRequestAdapter
+    private lateinit var upcomingAppointmentsRecyclerView: RecyclerView
+    private lateinit var noAppointmentsText: TextView
     private var lastY = 0f
     private val db = FirebaseFirestore.getInstance()
     private val testResults = mutableListOf<TestResult>()
@@ -42,21 +49,20 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        // Referencias UI
         adView = findViewById(R.id.adView)
         testHistoryRecyclerView = findViewById(R.id.testHistoryRecyclerView)
-        testHistoryTitle = findViewById(R.id.testHistoryTitle)
+        testHistoryHeader = findViewById(R.id.testHistoryHeader)
         emptyMessage = findViewById(R.id.emptyMessage)
         appointmentRequestsRecyclerView = findViewById(R.id.appointmentRequestsRecyclerView)
         calendarView = findViewById(R.id.calendarView)
         dayScheduleRecyclerView = findViewById(R.id.dayScheduleRecyclerView)
+        upcomingAppointmentsRecyclerView = findViewById(R.id.upcomingAppointmentsRecyclerView)
+        noAppointmentsText = findViewById(R.id.noAppointmentsText)
 
-        // Anuncios
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
-        // Adaptadores
         adapter = TestHistoryAdapter(testResults) { selectedResult ->
             val testJson = selectedResult.testJson
             val responsesJson = selectedResult.userResponsesJson
@@ -94,14 +100,15 @@ class ProfileActivity : AppCompatActivity() {
         dayScheduleRecyclerView.layoutManager = LinearLayoutManager(this)
         dayScheduleRecyclerView.adapter = dayScheduleAdapter
 
-        // Determinar rol y cargar datos
+        upcomingAppointmentsRecyclerView.layoutManager = LinearLayoutManager(this)
+
         fetchUserRole { role ->
             isPsychologist = role == "psychologist"
             if (isPsychologist) {
                 calendarView.visibility = View.VISIBLE
                 dayScheduleRecyclerView.visibility = View.VISIBLE
                 testHistoryRecyclerView.visibility = View.GONE
-                testHistoryTitle.visibility = View.GONE
+                testHistoryHeader.visibility = View.GONE
                 emptyMessage.visibility = View.GONE
 
                 calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -111,15 +118,17 @@ class ProfileActivity : AppCompatActivity() {
 
                 val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
                 loadAppointmentsForPsychologistOnDate(today)
-
             } else {
                 calendarView.visibility = View.GONE
                 dayScheduleRecyclerView.visibility = View.GONE
                 loadUserAppointments()
                 loadTestResults()
             }
+
+            loadUpcomingAppointments()
         }
     }
+
     private fun loadUserAppointments() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
@@ -138,6 +147,36 @@ class ProfileActivity : AppCompatActivity() {
             }
     }
 
+    private fun loadUpcomingAppointments() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        db.collection("appointment_requests")
+            .get()
+            .addOnSuccessListener { result ->
+                val today = LocalDate.now()
+                val appointments = result.mapNotNull { doc ->
+                    val appointment = doc.toObject(AppointmentRequest::class.java)
+                    val apptDate = runCatching { LocalDate.parse(appointment.proposedDate) }.getOrNull()
+                    if (apptDate != null && apptDate >= today) {
+                        if ((isPsychologist && appointment.psychologistId == userId) ||
+                            (!isPsychologist && appointment.userId == userId)) {
+                            appointment.copy(id = doc.id)
+                        } else null
+                    } else null
+                }.sortedBy { it.proposedDate + it.proposedTime }.take(5)
+
+                if (appointments.isEmpty()) {
+                    noAppointmentsText.visibility = View.VISIBLE
+                } else {
+                    noAppointmentsText.visibility = View.GONE
+                    upcomingAppointmentsRecyclerView.adapter = UpcomingAppointmentsAdapter(appointments)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error cargando próximas citas: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun loadTestResults() {
         val currentUser = FirebaseAuth.getInstance().currentUser ?: return
         val userRepository = UserRepository()
@@ -146,11 +185,11 @@ class ProfileActivity : AppCompatActivity() {
             runOnUiThread {
                 if (results.isNotEmpty()) {
                     adapter.submitList(results)
-                    testHistoryTitle.visibility = View.VISIBLE
+                    testHistoryHeader.visibility = View.VISIBLE
                     testHistoryRecyclerView.visibility = View.VISIBLE
                     emptyMessage.visibility = View.GONE
                 } else {
-                    testHistoryTitle.visibility = View.GONE
+                    testHistoryHeader.visibility = View.GONE
                     testHistoryRecyclerView.visibility = View.GONE
                     emptyMessage.visibility = View.VISIBLE
                 }

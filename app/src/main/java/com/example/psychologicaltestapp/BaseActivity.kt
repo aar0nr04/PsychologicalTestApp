@@ -7,6 +7,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
@@ -32,10 +33,13 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun setContentView(layoutResID: Int) {
-        val fullLayout = layoutInflater.inflate(R.layout.activity_base, null)
-        rootLayout = fullLayout.findViewById(R.id.activity_content)
-        layoutInflater.inflate(layoutResID, rootLayout, true)
-        super.setContentView(fullLayout)
+        val base = layoutInflater.inflate(R.layout.activity_base, null)
+        val contentFrame = base.findViewById<FrameLayout>(R.id.content_frame)
+        layoutInflater.inflate(layoutResID, contentFrame, true)
+        super.setContentView(base)
+
+        // 👇 Esta línea es necesaria
+        rootLayout = base.findViewById(R.id.rootLayout)  // O el ID correcto
 
         globalHeader = findViewById(R.id.view_global_header)
 
