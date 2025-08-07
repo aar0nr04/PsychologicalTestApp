@@ -1,14 +1,13 @@
+package com.example.psychologicaltestapp
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psychologicaltestapp.Appointment
-import com.example.psychologicaltestapp.R
 
 
-class UpcomingAppointmentsAdapter(private val appointments: List<Appointment>) :
-    RecyclerView.Adapter<UpcomingAppointmentsAdapter.ViewHolder>() {
+class UpcomingAppointmentsAdapter(private val appointments: List<AppointmentRequest>) : RecyclerView.Adapter<UpcomingAppointmentsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dateText: TextView = view.findViewById(R.id.dateText)

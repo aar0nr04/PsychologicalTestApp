@@ -32,7 +32,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo_banner"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="20dp"/>
 
             <!-- Foto de perfil -->
             <ImageView
@@ -54,6 +55,15 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Hola, Usuario" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dayScheduleRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false"
+                />
+
             <!-- Título de Próximas Citas -->
             <TextView
                 android:id="@+id/upcomingAppointmentsHeader"

@@ -63,11 +63,14 @@ class PsychologistDetailActivity : BaseActivity() {
 
     private fun saveAppointmentRequest(psychologistId: String, date: String, time: String, notes: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        // Combine date and time into a single string
+        val dateTime = "$date $time" // Example: "2023-10-27 14:30"
+
         val request = AppointmentRequest(
             userId = userId,
             psychologistId = psychologistId,
-            proposedDate = date,
-            proposedTime = time,
+            dateTime = dateTime, // Pass the combined string to the 'dateTime' field
             notes = notes,
             status = "pending"
         )

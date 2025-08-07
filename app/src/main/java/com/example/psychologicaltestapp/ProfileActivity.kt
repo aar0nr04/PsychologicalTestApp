@@ -1,5 +1,8 @@
 package com.example.psychologicaltestapp
 
+
+
+import UserRepository
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.psychologicaltestapp.adapters.AppointmentRequestAdapter
-import com.example.psychologicaltestapp.adapters.UpcomingAppointmentsAdapter
-import com.example.psychologicaltestapp.adapters.TestHistoryAdapter
-import com.example.psychologicaltestapp.models.AppointmentRequest
-import om.example.psychologicaltestapp.models.TestResultc
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
