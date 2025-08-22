@@ -69,6 +69,8 @@
             android:exported="false" />
         <activity android:name=".AiTipsActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".VerifyEmailActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

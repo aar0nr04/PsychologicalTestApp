@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "227812545083-lm6pg4kv39o94rrtpdt3lu93ppqb5n2g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.psychologicaltestapp",
+            "certificate_hash": "56678f7a49ce5b7abd439429c91b40207c761f6a"
+          }
+        },
+        {
           "client_id": "227812545083-r5kbmafuiqulk6hb3r52ppu1j3aou83l.apps.googleusercontent.com",
           "client_type": 3
         }
