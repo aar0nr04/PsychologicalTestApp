@@ -3,45 +3,43 @@ package com.example.psychologicaltestapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class VerifyEmailActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
+class VerifyEmailActivity : BaseActivity() {
+
+    private val repo = AuthRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_email)
 
-        auth = FirebaseAuth.getInstance()
-        val db = Firebase.firestore
-
-        findViewById<TextView>(R.id.tvInfo).text =
-            "Te enviamos un correo de verificación. Revísalo y luego toca 'Ya verifiqué'."
-
         findViewById<Button>(R.id.btnResend).setOnClickListener {
-            auth.currentUser?.sendEmailVerification()
-            Toast.makeText(this, "Correo reenviado", Toast.LENGTH_SHORT).show()
+            repo.resendVerification(
+                onDone = { toast("Correo reenviado") },
+                onError = { toast(it) }
+            )
         }
 
         findViewById<Button>(R.id.btnVerified).setOnClickListener {
-            auth.currentUser?.reload()?.addOnCompleteListener {
-                val isVerified = auth.currentUser?.isEmailVerified == true
-                if (isVerified) {
-                    // Marca el flag en Firestore (opcional pero útil)
-                    val uid = auth.currentUser!!.uid
-                    db.collection("users").document(uid)
+            FirebaseAuth.getInstance().currentUser?.reload()?.addOnCompleteListener {
+                val verified = FirebaseAuth.getInstance().currentUser?.isEmailVerified == true
+                if (verified) {
+                    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                    Firebase.firestore.collection("users").document(uid)
                         .update("verifiedEmail", true)
+                    toast("Correo verificado")
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this, "Aún no aparece verificado. Intenta de nuevo.", Toast.LENGTH_SHORT).show()
+                    toast("Aún no aparece verificado")
                 }
             }
         }
     }
+
+    private fun toast(m: String) =
+        Toast.makeText(this, m, Toast.LENGTH_SHORT).show()
 }
