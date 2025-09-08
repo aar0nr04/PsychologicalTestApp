@@ -1,82 +1,172 @@
-package com.example.psychologicaltestapp
+package com.example.psychologicaltestapp.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.util.Patterns
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.example.psychologicaltestapp.R
+import com.example.psychologicaltestapp.databinding.ActivityLoginBinding
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var authRepository: AuthRepository
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
+    private var googleClient: GoogleSignInClient? = null
 
     private val googleLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         try {
-            val account = task.getResult(ApiException::class.java)
-            val token = account.idToken
-            if (token == null) {
-                toast("idToken nulo → revisa google-services.json / SHA")
-                return@registerForActivityResult
-            }
-            authRepository.signInWithGoogle(
-                idToken = token,
-                onSuccess = {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                },
-                onError = { err -> toast("Google Auth falló: $err") }
-            )
-        } catch (e: ApiException) {
-            toast("Google Sign-In error (${e.statusCode})")
+            val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account.idToken!!)
+        } catch (e: Exception) {
+            showMsg("Google Sign-In cancelado o fallido: ${e.localizedMessage}")
+            setLoading(false)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        authRepository = AuthRepository()
+        // Firebase Auth
+        auth = FirebaseAuth.getInstance()
+        auth.setLanguageCode("es") // emails de Firebase en español
 
-        val emailEditText = findViewById<EditText>(R.id.emailEditText)
-        val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
-        val loginButton = findViewById<Button>(R.id.loginButton)
-        val backButton = findViewById<Button>(R.id.backButton)
+        // Ads
+        loadBannerAd()
 
-        // Botón de Google si existe en tu XML
-        findViewById<Button?>(R.id.googleSignInButton)?.setOnClickListener {
-            val client = authRepository.getGoogleClient(this)
-            client.signOut().addOnCompleteListener { // limpia estado viejo
-                googleLauncher.launch(client.signInIntent)
-            }
-        }
+        // Google Sign-In
+        setupGoogle()
 
-        loginButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
-            if (email.isEmpty() || password.isEmpty()) return@setOnClickListener toast("Completa todos los campos")
+        // Listeners
+        binding.loginButton.setOnClickListener { loginWithEmail() }
+        binding.googleSignInButton.setOnClickListener { signInWithGoogle() }
+        // tvForgot puede no estar en el binding si el id no fue visto por el generador
+        binding.root.findViewById<TextView>(R.id.tvForgot)?.setOnClickListener { sendResetEmail() }
+        binding.backButton.setOnClickListener { finish() }
+    }
 
-            authRepository.loginUser(email, password,
-                onSuccess = {
-                    toast("Inicio de sesión exitoso")
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                },
-                onError = { errorMessage -> toast(errorMessage) }
-            )
-        }
+    private fun loadBannerAd() {
+        val adRequest = AdRequest.Builder().build()
+        // Por si en algún layout no existe el AdView:
+        binding.adView.loadAd(adRequest)
+    }
 
-        backButton.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+    private fun setupGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    private fun signInWithGoogle() {
+        setLoading(true)
+        googleClient?.let { client ->
+            client.signOut() // forzar selector de cuenta
+            // Aquí ya NO pasamos Intent?; es Intent no-nulo
+            googleLauncher.launch(client.signInIntent)
+        } ?: run {
+            setLoading(false)
+            showMsg("No se pudo inicializar Google Sign-In")
         }
     }
 
-    private fun toast(msg: String) =
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                setLoading(false)
+                if (task.isSuccessful) {
+                    onLoginSuccess()
+                } else {
+                    showMsg("Error al iniciar con Google: ${task.exception?.localizedMessage}")
+                }
+            }
+    }
+
+    private fun loginWithEmail() {
+        val email = binding.emailEditText.text?.toString()?.trim().orEmpty()
+        val pass = binding.passwordEditText.text?.toString().orEmpty()
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showMsg("Correo inválido")
+            return
+        }
+        if (pass.length < 6) {
+            showMsg("La contraseña debe tener al menos 6 caracteres")
+            return
+        }
+
+        setLoading(true)
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnCompleteListener { task ->
+                setLoading(false)
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    if (user?.isEmailVerified == true) {
+                        onLoginSuccess()
+                    } else {
+                        showMsg("Verifica tu correo para continuar")
+                        user?.sendEmailVerification()
+                    }
+                } else {
+                    showMsg(task.exception?.localizedMessage ?: "Error al iniciar sesión")
+                }
+            }
+    }
+
+    private fun sendResetEmail() {
+        val email = binding.emailEditText.text?.toString()?.trim().orEmpty()
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showMsg("Escribe tu correo en el campo de correo para enviar el enlace")
+            return
+        }
+        setLoading(true)
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                setLoading(false)
+                if (task.isSuccessful) {
+                    showMsg("Te enviamos un enlace para restablecer tu contraseña")
+                } else {
+                    showMsg("No pudimos enviar el correo: ${task.exception?.localizedMessage}")
+                }
+            }
+    }
+
+    private fun onLoginSuccess() {
+        showMsg("¡Bienvenido!")
+        // TODO: Navegar a tu Home/Main
+        // startActivity(Intent(this, MainActivity::class.java))
+        // finish()
+    }
+
+    private fun setLoading(loading: Boolean) {
+        val views = listOf(
+            binding.loginButton,
+            binding.googleSignInButton,
+            binding.emailEditText,
+            binding.passwordEditText,
+            binding.backButton
+        )
+        views.forEach { it.isEnabled = !loading }
+        // Si agregas ProgressBar en el XML, muéstralo/ocúltalo aquí
+        // binding.progress.isVisible = loading
+    }
+
+    private fun showMsg(msg: String) =
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 }

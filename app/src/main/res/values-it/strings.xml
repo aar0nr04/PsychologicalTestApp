@@ -12,6 +12,15 @@
     <string name="change_to_spanish">Cambia lingua in spagnolo</string>
     <string name="change_to_english">Cambia lingua in inglese</string>
 
+    <string name="title_iniciar_sesion">Accedi</string>
+    <string name="hint_correo">Email</string>
+    <string name="hint_contrasena">Password</string>
+    <string name="forgot_password">Hai dimenticato la password?</string>
+    <string name="btn_iniciar_sesion">Accedi</string>
+    <string name="btn_google">Continua con Google</string>
+    <string name="btn_regresar">Indietro</string>
+    <string name="cd_logo_banner">Logo dell’app</string>
+
     <string name="profile">Profilo</string>
     <string name="settings">Impostazioni</string>
     <string name="login">Accedi</string>

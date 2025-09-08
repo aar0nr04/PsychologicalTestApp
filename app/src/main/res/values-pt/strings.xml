@@ -12,6 +12,15 @@
     <string name="change_to_spanish">Mudar idioma para espanhol</string>
     <string name="change_to_english">Mudar idioma para inglês</string>
 
+    <string name="title_iniciar_sesion">Entrar</string>
+    <string name="hint_correo">E-mail</string>
+    <string name="hint_contrasena">Senha</string>
+    <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="btn_iniciar_sesion">Entrar</string>
+    <string name="btn_google">Continuar com o Google</string>
+    <string name="btn_regresar">Voltar</string>
+    <string name="cd_logo_banner">Logotipo do aplicativo</string>
+
     <string name="profile">Perfil</string>
     <string name="settings">Configurações</string>
     <string name="login">Entrar</string>

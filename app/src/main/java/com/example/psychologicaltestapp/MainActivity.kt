@@ -12,6 +12,7 @@ import com.example.psychologicaltestapp.utils.DialogHelper
 import com.example.psychologicaltestapp.utils.PremiumManager
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
+import com.example.psychologicaltestapp.ui.auth.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
