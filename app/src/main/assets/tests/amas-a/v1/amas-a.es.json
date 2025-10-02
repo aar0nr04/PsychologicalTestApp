@@ -1,0 +1,76 @@
+{
+  "schema": "https://testamente.app/schemas/test.v1.json",
+  "id": "amas-a-v1-es",
+  "slug": "amas-a",
+  "version": "v1",
+  "locale": "es",
+  "title": "AMAS-A (Adult Math Anxiety Scale)",
+  "description": "Evalúa la ansiedad matemática en adultos.",
+  "instructions": "Responde cada ítem según cómo te sientes al respecto.",
+  "ui": {
+    "theme": "light",
+    "progress": "bar",
+    "shuffleQuestions": false
+  },
+  "constraints": {
+    "timeLimitSec": 0,
+    "allowBackNavigation": true
+  },
+  "scales": [
+    { "id": "total", "title": "Puntaje total", "method": "sum" },
+    { "id": "subtest-ansiedad-examen", "title": "Ansiedad en exámenes", "method": "sum" }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "likert",
+      "prompt": "Resolver un problema de álgebra me hace sentir nervioso.",
+      "required": true,
+      "options": [
+        { "id": "o1", "label": "Nunca", "value": 0 },
+        { "id": "o2", "label": "Rara vez", "value": 1 },
+        { "id": "o3", "label": "A veces", "value": 2 },
+        { "id": "o4", "label": "Frecuentemente", "value": 3 },
+        { "id": "o5", "label": "Siempre", "value": 4 }
+      ],
+      "scores": [
+        { "scale": "total", "mapping": "option.value" },
+        { "scale": "subtest-ansiedad-examen", "mapping": "option.value" }
+      ],
+      "next": "q2"
+    }
+
+  ],
+  "results": {
+    "scales": [
+      {
+        "id": "total",
+        "ranges": [
+          { "min": 0, "max": 20, "label": "Baja", "color": "#3CB371",
+            "advice": "Tu ansiedad matemática es baja." },
+          { "min": 21, "max": 60, "label": "Moderada", "color": "#FFD166",
+            "advice": "Ansiedad moderada; considera técnicas de respiración." },
+          { "min": 61, "max": 120, "label": "Alta", "color": "#EF476F",
+            "advice": "Ansiedad alta; sugiere consulta con un profesional." }
+        ]
+      }
+    ],
+    "report": {
+      "title": "Perfil de Ansiedad Matemática",
+      "sections": [
+        { "heading": "Resumen", "body": "Tu nivel es {{scales.total.label}} ({{scales.total.score}} pts)." },
+        { "heading": "Recomendaciones", "body": "Practica exposición gradual a problemas y técnicas de afrontamiento." }
+      ]
+    }
+  },
+  "aiTips": {
+    "promptTemplate": "Actúa como psicólogo {{persona}}. Con base en: {{results.json}}, ofrece 5 consejos prácticos."
+  },
+  "monetization": {
+    "access": "pro",
+    "adUnlock": { "enabled": true, "viewsRequired": 2 }
+  },
+  "analytics": {
+    "eventPrefix": "test_amas_a_v1"
+  }
+}

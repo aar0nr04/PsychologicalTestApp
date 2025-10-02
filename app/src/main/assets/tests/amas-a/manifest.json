@@ -1,0 +1,19 @@
+{
+  "slug": "amas-a",
+  "authors": ["Laura X."],
+  "maintainer": "Testamente",
+  "license": {
+    "type": "copyright-by-owner",   // public-domain | cc-by-4.0 | etc.
+    "notes": "Uso con suscripción Pro dentro de la app."
+  },
+  "visibility": "listed",           // listed | unlisted | draft
+  "availableVersions": ["v1","v2"],
+  "availableLocales": ["es","en"],
+  "clinicalNotes": {
+    "population": "Adultos",
+    "contraindications": [],
+    "references": [
+      "ISBN/DOI o paper de referencia (si aplica)"
+    ]
+  }
+}
