@@ -13,6 +13,7 @@ import com.example.psychologicaltestapp.utils.PremiumManager
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import com.example.psychologicaltestapp.ui.auth.LoginActivity
+import com.example.psychologicaltestapp.ui.tests.TestsCatalogActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnTest.setOnClickListener {
-            startActivity(Intent(this, TestListActivity::class.java))
+            startActivity(Intent(this, TestsCatalogActivity::class.java))
         }
 
         binding.btnDirectory.setOnClickListener {
