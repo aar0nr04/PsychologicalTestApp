@@ -16,6 +16,7 @@
             android:hint="Grupo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <AutoCompleteTextView
                 android:id="@+id/ddGroup"
                 android:inputType="none"
@@ -29,6 +30,7 @@
             android:hint="Categoría"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <AutoCompleteTextView
                 android:id="@+id/ddCategory"
                 android:inputType="none"
@@ -42,6 +44,7 @@
             android:hint="Subcategoría"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <AutoCompleteTextView
                 android:id="@+id/ddSubcategory"
                 android:inputType="none"
@@ -55,6 +58,7 @@
             android:hint="Test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <AutoCompleteTextView
                 android:id="@+id/ddTest"
                 android:inputType="none"
