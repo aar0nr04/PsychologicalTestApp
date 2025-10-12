@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.example.psychologicaltestapp.TestActivity
 import com.example.psychologicaltestapp.data.tests.*
 import com.example.psychologicaltestapp.databinding.ActivityTestsCatalogBinding
 
@@ -136,12 +137,12 @@ class TestsCatalogActivity : ComponentActivity() {
     // ---------- Navegación ----------
     private fun startSelectedTest() {
         val test = selectedTest ?: return
-        val i = Intent(this, TestRunnerActivity::class.java).apply {
+        val i = Intent(this, TestActivity::class.java).apply {
             putExtra("slug", test.slug)
             putExtra("version", test.latestVersion)
-            putExtra("locale", locale)
+            putExtra("locale", "es") // o el que uses
         }
-        // Aquí podrías mostrar el intersticial antes de iniciar
         startActivity(i)
     }
+
 }

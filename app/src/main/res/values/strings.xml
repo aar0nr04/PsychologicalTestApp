@@ -39,6 +39,7 @@
     <string name="chinese">ZH</string>
 
     <string name="welcome_message">¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente</string>
+    <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
 
     <string-array name="psychologist_types">
         <item>Empático</item>

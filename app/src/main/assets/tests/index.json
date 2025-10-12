@@ -73,6 +73,24 @@
 
   "tests": [
     {
+      "slug": "amas-a",
+      "title": { "es": "AMAS-A Ansiedad", "en": "AMAS-A Anxiety" },
+      "summary": {
+        "es": "Inventario de ansiedad con subescalas IHS, FIS, SOC, M y total (T).",
+        "en": "Anxiety inventory: IHS, FIS, SOC, Lie (M) and Total (T) subscales."
+      },
+      "group": "clinicos",
+      "category": "ansiedad-estres",
+      "subcategory": "ansiedad-general",
+      "tags": ["ansiedad","amas-a","screening"],
+      "latestVersion": "v1",
+      "locales": ["es"],
+      "durationMin": 4,
+      "questionCount": 36,
+      "access": "free",
+      "license": "restricted-or-requires-permission"
+    },
+    {
       "slug": "rosenberg-self-esteem",
       "title": { "es": "Escala de Autoestima de Rosenberg (RSES)", "en": "Rosenberg Self-Esteem Scale" },
       "summary": { "es": "Autoestima global.", "en": "Global self-esteem." },

@@ -1,0 +1,324 @@
+{
+  "schema": "v1",
+  "id": "amas-a",
+  "slug": "amas-a",
+  "version": "v1",
+  "locale": "es",
+  "title": "AMAS-A (Inventario de Ansiedad)",
+  "description": "Ansiedad total y subescalas: Inquietud/Hipersensibilidad (IHS), Ansiedad Fisiológica (FIS), Preocupación Social/Estrés (SOC), Subescala de Mentira (M).",
+  "instructions": "Responde marcando SÍ o NO según te describa mejor.",
+  "ui": { "progress": "bar", "shuffleQuestions": false },
+  "constraints": { "allowBackNavigation": true },
+  "scales": [
+    { "id": "IHS", "title": "Inquietud / Hipersensibilidad", "method": "sum" },
+    { "id": "FIS", "title": "Ansiedad Fisiológica", "method": "sum" },
+    { "id": "SOC", "title": "Preocupación Social / Estrés", "method": "sum" },
+    { "id": "M",   "title": "Subescala de Mentira", "method": "sum" },
+    { "id": "T",   "title": "Ansiedad Total", "method": "sum" }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single",
+      "prompt": "1. Me preocupa hacer lo correcto.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "prompt": "2. Es frecuente que me sienta inquieto/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q3",
+      "type": "single",
+      "prompt": "3. Es frecuente que me preocupe por lo que podría pasarle a mi familia.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q4",
+      "type": "single",
+      "prompt": "4. Siempre soy agradable con todos.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [0,0], "M": [1,0], "T": [0,0] }
+    },
+    {
+      "id": "q5",
+      "type": "single",
+      "prompt": "5. Me pongo nervioso/a cuando las cosas no me salen bien.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q6",
+      "type": "single",
+      "prompt": "6. Muchas veces me siento acelerado/a o intranquilo/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q7",
+      "type": "single",
+      "prompt": "7. Es fácil que me sienta mal cuando me llaman la atención.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q8",
+      "type": "single",
+      "prompt": "8. Siempre soy amable.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [0,0], "M": [1,0], "T": [0,0] }
+    },
+    {
+      "id": "q9",
+      "type": "single",
+      "prompt": "9. A veces me preocupo por las cosas que en realidad no tienen importancia.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q10",
+      "type": "single",
+      "prompt": "10. Es frecuente que la gente diga que soy inquieto/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q11",
+      "type": "single",
+      "prompt": "11. La vida se está complicando demasiado.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q12",
+      "type": "single",
+      "prompt": "12. Siempre soy educado/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [0,0], "M": [1,0], "T": [0,0] }
+    },
+    {
+      "id": "q13",
+      "type": "single",
+      "prompt": "13. Es fácil que hieran mis sentimientos.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q14",
+      "type": "single",
+      "prompt": "14. Es frecuente que sienta mi cuerpo tenso.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q15",
+      "type": "single",
+      "prompt": "15. Me preocupa el dinero.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q16",
+      "type": "single",
+      "prompt": "16. Me preocupa lo que va a pasar.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q17",
+      "type": "single",
+      "prompt": "17. Estoy nervioso/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q18",
+      "type": "single",
+      "prompt": "18. Me cuesta trabajo tomar decisiones.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q19",
+      "type": "single",
+      "prompt": "19. Me preocupa hacerme viejo/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q20",
+      "type": "single",
+      "prompt": "20. Me preocupa el futuro.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q21",
+      "type": "single",
+      "prompt": "21. Mis músculos se sienten tensos.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q22",
+      "type": "single",
+      "prompt": "22. Me preocupa cómo me está yendo en el trabajo.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q23",
+      "type": "single",
+      "prompt": "23. Es fácil que me desespere con los demás.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q24",
+      "type": "single",
+      "prompt": "24. Siempre digo la verdad.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [0,0], "M": [1,0], "T": [0,0] }
+    },
+    {
+      "id": "q25",
+      "type": "single",
+      "prompt": "25. Me preocupa lo que los demás piensen de mí.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q26",
+      "type": "single",
+      "prompt": "26. Me cuesta mucho trabajo estar quieto/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q27",
+      "type": "single",
+      "prompt": "27. Me preocupa la muerte.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q28",
+      "type": "single",
+      "prompt": "28. Siempre soy bueno/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [0,0], "M": [1,0], "T": [1,0] }
+    },
+    {
+      "id": "q29",
+      "type": "single",
+      "prompt": "29. Muchas veces me siento cansado/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q30",
+      "type": "single",
+      "prompt": "30. Me preocupa cuando me acuesto a dormir.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q31",
+      "type": "single",
+      "prompt": "31. Siento que alguien me va a decir que hago mal las cosas.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q32",
+      "type": "single",
+      "prompt": "32. Me caen bien todas las personas que conozco.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [0,0], "M": [1,0], "T": [0,0] }
+    },
+    {
+      "id": "q33",
+      "type": "single",
+      "prompt": "33. Me siento preocupado/a la gran parte del tiempo.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q34",
+      "type": "single",
+      "prompt": "34. Me despierto pensando en mis problemas.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [1,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q35",
+      "type": "single",
+      "prompt": "35. Es frecuente que me sienta muy estresado/a.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [0,0], "FIS": [0,0], "SOC": [1,0], "M": [0,0], "T": [1,0] }
+    },
+    {
+      "id": "q36",
+      "type": "single",
+      "prompt": "36. Parece que los demás hacen las cosas con más facilidad que yo.",
+      "options": [{ "id": "yes", "label": "SÍ" }, { "id": "no", "label": "NO" }],
+      "scoresMatrix": { "IHS": [1,0], "FIS": [0,0], "SOC": [0,0], "M": [0,0], "T": [1,0] }
+    }
+  ],
+  "results": {
+    "scales": [
+      {
+        "id": "IHS",
+        "ranges": [
+          { "min": 0, "max": 4,  "label": "Bajo",      "advice": "Pocas preocupaciones; no particularmente sensible a la crítica; enfoque relajado." },
+          { "min": 5, "max": 8,  "label": "Esperada",  "advice": "Grados normales de inquietud y preocupación." },
+          { "min": 9, "max": 11, "label": "Elevación leve", "advice": "Frecuente preocupación; puede interferir levemente con relaciones; posible compulsividad ligera." },
+          { "min": 12, "max": 14,"label": "Clínicamente significativa", "advice": "Preocupación enfocada, rumiación; posible agotamiento mental y rasgos obsesivo-compulsivos." }
+        ]
+      },
+      {
+        "id": "FIS",
+        "ranges": [
+          { "min": 0, "max": 1, "label": "Bajo", "advice": "Probablemente buena canalización del nerviosismo (salvo negación)." },
+          { "min": 2, "max": 3, "label": "Esperada", "advice": "Manifestaciones fisiológicas promedio." },
+          { "min": 4, "max": 6, "label": "Elevación leve", "advice": "Tensión leve; funciona bien si no hay otras elevaciones." },
+          { "min": 7, "max": 8, "label": "Clínicamente significativa", "advice": "Preocupación enfocada, rumiación; posible agotamiento mental." },
+          { "min": 9, "max": 9, "label": "Extrema", "advice": "Manifestaciones somáticas elevadas; fatiga y probable alteración del sueño." }
+        ]
+      },
+      {
+        "id": "SOC",
+        "ranges": [
+          { "min": 0, "max": 1, "label": "Baja", "advice": "Poca preocupación por opiniones ajenas; posible menor interés en relaciones." },
+          { "min": 2, "max": 3, "label": "Esperada", "advice": "Preocupaciones interpersonales normales." },
+          { "min": 4, "max": 5, "label": "Elevación leve", "advice": "Demasiada preocupación por apariencia/tareas; usualmente no disfuncional." },
+          { "min": 6, "max": 7, "label": "Clínicamente significativa", "advice": "Estrés elevado en tareas cotidianas y preocupaciones sociales." }
+        ]
+      },
+      {
+        "id": "M",
+        "ranges": [
+          { "min": 0, "max": 1, "label": "Baja (cuestionable)", "advice": "Posible exageración o mala comprensión de los ítems." },
+          { "min": 2, "max": 3, "label": "Esperada (válido)", "advice": "Perfil típico/adecuado." },
+          { "min": 4, "max": 5, "label": "Elevación leve (válido)", "advice": "Rigidez/moralismo; algo de negación o ingenuidad." },
+          { "min": 6, "max": 6, "label": "Clínicamente significativa (cuestionable)", "advice": "Posible sesgo de deseabilidad; poca reflexividad." }
+        ]
+      },
+      {
+        "id": "T",
+        "ranges": [
+          { "min": 0,  "max": 8,  "label": "Baja", "advice": "Confiado y centrado; ocasional tendencia narcisista." },
+          { "min": 9,  "max": 15, "label": "Esperada", "advice": "Reactividad típica sin patrones anómalos." },
+          { "min": 16, "max": 22, "label": "Elevación leve", "advice": "Cierto nivel de excitabilidad y rumiación; funciona con pequeñas inseguridades." },
+          { "min": 23, "max": 28, "label": "Clínicamente significativa", "advice": "Temor/ansiedad notables; rumiación; posible rigidez cognitiva." },
+          { "min": 29, "max": 30, "label": "Extrema", "advice": "Ansiedad muy alta; alteración del pensamiento/juicio; probable depresión concomitante." }
+        ]
+      }
+    ]
+  }
+}
