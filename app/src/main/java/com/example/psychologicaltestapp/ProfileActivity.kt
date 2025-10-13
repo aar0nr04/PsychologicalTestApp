@@ -1,259 +1,199 @@
 package com.example.psychologicaltestapp
 
-
-
-import UserRepository
-import android.app.AlertDialog
-import android.content.Intent
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.widget.CalendarView
-import android.widget.TextView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.*
-
+import com.example.psychologicaltestapp.data.profile.UserRepository
+import com.example.psychologicaltestapp.databinding.ActivityProfileBinding
+import com.google.firebase.Timestamp
+import java.util.Calendar
+import java.util.Locale
 
 class ProfileActivity : AppCompatActivity() {
 
-    private lateinit var adView: AdView
-    private lateinit var testHistoryRecyclerView: RecyclerView
-    private lateinit var testHistoryHeader: TextView
-    private lateinit var emptyMessage: TextView
-    private lateinit var appointmentRequestsRecyclerView: RecyclerView
-    private lateinit var appointmentAdapter: AppointmentRequestAdapter
-    private lateinit var calendarView: CalendarView
-    private lateinit var dayScheduleRecyclerView: RecyclerView
-    private lateinit var dayScheduleAdapter: AppointmentRequestAdapter
-    private lateinit var upcomingAppointmentsRecyclerView: RecyclerView
-    private lateinit var noAppointmentsText: TextView
-    private var lastY = 0f
-    private val db = FirebaseFirestore.getInstance()
-    private val testResults = mutableListOf<TestResult>()
-    private lateinit var adapter: TestHistoryAdapter
-    private var isPsychologist = false
+    private lateinit var binding: ActivityProfileBinding
+    private val repo = UserRepository()
+
+    private var currentDob: Timestamp? = null
+    private var currentRole: String = "patient"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        adView = findViewById(R.id.adView)
-        testHistoryRecyclerView = findViewById(R.id.testHistoryRecyclerView)
-        testHistoryHeader = findViewById(R.id.testHistoryHeader)
-        emptyMessage = findViewById(R.id.emptyMessage)
-        appointmentRequestsRecyclerView = findViewById(R.id.appointmentRequestsRecyclerView)
-        calendarView = findViewById(R.id.calendarView)
-        dayScheduleRecyclerView = findViewById(R.id.dayScheduleRecyclerView)
-        upcomingAppointmentsRecyclerView = findViewById(R.id.upcomingAppointmentsRecyclerView)
-        noAppointmentsText = findViewById(R.id.noAppointmentsText)
+        setupRoleDropdown()
+        setupDobPicker()
+        loadProfile()
 
-        MobileAds.initialize(this) {}
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        binding.btnSave.setOnClickListener { saveProfile() }
+    }
 
-        adapter = TestHistoryAdapter(testResults) { selectedResult ->
-            val testJson = selectedResult.testJson
-            val responsesJson = selectedResult.userResponsesJson
-
-            if (!testJson.isNullOrBlank() && !responsesJson.isNullOrBlank()) {
-                val intent = Intent(this, ResultActivity::class.java).apply {
-                    putExtra("TEST_JSON", testJson)
-                    putExtra("USER_RESPONSES", responsesJson)
-                }
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Este test no contiene información completa para visualizarlo.", Toast.LENGTH_LONG).show()
-            }
-        }
-        testHistoryRecyclerView.layoutManager = LinearLayoutManager(this)
-        testHistoryRecyclerView.adapter = adapter
-
-        appointmentAdapter = AppointmentRequestAdapter { appointmentRequest ->
-            val intent = Intent(this, AppointmentDetailActivity::class.java).apply {
-                putExtra("appointmentId", appointmentRequest.id)
-                putExtra("psychologistId", appointmentRequest.psychologistId)
-            }
-            startActivity(intent)
-        }
-        appointmentRequestsRecyclerView.layoutManager = LinearLayoutManager(this)
-        appointmentRequestsRecyclerView.adapter = appointmentAdapter
-
-        dayScheduleAdapter = AppointmentRequestAdapter { appointmentRequest ->
-            val intent = Intent(this, AppointmentDetailActivity::class.java).apply {
-                putExtra("appointmentId", appointmentRequest.id)
-                putExtra("psychologistId", appointmentRequest.psychologistId)
-            }
-            startActivity(intent)
-        }
-        dayScheduleRecyclerView.layoutManager = LinearLayoutManager(this)
-        dayScheduleRecyclerView.adapter = dayScheduleAdapter
-
-        upcomingAppointmentsRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        fetchUserRole { role ->
-            isPsychologist = role == "psychologist"
-            if (isPsychologist) {
-                calendarView.visibility = View.VISIBLE
-                dayScheduleRecyclerView.visibility = View.VISIBLE
-                testHistoryRecyclerView.visibility = View.GONE
-                testHistoryHeader.visibility = View.GONE
-                emptyMessage.visibility = View.GONE
-
-                calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-                    val dateStr = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
-                    loadAppointmentsForPsychologistOnDate(dateStr)
-                }
-
-                val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-                loadAppointmentsForPsychologistOnDate(today)
-            } else {
-                calendarView.visibility = View.GONE
-                dayScheduleRecyclerView.visibility = View.GONE
-                loadUserAppointments()
-                loadTestResults()
-            }
-
-            loadUpcomingAppointments()
+    private fun setupRoleDropdown() {
+        val roles = arrayOf("patient", "psychologist")
+        binding.ddRole.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, roles))
+        binding.ddRole.setOnItemClickListener { _, _, pos, _ ->
+            currentRole = roles[pos]
+            showProfessionalSection(currentRole == "psychologist")
         }
     }
 
-    private fun loadUserAppointments() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-
-        db.collection("appointment_requests")
-            .whereEqualTo("userId", userId)
-            .get()
-            .addOnSuccessListener { result ->
-                val appointments = result.map { doc ->
-                    val appointment = doc.toObject(AppointmentRequest::class.java)
-                    appointment.copy(id = doc.id)
-                }
-                appointmentAdapter.submitList(appointments)
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error cargando citas: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun loadUpcomingAppointments() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-
-        db.collection("appointment_requests")
-            .get()
-            .addOnSuccessListener { result ->
-                val today = LocalDate.now()
-                val appointments = result.mapNotNull { doc ->
-                    val appointment = doc.toObject(AppointmentRequest::class.java)
-                    val apptDate = runCatching { LocalDate.parse(appointment.proposedDate) }.getOrNull()
-                    if (apptDate != null && apptDate >= today) {
-                        if ((isPsychologist && appointment.psychologistId == userId) ||
-                            (!isPsychologist && appointment.userId == userId)) {
-                            appointment.copy(id = doc.id)
-                        } else null
-                    } else null
-                }.sortedBy { it.proposedDate + it.proposedTime }.take(5)
-
-                if (appointments.isEmpty()) {
-                    noAppointmentsText.visibility = View.VISIBLE
-                } else {
-                    noAppointmentsText.visibility = View.GONE
-                    upcomingAppointmentsRecyclerView.adapter = UpcomingAppointmentsAdapter(appointments)
-                }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error cargando próximas citas: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun loadTestResults() {
-        val currentUser = FirebaseAuth.getInstance().currentUser ?: return
-        val userRepository = UserRepository()
-
-        userRepository.getTestResultsForUser(currentUser.uid) { results ->
-            runOnUiThread {
-                if (results.isNotEmpty()) {
-                    adapter.submitList(results)
-                    testHistoryHeader.visibility = View.VISIBLE
-                    testHistoryRecyclerView.visibility = View.VISIBLE
-                    emptyMessage.visibility = View.GONE
-                } else {
-                    testHistoryHeader.visibility = View.GONE
-                    testHistoryRecyclerView.visibility = View.GONE
-                    emptyMessage.visibility = View.VISIBLE
-                }
-            }
+    private fun setupDobPicker() {
+        binding.btnPickDob.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val dlg = DatePickerDialog(
+                this,
+                { _, y, m, d ->
+                    cal.set(y, m, d, 0, 0, 0); cal.set(Calendar.MILLISECOND, 0)
+                    currentDob = Timestamp(cal.time)
+                    binding.tvAge.text = "Edad: ${calcAge(cal)}"
+                },
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+            )
+            dlg.show()
         }
     }
 
-    private fun fetchUserRole(onRoleReady: (String) -> Unit) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        db.collection("users").document(userId)
-            .get()
-            .addOnSuccessListener { doc ->
-                val role = doc.getString("role") ?: "patient"
-                onRoleReady(role)
-            }
-            .addOnFailureListener {
-                onRoleReady("patient")
-            }
+    private fun calcAge(cal: Calendar): Int {
+        val now = Calendar.getInstance()
+        var age = now.get(Calendar.YEAR) - cal.get(Calendar.YEAR)
+        if (now.get(Calendar.DAY_OF_YEAR) < cal.get(Calendar.DAY_OF_YEAR)) age--
+        return age
     }
 
-    private fun loadAppointmentsForPsychologistOnDate(date: String) {
-        val psychologistId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-
-        db.collection("appointment_requests")
-            .whereEqualTo("psychologistId", psychologistId)
-            .whereEqualTo("proposedDate", date)
-            .get()
-            .addOnSuccessListener { result ->
-                val appointments = result.map { doc ->
-                    val appointment = doc.toObject(AppointmentRequest::class.java)
-                    appointment.copy(id = doc.id)
-                }
-                dayScheduleAdapter.submitList(appointments)
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error cargando agenda del día: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+    private fun showProfessionalSection(show: Boolean) {
+        binding.cardProfessional.visibility = if (show) android.view.View.VISIBLE else android.view.View.GONE
     }
 
-    override fun onDestroy() {
-        adView.destroy()
-        super.onDestroy()
+    // -------- Load / Save --------
+
+    private fun loadProfile() {
+        repo.load(onSuccess = { data ->
+            // Básicos
+            binding.etName.setText(data["name"] as? String ?: "")
+            binding.etEmail.setText(data["email"] as? String ?: "")
+            binding.etPhone.setText(data["phone"] as? String ?: "")
+            binding.etCountry.setText((data["country"] as? String) ?: "MX")
+            binding.etState.setText(data["state"] as? String ?: "")
+            binding.etCity.setText(data["city"] as? String ?: "")
+            binding.etTimeZone.setText(data["timeZone"] as? String ?: "")
+
+            currentRole = (data["role"] as? String) ?: "patient"
+            binding.ddRole.setText(currentRole, false)
+            showProfessionalSection(currentRole == "psychologist")
+
+            // DOB
+            (data["dob"] as? Timestamp)?.let {
+                currentDob = it
+                val cal = Calendar.getInstance().apply { time = it.toDate() }
+                binding.tvAge.text = "Edad: ${calcAge(cal)}"
+            }
+
+            // Consentimientos
+            val consents = (data["consents"] as? Map<*, *>) ?: emptyMap<String, Any>()
+            binding.swReminders.isChecked = (consents["reminders"] as? Boolean) ?: true
+            binding.swAnalytics.isChecked = (consents["analyticsAnon"] as? Boolean) ?: false
+
+            // Profesional (si hay)
+            val pro = data["professional"] as? Map<*, *>
+            if (pro != null) {
+                binding.etHeadline.setText(pro["headline"] as? String ?: "")
+                binding.etSpecialties.setText((pro["specialties"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etProLanguages.setText((pro["languages"] as? List<*>)?.joinToString(",") ?: "es")
+                binding.etModalities.setText((pro["modalities"] as? List<*>)?.joinToString(",") ?: "online,presencial")
+                binding.etPrice.setText(((pro["priceMXN"] as? Number)?.toInt() ?: 0).toString())
+                binding.etSessionMinutes.setText(((pro["sessionMinutes"] as? Number)?.toInt() ?: 50).toString())
+                binding.etAddress.setText(pro["address"] as? String ?: "")
+                binding.swPublicPhone.isChecked = (pro["isPublicPhone"] as? Boolean) ?: false
+                binding.swPublicLocation.isChecked = (pro["isPublicLocation"] as? Boolean) ?: false
+                binding.swAccepting.isChecked = (pro["acceptingNewPatients"] as? Boolean) ?: true
+
+                // availability -> textos por día
+                val av = (pro["availability"] as? Map<*, *>)?.mapKeys { it.key.toString() } ?: emptyMap()
+                binding.etMon.setText((av["mon"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etTue.setText((av["tue"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etWed.setText((av["wed"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etThu.setText((av["thu"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etFri.setText((av["fri"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etSat.setText((av["sat"] as? List<*>)?.joinToString(",") ?: "")
+                binding.etSun.setText((av["sun"] as? List<*>)?.joinToString(",") ?: "")
+            }
+        }, onError = {
+            Toast.makeText(this, "Error cargando perfil: ${it.message}", Toast.LENGTH_LONG).show()
+        })
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> lastY = event.y
-            MotionEvent.ACTION_UP -> {
-                val deltaY = event.y - lastY
-                val topBar = findViewById<View>(R.id.topBar)
-
-                if (deltaY > 100) {
-                    topBar.visibility = View.VISIBLE
-                } else if (deltaY < -100) {
-                    topBar.visibility = View.GONE
-                }
+    private fun saveProfile() {
+        // Validaciones mínimas
+        val tz = binding.etTimeZone.text.toString().trim()
+        if (tz.isEmpty()) {
+            Toast.makeText(this, "Agrega zona horaria (ej. America/Chihuahua)", Toast.LENGTH_SHORT).show()
+            return
+        }
+        currentDob?.let {
+            val age = calcAge(Calendar.getInstance().apply { time = it.toDate() })
+            if (age < 6 || age > 120) {
+                Toast.makeText(this, "Revisa la fecha de nacimiento (edad inválida).", Toast.LENGTH_SHORT).show()
+                return
             }
         }
-        return super.onTouchEvent(event)
-    }
 
-    private fun showErrorDialog(message: String) {
-        AlertDialog.Builder(this)
-            .setTitle("Error")
-            .setMessage(message)
-            .setPositiveButton("OK", null)
-            .show()
+        // Consentimientos
+        val consents = mapOf(
+            "reminders" to binding.swReminders.isChecked,
+            "analyticsAnon" to binding.swAnalytics.isChecked
+        )
+
+        val patch = mutableMapOf<String, Any?>(
+            "name" to binding.etName.text.toString().trim(),
+            "phone" to binding.etPhone.text.toString().trim(),
+            "country" to binding.etCountry.text.toString().uppercase(Locale.US),
+            "state" to binding.etState.text.toString().trim(),
+            "city" to binding.etCity.text.toString().trim(),
+            "timeZone" to tz,
+            "role" to currentRole,
+            "consents" to consents
+        )
+        currentDob?.let { patch["dob"] = it }
+
+        // Si es psicólogo, empaquetamos professional
+        if (currentRole == "psychologist") {
+            fun splitList(text: String) = text.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            val availability = mapOf(
+                "mon" to splitList(binding.etMon.text.toString()),
+                "tue" to splitList(binding.etTue.text.toString()),
+                "wed" to splitList(binding.etWed.text.toString()),
+                "thu" to splitList(binding.etThu.text.toString()),
+                "fri" to splitList(binding.etFri.text.toString()),
+                "sat" to splitList(binding.etSat.text.toString()),
+                "sun" to splitList(binding.etSun.text.toString()),
+            )
+            val pro = mapOf(
+                "headline" to binding.etHeadline.text.toString().trim(),
+                "specialties" to splitList(binding.etSpecialties.text.toString()),
+                "languages" to splitList(binding.etProLanguages.text.toString().ifBlank { "es" }),
+                "modalities" to splitList(binding.etModalities.text.toString().ifBlank { "online,presencial" }),
+                "priceMXN" to binding.etPrice.text.toString().toIntOrNull(),
+                "sessionMinutes" to binding.etSessionMinutes.text.toString().toIntOrNull(),
+                "address" to binding.etAddress.text.toString().trim(),
+                "isPublicPhone" to binding.swPublicPhone.isChecked,
+                "isPublicLocation" to binding.swPublicLocation.isChecked,
+                "acceptingNewPatients" to binding.swAccepting.isChecked,
+                "availability" to availability
+            )
+            patch["professional"] = pro
+        }
+
+        repo.savePatch(patch,
+            onSuccess = {
+                Toast.makeText(this, "Perfil guardado", Toast.LENGTH_SHORT).show()
+                finish()
+            },
+            onError = {
+                Toast.makeText(this, "Error al guardar: ${it.message}", Toast.LENGTH_LONG).show()
+            }
+        )
     }
 }
