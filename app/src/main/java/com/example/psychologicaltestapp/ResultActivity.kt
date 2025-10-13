@@ -99,7 +99,7 @@ class ResultActivity : BaseActivity() {
         }
     }
 
-    // ---------------- Cálculo de escalas ----------------
+    // ---------------- Cálculo de escalas ----------------  //
 
     private fun calculateScaleTotals(): Map<String, Int> {
         val totals = mutableMapOf<String, Int>()
