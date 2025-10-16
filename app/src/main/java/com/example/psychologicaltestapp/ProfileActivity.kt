@@ -5,8 +5,15 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.example.psychologicaltestapp.data.profile.UserRepository
 import com.example.psychologicaltestapp.databinding.ActivityProfileBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.Timestamp
 import java.util.Calendar
 import java.util.Locale
@@ -24,11 +31,35 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        applyWindowInsets()
+        setupAdMob()
+
         setupRoleDropdown()
         setupDobPicker()
         loadProfile()
 
         binding.btnSave.setOnClickListener { saveProfile() }
+    }
+
+    // --- UI helpers ---
+
+    /** Empuja el banner por debajo del status bar para que no quede pegado */
+    private fun applyWindowInsets() {
+        val root = binding.rootProfile
+        val banner = binding.bannerImage
+        ViewCompat.setOnApplyWindowInsetsListener(root) { _, insets ->
+            val sb = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            banner.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = sb.top + dp(16)
+            }
+            insets
+        }
+    }
+
+    private fun setupAdMob() {
+        MobileAds.initialize(this)
+        val adView: AdView = binding.adView
+        adView.loadAd(AdRequest.Builder().build())
     }
 
     private fun setupRoleDropdown() {
@@ -67,7 +98,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.cardProfessional.visibility = if (show) android.view.View.VISIBLE else android.view.View.GONE
     }
 
-    // -------- Load / Save --------
+    // --- Load / Save ---
 
     private fun loadProfile() {
         repo.load(onSuccess = { data ->
@@ -184,6 +215,8 @@ class ProfileActivity : AppCompatActivity() {
                 "availability" to availability
             )
             patch["professional"] = pro
+        } else {
+            patch["professional"] = null
         }
 
         repo.savePatch(patch,
@@ -195,5 +228,23 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error al guardar: ${it.message}", Toast.LENGTH_LONG).show()
             }
         )
+    }
+
+    private fun dp(value: Int): Int =
+        (value * resources.displayMetrics.density).toInt()
+
+    override fun onResume() {
+        super.onResume()
+        binding.adView.resume()
+    }
+
+    override fun onPause() {
+        binding.adView.pause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        binding.adView.destroy()
+        super.onDestroy()
     }
 }

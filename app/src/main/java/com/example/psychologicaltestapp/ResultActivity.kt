@@ -1,12 +1,12 @@
 package com.example.psychologicaltestapp
 
-import UserRepository
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.widget.Toast
 import com.example.psychologicaltestapp.databinding.ActivityResultBinding
 import com.example.psychologicaltestapp.data.tests.TestPayload
+import com.example.psychologicaltestapp.data.profile.UserRepository
 import com.example.psychologicaltestapp.utils.Dialogs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -20,7 +20,7 @@ class ResultActivity : BaseActivity() {
 
     private lateinit var binding: ActivityResultBinding
 
-    // Nuevo payload unificado
+    // Payload unificado + respuestas
     private lateinit var payload: TestPayload
     private var userResponses: List<Int?> = emptyList()
 
@@ -32,7 +32,7 @@ class ResultActivity : BaseActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ads
+        // --- Ads ---
         MobileAds.initialize(this) {}
         binding.adView.loadAd(AdRequest.Builder().build())
 
@@ -60,10 +60,10 @@ class ResultActivity : BaseActivity() {
             return
         }
 
-        // Título en el encabezado
+        // Título
         binding.ResultadoTitle.text = "Resultado — ${payload.title}"
 
-        // Si el Runner ya mandó el mensaje final, úsalo; si no, lo calculamos aquí
+        // Construir mensaje final (si no llegó desde el Runner)
         finalResultMessage = if (!finalMsgFromRunner.isNullOrBlank()) {
             finalMsgFromRunner
         } else {
@@ -72,8 +72,9 @@ class ResultActivity : BaseActivity() {
 
         // Mostrar resultado
         binding.resultTextView.text = finalResultMessage
+        //binding.tvTimestamp.text = DateFormat.format("d MMM yyyy, HH:mm", Date())
 
-        // Guardar en Firestore (si hay usuario)
+        // Guardar en Firestore (nuevo + legacy)
         saveResultToFirestore()
 
         // Botones
@@ -83,7 +84,6 @@ class ResultActivity : BaseActivity() {
         }
 
         binding.psychologistButton.setOnClickListener {
-            // Abre tu directorio si lo tienes; si no, muestra aviso
             try {
                 startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
             } catch (_: Exception) {
@@ -108,14 +108,14 @@ class ResultActivity : BaseActivity() {
         payload.questions.forEachIndexed { idx, q ->
             val selected = userResponses.getOrNull(idx) ?: return@forEachIndexed
 
-            // a) Si hay matriz por escala/opción (AMAS-A), úsala
+            // a) Matriz por escala/opción (p.ej. AMAS-A)
             if (q.scoresMatrix != null) {
                 q.scoresMatrix.forEach { (scaleId, weights) ->
                     val add = weights.getOrNull(selected) ?: 0
                     totals[scaleId] = (totals[scaleId] ?: 0) + add
                 }
             } else {
-                // b) Fallback: option.value (o índice) + scores (método general)
+                // b) Fallback general
                 val optValue = q.options?.getOrNull(selected)?.value ?: selected
                 q.scores?.forEach { s ->
                     val add = when (s.mapping) {
@@ -148,9 +148,7 @@ class ResultActivity : BaseActivity() {
     }
 
     private fun labelForScale(id: String): String {
-        // Busca un título formal si existe
-        val inPayload = payload.scales.firstOrNull { it.id == id }?.title
-        return inPayload ?: id
+        return payload.scales.firstOrNull { it.id == id }?.title ?: id
     }
 
     // ---------------- Persistencia ----------------
@@ -158,32 +156,55 @@ class ResultActivity : BaseActivity() {
     private fun saveResultToFirestore() {
         val currentUser = FirebaseAuth.getInstance().currentUser ?: return
 
-        // Re-armar un objeto similar al que ya almacenabas
+        // Objeto de resultado (compat con tu modelo)
         val testResult = TestResult(
-            testType = payload.slug,                 // antes: test.type
-            testName = payload.title,               // antes: test.title
+            testType = payload.slug, // antes: test.type
+            testName = payload.title, // antes: test.title
             resultMessage = finalResultMessage,
             date = DateFormat.format("yyyy-MM-dd HH:mm:ss", Date()).toString(),
-            testJson = Gson().toJson(payload),      // guarda el payload usado
+            testJson = Gson().toJson(payload),          // guarda el payload del momento
             userResponsesJson = Gson().toJson(userResponses),
             userId = currentUser.uid,
             createdAt = Timestamp.now()
         )
 
-        UserRepository().saveTestResult(currentUser.uid, testResult)
+        // Guarda en nueva ruta testResults y también en legacy test_results
+        UserRepository().saveTestResult(
+            userId = currentUser.uid,
+            testResult = testResult,
+            alsoLegacy = true,
+            onComplete = { /* ok */ },
+            onError = { e ->
+                Toast.makeText(this, "No se pudo guardar el resultado: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        )
     }
 
     // ---------------- Utilidades UI ----------------
 
     private fun generateAiLikeTips(resultText: String): String {
-        // Placeholder local (hasta que conectes tu backend/LLM)
-        // Saca 3 bullets amigables en base al texto de resultados
-        val base = """
+        // Placeholder local (hasta conectar backend de IA)
+        return """
             Basado en tus resultados:
-            • Anota (durante 7 días) situaciones que disparen tensión/ansiedad; identifica patrones.
+            • Registra durante 7 días situaciones que disparen tensión/ansiedad; identifica patrones.
             • Practica respiración diafragmática 5 minutos, 2 veces al día.
             • Define una micro-acción diaria (5–10 min) para avanzar un objetivo personal.
         """.trimIndent()
-        return base
+    }
+
+    // --- Ciclo de vida del AdView ---
+    override fun onResume() {
+        super.onResume()
+        binding.adView.resume()
+    }
+
+    override fun onPause() {
+        binding.adView.pause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        binding.adView.destroy()
+        super.onDestroy()
     }
 }
