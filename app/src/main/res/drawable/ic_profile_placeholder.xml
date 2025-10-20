@@ -1,9 +1,15 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="48dp"
-    android:height="48dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    android:width="96dp" android:height="96dp" android:viewportWidth="24" android:viewportHeight="24">
+    <!-- Círculo de fondo -->
     <path
-        android:fillColor="#FF888888"
-        android:pathData="M12,12a5,5 0 1,0 0,-10a5,5 0 0,0 0,10zM12,14c-4,0 -8,2 -8,6v2h16v-2c0,-4 -4,-6 -8,-6z"/>
+        android:fillColor="#E0E0E0"
+        android:pathData="M12,2a10,10 0,1 0,0 20a10,10 0,1 0,0 -20z"/>
+    <!-- Cabeza -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M12,6a3.5,3.5 0,1 1,0 7a3.5,3.5 0,1 1,0 -7z"/>
+    <!-- Hombros -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M6.5,18c1.8,-2.7 9.2,-2.7 11,0c-2.7,2.7 -8.3,2.7 -11,0z"/>
 </vector>

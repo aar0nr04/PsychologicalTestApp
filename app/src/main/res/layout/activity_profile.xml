@@ -41,6 +41,49 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <!-- Contenedor de foto de perfil -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="60dp"
+                app:cardElevation="2dp"
+                app:shapeAppearanceOverlay="@style/AvatarCircle"
+                app:layout_constraintTop_toBottomOf="@id/bannerImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="12dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Foto circular con borde -->
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/app_name"
+                        app:shapeAppearanceOverlay="@style/AvatarCircle"
+                        app:strokeColor="@android:color/white"
+                        app:strokeWidth="2dp"
+                        android:src="@drawable/ic_profile_placeholder" />
+
+                    <!-- Botón cámara -->
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabChangePhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="6dp"
+                        app:srcCompat="@drawable/ic_camera"
+                        app:fabSize="mini"
+                        android:contentDescription="@string/app_name" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
 
             <!-- Cuenta básica -->
             <com.google.android.material.textfield.TextInputLayout
@@ -76,17 +119,24 @@
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Rol -->
+            <!-- Rol (exposed dropdown) -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRole"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Rol">
-                <AutoCompleteTextView
+                android:hint="Rol"
+                app:endIconMode="dropdown_menu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/ddRole"
-                    android:inputType="none"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textSize="16sp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"/>
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <!-- DOB + Edad -->
             <LinearLayout

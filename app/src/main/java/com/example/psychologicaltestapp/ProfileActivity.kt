@@ -17,6 +17,10 @@ import com.google.android.gms.ads.MobileAds
 import com.google.firebase.Timestamp
 import java.util.Calendar
 import java.util.Locale
+import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -26,6 +30,20 @@ class ProfileActivity : AppCompatActivity() {
     private var currentDob: Timestamp? = null
     private var currentRole: String = "patient"
 
+    // para foto perfil de ProfileActivity:
+    private val storage by lazy { FirebaseStorage.getInstance() }
+    private var pickedImageUri: Uri? = null
+    private val pickImageLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            pickedImageUri = uri
+            // Preview inmediata
+            Glide.with(this).load(uri).into(binding.imgAvatar)
+            // Sube y guarda
+            uploadAvatarToStorage(uri)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -154,6 +172,11 @@ class ProfileActivity : AppCompatActivity() {
         }, onError = {
             Toast.makeText(this, "Error cargando perfil: ${it.message}", Toast.LENGTH_LONG).show()
         })
+
+        // Clicks para cambiar foto
+        binding.imgAvatar.setOnClickListener { pickImageLauncher.launch("image/*") }
+        binding.fabChangePhoto.setOnClickListener { pickImageLauncher.launch("image/*") }
+
     }
 
     private fun saveProfile() {
@@ -246,5 +269,28 @@ class ProfileActivity : AppCompatActivity() {
     override fun onDestroy() {
         binding.adView.destroy()
         super.onDestroy()
+    }
+    private fun uploadAvatarToStorage(uri: Uri) {
+        val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val ref = storage.reference.child("users/$uid/profile.jpg")
+
+        ref.putFile(uri)
+            .addOnSuccessListener {
+                ref.downloadUrl.addOnSuccessListener { downloadUri ->
+                    val patch = mapOf("photoUrl" to downloadUri.toString())
+                    com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                        .collection("users").document(uid)
+                        .set(patch, com.google.firebase.firestore.SetOptions.merge())
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Foto actualizada", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "No se pudo guardar la foto: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error subiendo foto: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
 }

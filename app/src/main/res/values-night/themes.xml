@@ -1,3 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.PsychologicalTestApp" parent="Theme.Material3.DayNight.NoActionBar"/>
+    <style name="Theme.PsychologicalTestApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Principales -->
+        <item name="colorPrimary">#9FA8FF</item>
+        <item name="colorPrimaryVariant">#6573C3</item> <!-- legacy compat -->
+        <item name="colorSecondary">#FF80AB</item>
+        <item name="colorTertiary">#80DEEA</item>
+        <item name="colorAccent">#FF80AB</item>        <!-- legacy compat -->
+
+        <!-- Superficies -->
+        <item name="colorSurface">#121212</item>
+        <item name="colorSurfaceVariant">#1E1E1E</item>
+        <item name="colorOnSurface">#E6FFFFFF</item>
+        <item name="colorOnSurfaceVariant">#80FFFFFF</item>
+        <item name="colorOutline">#44FFFFFF</item>
+
+        <!-- Fondo de la ventana -->
+        <item name="android:windowBackground">#121212</item>
+
+        <!-- Barras del sistema -->
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+    </style>
 </resources>
