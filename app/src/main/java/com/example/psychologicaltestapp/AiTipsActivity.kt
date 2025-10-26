@@ -1,25 +1,34 @@
 package com.example.psychologicaltestapp
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import android.util.Log
+import java.util.concurrent.TimeUnit
 
 class AiTipsActivity : BaseActivity() {
 
     private lateinit var aiTipsTextView: TextView
     private lateinit var regenerateButton: Button
     private lateinit var backButton: Button
+    private lateinit var progress: ProgressBar
 
-    private val client = OkHttpClient()
+    private val client: OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(20, TimeUnit.SECONDS)
+        .build()
 
-    // ⚠️ REEMPLAZA ESTA IP POR LA DE TU PC EN LA RED LOCAL
-    private val backendUrl = "http://192.168.1.64:3000/generateTips"
+    private val backendUrl: String = BuildConfig.AI_TIPS_BASE_URL
 
     private var currentPrompt: String = "Dame consejos para sentirme mejor."
 
@@ -30,31 +39,27 @@ class AiTipsActivity : BaseActivity() {
         aiTipsTextView = findViewById(R.id.aiTipsTextView)
         regenerateButton = findViewById(R.id.regenerateButton)
         backButton = findViewById(R.id.backButton)
+        progress = findViewById(R.id.progressBar)
 
         currentPrompt = intent.getStringExtra("prompt") ?: currentPrompt
 
-        obtenerTips(currentPrompt)
-
-        regenerateButton.setOnClickListener {
-            obtenerTips(currentPrompt)
+        if (backendUrl.isBlank()) {
+            aiTipsTextView.text = getString(R.string.ai_tips_backend_missing)
+            regenerateButton.isEnabled = false
+        } else {
+            fetchTips(currentPrompt)
+            regenerateButton.setOnClickListener { fetchTips(currentPrompt) }
         }
 
-        backButton.setOnClickListener {
-            finish()
-        }
+        backButton.setOnClickListener { finish() }
     }
 
-    private fun obtenerTips(prompt: String) {
-        runOnUiThread {
-            aiTipsTextView.text = "Generando recomendaciones..."
-        }
+    private fun fetchTips(prompt: String) {
+        showLoading(true)
 
-        val json = JSONObject()
-        json.put("prompt", prompt)
-
-        val body = RequestBody.create(
-            "application/json; charset=utf-8".toMediaTypeOrNull(), json.toString()
-        )
+        val body = RequestBody.create(JSON_MEDIA_TYPE, JSONObject().apply {
+            put("prompt", prompt)
+        }.toString())
 
         val request = Request.Builder()
             .url(backendUrl)
@@ -64,36 +69,48 @@ class AiTipsActivity : BaseActivity() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    aiTipsTextView.text = "Error de red: ${e.message}"
-                    Log.e("AiTipsActivity", "Error de red", e)
+                    showLoading(false)
+                    aiTipsTextView.text = getString(R.string.ai_tips_network_error, e.localizedMessage ?: "")
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 response.use {
-                    if (!response.isSuccessful) {
-                        runOnUiThread {
-                            aiTipsTextView.text = "Error en servidor: ${response.code}"
-                            Log.e("AiTipsActivity", "Error en servidor: ${response.code}")
+                    val bodyString = response.body?.string()
+                    runOnUiThread {
+                        showLoading(false)
+                        if (!response.isSuccessful || bodyString == null) {
+                            aiTipsTextView.text = getString(R.string.ai_tips_server_error, response.code)
+                            return@runOnUiThread
                         }
-                    } else {
-                        val responseData = response.body?.string()
-                        Log.d("AiTipsActivity", "Respuesta backend: $responseData")
-                        try {
-                            val jsonResponse = JSONObject(responseData)
-                            val tips = jsonResponse.optString("tips", "No se recibieron recomendaciones.")
-                            runOnUiThread {
-                                aiTipsTextView.text = tips
-                            }
-                        } catch (e: Exception) {
-                            runOnUiThread {
-                                aiTipsTextView.text = "Error parseando respuesta."
-                                Log.e("AiTipsActivity", "JSON parse error", e)
-                            }
+
+                        val tips = runCatching {
+                            val jsonResponse = JSONObject(bodyString)
+                            jsonResponse.optString("tips")
+                        }.getOrElse {
+                            ""
+                        }
+
+                        aiTipsTextView.text = if (tips.isNullOrBlank()) {
+                            getString(R.string.ai_tips_empty_response)
+                        } else {
+                            tips
                         }
                     }
                 }
             }
         })
+    }
+
+    private fun showLoading(loading: Boolean) {
+        progress.visibility = if (loading) View.VISIBLE else View.GONE
+        regenerateButton.isEnabled = !loading
+        if (loading) {
+            aiTipsTextView.text = getString(R.string.ai_tips_generating)
+        }
+    }
+
+    companion object {
+        private val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
     }
 }

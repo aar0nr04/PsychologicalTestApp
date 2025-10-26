@@ -1,12 +1,10 @@
+package com.example.psychologicaltestapp
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.psychologicaltestapp.Psychologist
-import com.example.psychologicaltestapp.R
+import com.example.psychologicaltestapp.databinding.ItemPsychologistBinding
 
 class PsychologistAdapter(
     private var psychologists: List<Psychologist>,
@@ -14,9 +12,9 @@ class PsychologistAdapter(
 ) : RecyclerView.Adapter<PsychologistAdapter.PsychologistViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PsychologistViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_psychologist, parent, false)
-        return PsychologistViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemPsychologistBinding.inflate(inflater, parent, false)
+        return PsychologistViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PsychologistViewHolder, position: Int) {
@@ -27,23 +25,20 @@ class PsychologistAdapter(
 
     override fun getItemCount(): Int = psychologists.size
 
-    class PsychologistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val profileImageView: ImageView = itemView.findViewById(R.id.profileImageView)
-        private val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-        private val specialtyTextView: TextView = itemView.findViewById(R.id.specialtyTextView)
-        private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
+    class PsychologistViewHolder(
+        private val binding: ItemPsychologistBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(psychologist: Psychologist) {
-            nameTextView.text = psychologist.name
-            specialtyTextView.text = psychologist.specialty
-            descriptionTextView.text = psychologist.description
+            binding.nameTextView.text = psychologist.name
+            binding.specialtyTextView.text = psychologist.specialty
+            binding.descriptionTextView.text = psychologist.description
 
-            // Load image using Glide or Picasso
-            Glide.with(itemView.context)
+            Glide.with(binding.root.context)
                 .load(psychologist.imageUrl)
-                .placeholder(R.drawable.default_profile_image) // tu vector drawable
-                .error(R.drawable.default_profile_image)       // por si falla
-                .into(profileImageView)
+                .placeholder(R.drawable.default_profile_image)
+                .error(R.drawable.default_profile_image)
+                .into(binding.profileImageView)
         }
     }
     fun updateList(newList: List<Psychologist>) {

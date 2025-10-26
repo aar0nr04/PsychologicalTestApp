@@ -40,6 +40,33 @@
 
     <string name="welcome_message">¡Bienvenido Usuario!\nExploremos juntos el universo de \nnuestra mente</string>
     <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="test_required_question_warning">Esta pregunta es obligatoria.</string>
+    <string name="register_terms_required">Debes aceptar los términos y condiciones.</string>
+    <string name="register_name_required">Ingresa tu nombre completo.</string>
+    <string name="register_email_password_required">Revisa tu correo y una contraseña de al menos 6 caracteres.</string>
+    <string name="register_psychologist_required">Completa los datos profesionales para continuar como psicólogo.</string>
+    <string name="register_terms_title">Términos y condiciones</string>
+    <string name="register_terms_accept">Acepto</string>
+    <string name="register_terms_review">Revisar términos</string>
+    <string name="register_terms_accepted">Términos aceptados</string>
+    <string name="register_terms_unavailable">No pudimos cargar los términos. Intenta más tarde.</string>
+    <string name="register_switch_to_patient">Registrarme como paciente</string>
+    <string name="register_switch_to_psychologist">Registrarme como psicólogo</string>
+    <string name="premium_unavailable_title">Premium no disponible</string>
+    <string name="premium_unavailable_message">Estamos preparando la suscripción. Ocultamos esta opción hasta lanzar la versión con cobro real.</string>
+    <string name="premium_paywall_title">Hazte Premium</string>
+    <string name="premium_paywall_message">Desbloquea beneficios:\n✔ Tips IA ilimitados\n✔ Tests exclusivos\n✔ Resultados extendidos</string>
+    <string name="premium_paywall_positive">Continuar</string>
+    <string name="premium_paywall_success">¡Beneficios activados!</string>
+    <string name="ai_tips_backend_missing">Configura la URL del servicio de recomendaciones en BuildConfig.AI_TIPS_BASE_URL para habilitar esta función.</string>
+    <string name="ai_tips_network_error">Error de red: %1$s</string>
+    <string name="ai_tips_server_error">El servicio respondió con error %1$d.</string>
+    <string name="ai_tips_empty_response">No recibimos sugerencias esta vez. Intenta de nuevo.</string>
+    <string name="ai_tips_generating">Generando recomendaciones…</string>
+    <string name="ai_tips_placeholder_title">Sugerencias</string>
+    <string name="test_payload_missing">No encontramos el cuestionario para "%1$s". Verifica que los assets estén en /assets/tests.</string>
+    <string name="psychologist_remote_error">No pudimos conectar con el directorio en línea. Mostramos datos de ejemplo.</string>
+    <string name="psychologist_seed_loaded">Mostrando psicólogos de ejemplo. Agrega datos reales en Firebase para reemplazarlos.</string>
 
     <string-array name="psychologist_types">
         <item>Empático</item>

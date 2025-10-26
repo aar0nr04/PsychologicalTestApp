@@ -1,6 +1,5 @@
 package com.example.psychologicaltestapp
 
-import PsychologistAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,10 +8,11 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class PsychologistDirectoryActivity : BaseActivity() {
 
@@ -59,7 +59,7 @@ class PsychologistDirectoryActivity : BaseActivity() {
 
     private fun loadPsychologists() {
         db.collection("psychologists").get().addOnSuccessListener { snapshot ->
-            allPsychologists = snapshot.map { doc ->
+            allPsychologists = snapshot.documents.map { doc ->
                 Psychologist(
                     id = doc.id,
                     name = doc.getString("name") ?: "",
@@ -71,9 +71,15 @@ class PsychologistDirectoryActivity : BaseActivity() {
                     imageUrl = doc.getString("imageUrl") ?: ""
                 )
             }
-            adapter.updateList(allPsychologists)
-        }.addOnFailureListener {
-            Toast.makeText(this, "Error loading psychologists", Toast.LENGTH_SHORT).show()
+            if (allPsychologists.isEmpty()) {
+                loadSeedPsychologists()
+            } else {
+                adapter.updateList(allPsychologists)
+            }
+        }.addOnFailureListener { error ->
+            Log.w("PsychologistDirectory", "Error loading psychologists", error)
+            Toast.makeText(this, getString(R.string.psychologist_remote_error), Toast.LENGTH_SHORT).show()
+            loadSeedPsychologists()
         }
     }
 
@@ -201,5 +207,49 @@ class PsychologistDirectoryActivity : BaseActivity() {
                 }
         }
     }
+
+    private fun loadSeedPsychologists() {
+        val json = runCatching {
+            assets.open("seeds/psychologists.json").bufferedReader().use { it.readText() }
+        }.getOrNull()
+
+        if (json.isNullOrBlank()) {
+            return
+        }
+
+        val type = object : TypeToken<List<SeedPsychologist>>() {}.type
+        val seeds: List<SeedPsychologist> = runCatching {
+            Gson().fromJson(json, type)
+        }.getOrDefault(emptyList())
+
+        if (seeds.isEmpty()) return
+
+        allPsychologists = seeds.map {
+            Psychologist(
+                id = it.id,
+                name = it.name,
+                specialty = it.specialty,
+                location = it.location,
+                phone = it.phone,
+                email = it.email,
+                description = it.description,
+                imageUrl = it.imageUrl ?: ""
+            )
+        }
+
+        adapter.updateList(allPsychologists)
+        Toast.makeText(this, getString(R.string.psychologist_seed_loaded), Toast.LENGTH_SHORT).show()
+    }
+
+    private data class SeedPsychologist(
+        val id: String,
+        val name: String,
+        val specialty: String,
+        val location: String,
+        val phone: String,
+        val email: String,
+        val description: String,
+        val imageUrl: String?
+    )
 
 }

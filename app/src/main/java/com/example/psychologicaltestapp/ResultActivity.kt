@@ -78,10 +78,7 @@ class ResultActivity : BaseActivity() {
         saveResultToFirestore()
 
         // Botones
-        binding.aiTipsButton.setOnClickListener {
-            val tips = generateAiLikeTips(finalResultMessage)
-            Dialogs.simpleMessage(this, "Sugerencias", tips).show()
-        }
+        binding.aiTipsButton.setOnClickListener { openAiTips() }
 
         binding.psychologistButton.setOnClickListener {
             try {
@@ -182,13 +179,29 @@ class ResultActivity : BaseActivity() {
 
     // ---------------- Utilidades UI ----------------
 
-    private fun generateAiLikeTips(resultText: String): String {
-        // Placeholder local (hasta conectar backend de IA)
+    private fun openAiTips() {
+        if (BuildConfig.AI_TIPS_BASE_URL.isBlank()) {
+            Dialogs.simpleMessage(
+                this,
+                getString(R.string.ai_tips_placeholder_title),
+                getString(R.string.ai_tips_backend_missing)
+            ).show()
+            return
+        }
+
+        val prompt = buildAiPrompt(finalResultMessage)
+        val intent = Intent(this, AiTipsActivity::class.java).apply {
+            putExtra("prompt", prompt)
+        }
+        startActivity(intent)
+    }
+
+    private fun buildAiPrompt(resultText: String): String {
         return """
-            Basado en tus resultados:
-            • Registra durante 7 días situaciones que disparen tensión/ansiedad; identifica patrones.
-            • Practica respiración diafragmática 5 minutos, 2 veces al día.
-            • Define una micro-acción diaria (5–10 min) para avanzar un objetivo personal.
+            Eres un psicólogo colegiado que ofrece recomendaciones prácticas y empáticas.
+            Resume en viñetas cortas (máximo 4) consejos accionables basados en este resultado:
+
+            $resultText
         """.trimIndent()
     }
 
