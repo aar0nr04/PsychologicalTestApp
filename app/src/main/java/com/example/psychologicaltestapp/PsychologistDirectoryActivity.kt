@@ -33,7 +33,7 @@ class PsychologistDirectoryActivity : BaseActivity() {
         layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
-        adapter = PsychologistAdapter(listOf()) { psychologist ->
+        adapter = PsychologistAdapter(emptyList<Psychologist>()) { psychologist ->
             openDetail(psychologist)
         }
         recyclerView.adapter = adapter
@@ -60,7 +60,7 @@ class PsychologistDirectoryActivity : BaseActivity() {
 
     private fun loadPsychologists() {
         db.collection("psychologists").get().addOnSuccessListener { snapshot ->
-            allPsychologists = snapshot.map { doc ->
+            allPsychologists = snapshot.documents.map { doc ->
                 Psychologist(
                     id = doc.id,
                     name = doc.getString("name") ?: "",

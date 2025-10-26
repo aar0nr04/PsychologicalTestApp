@@ -51,5 +51,4 @@ class PsychologistAdapter(
         notifyDataSetChanged()
     }
 
-
 }

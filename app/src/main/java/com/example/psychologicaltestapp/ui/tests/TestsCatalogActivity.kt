@@ -201,7 +201,7 @@ class TestsCatalogActivity : ComponentActivity() {
                 duration = 220
                 interpolator = FastOutSlowInInterpolator()
                 addUpdateListener { animation ->
-                    container.boxStrokeColor = animation.animatedValue as Int
+                    container.setBoxStrokeColor(animation.animatedValue as Int)
                 }
                 start()
             }
@@ -213,7 +213,7 @@ class TestsCatalogActivity : ComponentActivity() {
                 duration = 220
                 interpolator = FastOutSlowInInterpolator()
                 addUpdateListener { animation ->
-                    container.boxBackgroundColor = animation.animatedValue as Int
+                    container.setBoxBackgroundColor(animation.animatedValue as Int)
                 }
                 start()
             }
