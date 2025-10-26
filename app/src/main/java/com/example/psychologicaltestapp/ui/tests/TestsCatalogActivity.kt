@@ -7,6 +7,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import com.example.psychologicaltestapp.R
 import com.example.psychologicaltestapp.TestActivity
 import com.example.psychologicaltestapp.data.tests.*
 import com.example.psychologicaltestapp.databinding.ActivityTestsCatalogBinding
