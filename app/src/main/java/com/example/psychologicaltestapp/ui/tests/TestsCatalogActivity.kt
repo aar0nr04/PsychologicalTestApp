@@ -6,9 +6,18 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.example.psychologicaltestapp.TestActivity
 import com.example.psychologicaltestapp.data.tests.*
 import com.example.psychologicaltestapp.databinding.ActivityTestsCatalogBinding
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.textfield.TextInputLayout
+
+import android.animation.ValueAnimator
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 
 class TestsCatalogActivity : ComponentActivity() {
 
@@ -33,8 +42,13 @@ class TestsCatalogActivity : ComponentActivity() {
         binding = ActivityTestsCatalogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ddGroup.applyRefinedDropdown(binding.tilGroup)
+        binding.ddCategory.applyRefinedDropdown(binding.tilCategory)
+        binding.ddSubcategory.applyRefinedDropdown(binding.tilSubcategory)
+        binding.ddTest.applyRefinedDropdown(binding.tilTest)
+
         try {
-            index = TestsRepository.loadIndex(this)
+            index = TestsRepository.loadIndex(this, locale)
             Toast.makeText(
                 this,
                 "Grupos: ${index.taxonomy.groups.size} | Tests: ${index.tests.size}",
@@ -55,7 +69,7 @@ class TestsCatalogActivity : ComponentActivity() {
 
     // ---------- Helpers ----------
     private fun setAdapterFor(view: AutoCompleteTextView, items: Array<String>) {
-        val adapter = ArrayAdapter(view.context, android.R.layout.simple_list_item_1, items)
+        val adapter = RefinedDropdownAdapter(view.context, items)
         view.setAdapter(adapter)
     }
 
@@ -68,6 +82,7 @@ class TestsCatalogActivity : ComponentActivity() {
         val groups = index.taxonomy.groups
         if (groups.isEmpty()) {
             Toast.makeText(this, "taxonomy.groups vacío en index.json", Toast.LENGTH_LONG).show()
+            binding.btnStartTest.isEnabled = false
             return
         }
         val labels = groups.map { locale.safeLocale(it.title, "en") }.toTypedArray()
@@ -123,6 +138,7 @@ class TestsCatalogActivity : ComponentActivity() {
         val tests = index.tests.filter { it.group == g && it.category == c && it.subcategory == s }
         if (tests.isEmpty()) {
             Toast.makeText(this, "No hay tests para $g/$c/$s", Toast.LENGTH_SHORT).show()
+            binding.btnStartTest.isEnabled = false
         }
 
         val labels = tests.map { locale.safeLocale(it.title, "en") }.toTypedArray()
@@ -137,12 +153,143 @@ class TestsCatalogActivity : ComponentActivity() {
     // ---------- Navegación ----------
     private fun startSelectedTest() {
         val test = selectedTest ?: return
+        val locale = "es"
+        if (!TestsRepository.hasTestPayload(this, test.slug, test.latestVersion, locale)) {
+            Toast.makeText(this, getString(R.string.test_payload_missing, test.slug), Toast.LENGTH_LONG).show()
+            return
+        }
+
         val i = Intent(this, TestActivity::class.java).apply {
             putExtra("slug", test.slug)
             putExtra("version", test.latestVersion)
-            putExtra("locale", "es") // o el que uses
+            putExtra("locale", locale)
         }
         startActivity(i)
+    }
+
+    private fun AutoCompleteTextView.applyRefinedDropdown(container: TextInputLayout) {
+        setDropDownBackgroundResource(R.drawable.bg_refined_dropdown_popup)
+
+        val primaryColor = MaterialColors.getColor(
+            container,
+            com.google.android.material.R.attr.colorPrimary,
+            0
+        )
+        val accentColor = MaterialColors.getColor(
+            container,
+            com.google.android.material.R.attr.colorSecondary,
+            primaryColor
+        )
+        val baseStrokeColor = container.boxStrokeColor
+        val baseBackgroundColor = container.boxBackgroundColor
+        val elevatedBackground = MaterialColors.layer(
+            container,
+            baseBackgroundColor,
+            accentColor,
+            0.08f
+        )
+
+        val interpolator = FastOutSlowInInterpolator()
+        var strokeAnimator: ValueAnimator? = null
+        var backgroundAnimator: ValueAnimator? = null
+        var isElevated = false
+
+        fun animateStroke(toColor: Int) {
+            strokeAnimator?.cancel()
+            strokeAnimator = ValueAnimator.ofArgb(container.boxStrokeColor, toColor).apply {
+                duration = 220
+                interpolator = FastOutSlowInInterpolator()
+                addUpdateListener { animation ->
+                    container.boxStrokeColor = animation.animatedValue as Int
+                }
+                start()
+            }
+        }
+
+        fun animateBackground(toColor: Int) {
+            backgroundAnimator?.cancel()
+            backgroundAnimator = ValueAnimator.ofArgb(container.boxBackgroundColor, toColor).apply {
+                duration = 220
+                interpolator = FastOutSlowInInterpolator()
+                addUpdateListener { animation ->
+                    container.boxBackgroundColor = animation.animatedValue as Int
+                }
+                start()
+            }
+        }
+
+        fun elevate() {
+            if (isElevated) return
+            isElevated = true
+            container.animate()
+                .scaleX(1.02f)
+                .scaleY(1.02f)
+                .setDuration(200)
+                .setInterpolator(interpolator)
+                .start()
+            animateStroke(primaryColor)
+            animateBackground(elevatedBackground)
+        }
+
+        fun reset() {
+            if (!isElevated) return
+            isElevated = false
+            container.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(200)
+                .setInterpolator(interpolator)
+                .start()
+            animateStroke(baseStrokeColor)
+            animateBackground(baseBackgroundColor)
+        }
+
+        setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) elevate() else reset()
+        }
+
+        setOnDismissListener { reset() }
+
+        setOnClickListener {
+            if (!isPopupShowing) {
+                post { showDropDown() }
+            }
+            elevate()
+        }
+    }
+
+    private class RefinedDropdownAdapter(
+        context: android.content.Context,
+        items: Array<String>
+    ) : ArrayAdapter<String>(context, R.layout.item_refined_dropdown, R.id.tvItemLabel, items) {
+
+        private val inflater: LayoutInflater = LayoutInflater.from(context)
+        private val interpolator = FastOutSlowInInterpolator()
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view = convertView ?: inflater.inflate(R.layout.item_refined_dropdown, parent, false)
+            val label = view.findViewById<TextView>(R.id.tvItemLabel)
+            label.text = getItem(position)
+            return view
+        }
+
+        override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view = getView(position, convertView, parent)
+            if (convertView == null) {
+                view.alpha = 0f
+                view.translationY = -16f
+                view.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(180)
+                    .setInterpolator(interpolator)
+                    .start()
+            } else {
+                view.alpha = 1f
+                view.translationY = 0f
+            }
+            return view
+        }
     }
 
 }

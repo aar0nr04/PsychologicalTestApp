@@ -1,12 +1,15 @@
 package com.example.psychologicaltestapp.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.psychologicaltestapp.MainActivity
 import com.example.psychologicaltestapp.R
+import com.example.psychologicaltestapp.RegisterActivity
 import com.example.psychologicaltestapp.databinding.ActivityLoginBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -54,9 +57,19 @@ class LoginActivity : AppCompatActivity() {
         // Listeners
         binding.loginButton.setOnClickListener { loginWithEmail() }
         binding.googleSignInButton.setOnClickListener { signInWithGoogle() }
+        binding.createAccountButton.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
         // tvForgot puede no estar en el binding si el id no fue visto por el generador
         binding.root.findViewById<TextView>(R.id.tvForgot)?.setOnClickListener { sendResetEmail() }
         binding.backButton.setOnClickListener { finish() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        auth.currentUser?.let {
+            navigateToHome(showWelcome = false)
+        }
     }
 
     private fun loadBannerAd() {
@@ -148,10 +161,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginSuccess() {
-        showMsg("¡Bienvenido!")
-        // TODO: Navegar a tu Home/Main
-        // startActivity(Intent(this, MainActivity::class.java))
-        // finish()
+        navigateToHome(showWelcome = true)
+    }
+
+    private fun navigateToHome(showWelcome: Boolean) {
+        if (showWelcome) {
+            showMsg("¡Bienvenido!")
+        }
+        val intent = Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun setLoading(loading: Boolean) {
@@ -160,7 +181,8 @@ class LoginActivity : AppCompatActivity() {
             binding.googleSignInButton,
             binding.emailEditText,
             binding.passwordEditText,
-            binding.backButton
+            binding.backButton,
+            binding.createAccountButton
         )
         views.forEach { it.isEnabled = !loading }
         // Si agregas ProgressBar en el XML, muéstralo/ocúltalo aquí

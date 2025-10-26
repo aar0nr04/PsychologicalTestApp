@@ -46,6 +46,7 @@ class TestActivity : AppCompatActivity() {
     private lateinit var testPayload: TestPayload
     private var currentQuestionIndex = 0
     private var selectedOptionIndex: Int? = null
+    private var currentQuestionIsRequired: Boolean = true
     private val userResponses: MutableList<Int?> = mutableListOf()
 
     // --- Locale para títulos/opciones (si algún test lo requiere) ---
@@ -148,8 +149,13 @@ class TestActivity : AppCompatActivity() {
 
     // --------------- Navegación Preguntas ---------------
     private fun handleNext() {
-        // Guarda respuesta actual si hay selección
-        selectedOptionIndex?.let { userResponses[currentQuestionIndex] = it }
+        if (currentQuestionIsRequired && selectedOptionIndex == null) {
+            Toast.makeText(this, R.string.test_required_question_warning, Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Guarda la respuesta actual (incluye null si se permite omitir)
+        userResponses[currentQuestionIndex] = selectedOptionIndex
 
         if (currentQuestionIndex < testPayload.questions.size - 1) {
             currentQuestionIndex++
@@ -168,6 +174,7 @@ class TestActivity : AppCompatActivity() {
         }
 
         val q = testPayload.questions[currentQuestionIndex]
+        currentQuestionIsRequired = q.required != false
 
         // Prompt
         if (!q.prompt.isNullOrEmpty()) {
@@ -262,7 +269,7 @@ class TestActivity : AppCompatActivity() {
             // Restaurar selección previa
             selectedOptionIndex = userResponses[currentQuestionIndex]
             selectedOptionIndex?.let { updateGridSelection(optionsGrid, it) }
-            nextButton.isEnabled = selectedOptionIndex != null
+            nextButton.isEnabled = !currentQuestionIsRequired || selectedOptionIndex != null
 
         } else {
             // LISTA de botones (texto)
@@ -288,7 +295,7 @@ class TestActivity : AppCompatActivity() {
             // Restaurar selección previa
             selectedOptionIndex = userResponses[currentQuestionIndex]
             selectedOptionIndex?.let { updateListSelection(optionsContainer, it) }
-            nextButton.isEnabled = selectedOptionIndex != null
+            nextButton.isEnabled = !currentQuestionIsRequired || selectedOptionIndex != null
         }
 
         // Progreso

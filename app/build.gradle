@@ -19,6 +19,8 @@ android {
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "AI_TIPS_BASE_URL", '""'
+        buildConfigField "boolean", "PREMIUM_ENABLED", "false"
     }
 
     buildTypes {
