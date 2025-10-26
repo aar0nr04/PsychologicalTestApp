@@ -12,6 +12,7 @@
 
         <!-- Grupo -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilGroup"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:hint="Grupo"
             android:layout_width="match_parent"
@@ -26,10 +27,12 @@
 
         <!-- Categoría -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategory"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:hint="Categoría"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <AutoCompleteTextView
                 android:id="@+id/ddCategory"
@@ -40,10 +43,12 @@
 
         <!-- Subcategoría -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSubcategory"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:hint="Subcategoría"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <AutoCompleteTextView
                 android:id="@+id/ddSubcategory"
@@ -54,10 +59,12 @@
 
         <!-- Test -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTest"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:hint="Test"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
 
             <AutoCompleteTextView
                 android:id="@+id/ddTest"

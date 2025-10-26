@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.psychologicaltestapp.databinding.ActivityMainRedesignedBinding
 import com.example.psychologicaltestapp.utils.DialogHelper
 import com.example.psychologicaltestapp.utils.PremiumManager
@@ -29,16 +30,20 @@ class MainActivity : AppCompatActivity() {
 
         setupButtons()
         applyPremiumButtonAnimation()
-        updateUI()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        ensureAuthenticated()
     }
 
     private fun setupButtons() {
         binding.btnLogin.setOnClickListener {
             if (auth.currentUser != null) {
                 auth.signOut()
-                updateUI()
+                navigateToLogin(clearTask = true)
             } else {
-                startActivity(Intent(this, LoginActivity::class.java))
+                navigateToLogin(clearTask = false)
             }
         }
 
@@ -62,16 +67,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
         }
 
-        binding.btnPremium.setOnClickListener {
-            if (PremiumManager.isUserPremium(this)) {
-                Toast.makeText(this, "¡Ya eres Premium!", Toast.LENGTH_SHORT).show()
-            } else {
-                DialogHelper.mostrarDialogoPremium(this)
+        if (BuildConfig.PREMIUM_ENABLED) {
+            binding.btnPremium.isVisible = true
+            binding.btnPremium.setOnClickListener {
+                if (PremiumManager.isUserPremium(this)) {
+                    Toast.makeText(this, "¡Ya eres Premium!", Toast.LENGTH_SHORT).show()
+                } else {
+                    DialogHelper.mostrarDialogoPremium(this)
+                }
             }
+        } else {
+            binding.btnPremium.isVisible = false
         }
     }
 
     private fun applyPremiumButtonAnimation() {
+        if (!BuildConfig.PREMIUM_ENABLED) return
         val pulse = AnimationUtils.loadAnimation(this, R.anim.pulse)
         binding.btnPremium.startAnimation(pulse)
     }
@@ -83,6 +94,25 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.btnLogin.text = "\uD83D\uDD10 Iniciar sesión"
             binding.btnRegister.isEnabled = true
+        }
+    }
+
+    private fun ensureAuthenticated() {
+        if (auth.currentUser == null) {
+            navigateToLogin(clearTask = true)
+        } else {
+            updateUI()
+        }
+    }
+
+    private fun navigateToLogin(clearTask: Boolean) {
+        val intent = Intent(this, LoginActivity::class.java)
+        if (clearTask) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        startActivity(intent)
+        if (clearTask) {
+            finish()
         }
     }
 

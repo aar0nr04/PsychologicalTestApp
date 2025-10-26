@@ -1,0 +1,32 @@
+[
+  {
+    "id": "seed-01",
+    "name": "Dra. Elena Torres",
+    "specialty": "Ansiedad y estrés",
+    "location": "Ciudad de México",
+    "phone": "+52 55 1234 5678",
+    "email": "elena.torres@example.com",
+    "description": "Acompaño a adultos jóvenes en procesos de regulación emocional y resiliencia.",
+    "imageUrl": "https://i.pravatar.cc/150?img=12"
+  },
+  {
+    "id": "seed-02",
+    "name": "Lic. Martín Álvarez",
+    "specialty": "Terapia cognitivo-conductual",
+    "location": "Buenos Aires",
+    "phone": "+54 11 4321 8765",
+    "email": "martin.alvarez@example.com",
+    "description": "Trabajo con hábitos saludables y reestructuración de pensamientos.",
+    "imageUrl": "https://i.pravatar.cc/150?img=28"
+  },
+  {
+    "id": "seed-03",
+    "name": "Mtra. Sofía Rivas",
+    "specialty": "Psicología infantil",
+    "location": "Madrid",
+    "phone": "+34 91 555 1122",
+    "email": "sofia.rivas@example.com",
+    "description": "Apoyo a familias en el desarrollo socioemocional de niñas y niños.",
+    "imageUrl": "https://i.pravatar.cc/150?img=45"
+  }
+]
