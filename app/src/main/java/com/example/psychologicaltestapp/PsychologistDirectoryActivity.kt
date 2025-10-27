@@ -220,10 +220,11 @@ class PsychologistDirectoryActivity : BaseActivity() {
 
         val type = object : TypeToken<List<SeedPsychologist>>() {}.type
         val seeds: List<SeedPsychologist> = runCatching {
-            Gson().fromJson(json, type)
-        }.getOrDefault(emptyList())
+            Gson().fromJson<List<SeedPsychologist>>(json, type) // Explicitly specify the type here
+        }.getOrDefault(emptyList()) // emptyList() is now sufficient as the type is known
 
         if (seeds.isEmpty()) return
+
 
         allPsychologists = seeds.map {
             Psychologist(

@@ -190,7 +190,7 @@ class TestsCatalogActivity : ComponentActivity() {
             0.08f
         )
 
-        val interpolator = FastOutSlowInInterpolator()
+        var interpolator = FastOutSlowInInterpolator()
         var strokeAnimator: ValueAnimator? = null
         var backgroundAnimator: ValueAnimator? = null
         var isElevated = false
@@ -199,7 +199,7 @@ class TestsCatalogActivity : ComponentActivity() {
             strokeAnimator?.cancel()
             strokeAnimator = ValueAnimator.ofArgb(container.boxStrokeColor, toColor).apply {
                 duration = 220
-                interpolator = FastOutSlowInInterpolator()
+                // The interpolator from the outer scope is already available here
                 addUpdateListener { animation ->
                     container.setBoxStrokeColor(animation.animatedValue as Int)
                 }
