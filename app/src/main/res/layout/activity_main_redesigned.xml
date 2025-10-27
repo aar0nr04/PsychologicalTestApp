@@ -22,8 +22,9 @@
         app:srcCompat="@drawable/logo7"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:contentDescription="App Logo"
+        android:background="@drawable/logo_frame"
+        android:padding="16dp"
+        android:contentDescription="@string/logo_desc"
         app:layout_constraintTop_toBottomOf="@id/view_global_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

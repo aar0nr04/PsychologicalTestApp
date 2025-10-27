@@ -39,6 +39,8 @@
                 android:layout_height="250dp"
                 android:src="@drawable/logo4"
                 android:scaleType="fitCenter"
+                android:background="@drawable/logo_frame"
+                android:padding="16dp"
                 android:contentDescription="@string/logo_desc"
                 android:layout_marginTop="25dp" />
 

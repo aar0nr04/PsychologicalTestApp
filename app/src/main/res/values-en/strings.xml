@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PsychologicalTestApp</string>
 
@@ -11,6 +12,7 @@
     <string name="go_premium_desc">Become a Premium user</string>
     <string name="change_to_spanish">Switch language to Spanish</string>
     <string name="change_to_english">Switch language to English</string>
+    <string name="test_history_list">Test History</string>
 
     <string name="title_iniciar_sesion">Sign In</string>
     <string name="hint_correo">Email</string>
@@ -28,7 +30,6 @@
     <string name="take_test">Take Test</string>
     <string name="psychologist_directory">Psychologist Directory</string>
     <string name="go_premium">&#x1F380; Go Premium &#x1F380;</string>
-    <string name="test_history_list">Test History</string>
 
     <string name="spanish">ES</string>
     <string name="english">EN</string>
@@ -38,5 +39,43 @@
     <string name="portuguese">PT</string>
     <string name="chinese">ZH</string>
 
-    <string name="welcome_message">Welcome User!\nLet\'s explore the universe of\nour mind together</string>
+    <string name="welcome_message">Welcome, User!\nLet\'s explore the universe of\nour mind together</string>
+    <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="test_required_question_warning">This question is required.</string>
+    <string name="register_terms_required">You must accept the terms and conditions.</string>
+    <string name="register_name_required">Enter your full name.</string>
+    <string name="register_email_password_required">Check your email and use a password with at least 6 characters.</string>
+    <string name="register_psychologist_required">Complete the professional details to continue as a psychologist.</string>
+    <string name="register_terms_title">Terms and conditions</string>
+    <string name="register_terms_accept">I accept</string>
+    <string name="register_terms_review">Review terms</string>
+    <string name="register_terms_accepted">Terms accepted</string>
+    <string name="register_terms_unavailable">We couldn't load the terms. Try again later.</string>
+    <string name="register_switch_to_patient">Register as a patient</string>
+    <string name="register_switch_to_psychologist">Register as a psychologist</string>
+    <string name="premium_unavailable_title">Premium unavailable</string>
+    <string name="premium_unavailable_message">We are preparing the subscription. We're hiding this option until we launch the paid version.</string>
+    <string name="premium_paywall_title">Go Premium</string>
+    <string name="premium_paywall_message">Unlock benefits:\n✔ Unlimited AI tips\n✔ Exclusive tests\n✔ Extended results</string>
+    <string name="premium_paywall_positive">Continue</string>
+    <string name="premium_paywall_success">Benefits activated!</string>
+    <string name="ai_tips_backend_missing">Set the recommendations service URL in BuildConfig.AI_TIPS_BASE_URL to enable this feature.</string>
+    <string name="ai_tips_network_error">Network error: %1$s</string>
+    <string name="ai_tips_server_error">The service responded with error %1$d.</string>
+    <string name="ai_tips_empty_response">We didn't receive suggestions this time. Try again.</string>
+    <string name="ai_tips_generating">Generating recommendations…</string>
+    <string name="ai_tips_placeholder_title">Suggestions</string>
+    <string name="test_payload_missing">We couldn't find the questionnaire for \"%1$s\". Verify that the assets are under /assets/tests.</string>
+    <string name="psychologist_remote_error">We couldn't connect to the online directory. Showing sample data.</string>
+    <string name="psychologist_seed_loaded">Showing sample psychologists. Add real data in Firebase to replace them.</string>
+
+    <string-array name="psychologist_types">
+        <item>Empathetic</item>
+        <item>Strict</item>
+        <item>Neutral</item>
+        <item>Coach</item>
+        <item>Wise</item>
+        <item>Playful</item>
+        <item>Mysterious</item>
+    </string-array>
 </resources>

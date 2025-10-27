@@ -30,6 +30,9 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo_banner"
+                android:background="@drawable/logo_frame"
+                android:padding="16dp"
+                android:contentDescription="@string/cd_logo_banner"
                 android:layout_marginBottom="16dp" />
 
             <!-- Foto perfil -->
