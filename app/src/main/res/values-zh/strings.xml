@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">心理测试应用</string>
 
@@ -11,15 +12,16 @@
     <string name="go_premium_desc">成为高级用户</string>
     <string name="change_to_spanish">切换语言为西班牙语</string>
     <string name="change_to_english">切换语言为英语</string>
+    <string name="test_history_list">测试历史</string>
 
     <string name="title_iniciar_sesion">登录</string>
     <string name="hint_correo">电子邮箱</string>
     <string name="hint_contrasena">密码</string>
     <string name="forgot_password">忘记密码？</string>
     <string name="btn_iniciar_sesion">登录</string>
-    <string name="btn_google">使用 Google 登录</string>
+    <string name="btn_google">通过 Google 继续</string>
     <string name="btn_regresar">返回</string>
-    <string name="cd_logo_banner">应用标志</string>
+    <string name="cd_logo_banner">应用徽标</string>
 
     <string name="profile">个人资料</string>
     <string name="settings">设置</string>
@@ -28,7 +30,6 @@
     <string name="take_test">开始测试</string>
     <string name="psychologist_directory">心理学家目录</string>
     <string name="go_premium">&#x1F380; 升级为高级用户 &#x1F380;</string>
-    <string name="test_history_list">测试历史</string>
 
     <string name="spanish">ES</string>
     <string name="english">EN</string>
@@ -38,5 +39,43 @@
     <string name="portuguese">PT</string>
     <string name="chinese">ZH</string>
 
-    <string name="welcome_message">欢迎用户！\n让我们一起探索我们内心的宇宙</string>
+    <string name="welcome_message">欢迎，用户！\n让我们一起探索\n内心的宇宙</string>
+    <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="test_required_question_warning">此问题为必答。</string>
+    <string name="register_terms_required">您必须接受条款和条件。</string>
+    <string name="register_name_required">请输入您的全名。</string>
+    <string name="register_email_password_required">请检查邮箱并使用至少 6 个字符的密码。</string>
+    <string name="register_psychologist_required">请填写专业信息，以心理学家身份继续。</string>
+    <string name="register_terms_title">条款和条件</string>
+    <string name="register_terms_accept">我接受</string>
+    <string name="register_terms_review">查看条款</string>
+    <string name="register_terms_accepted">已接受条款</string>
+    <string name="register_terms_unavailable">无法加载条款。请稍后重试。</string>
+    <string name="register_switch_to_patient">注册为患者</string>
+    <string name="register_switch_to_psychologist">注册为心理学家</string>
+    <string name="premium_unavailable_title">高级版不可用</string>
+    <string name="premium_unavailable_message">我们正在准备订阅。正式上线付费版本前将隐藏此选项。</string>
+    <string name="premium_paywall_title">成为高级用户</string>
+    <string name="premium_paywall_message">解锁福利：\n✔ 无限 AI 建议\n✔ 独家测试\n✔ 扩展结果</string>
+    <string name="premium_paywall_positive">继续</string>
+    <string name="premium_paywall_success">福利已激活！</string>
+    <string name="ai_tips_backend_missing">请在 BuildConfig.AI_TIPS_BASE_URL 中配置推荐服务的 URL 以启用此功能。</string>
+    <string name="ai_tips_network_error">网络错误：%1$s</string>
+    <string name="ai_tips_server_error">服务返回错误 %1$d。</string>
+    <string name="ai_tips_empty_response">这次没有收到建议。请重试。</string>
+    <string name="ai_tips_generating">正在生成推荐…</string>
+    <string name="ai_tips_placeholder_title">建议</string>
+    <string name="test_payload_missing">未找到“%1$s”的问卷。请确认资源位于 /assets/tests。</string>
+    <string name="psychologist_remote_error">无法连接到在线目录。显示示例数据。</string>
+    <string name="psychologist_seed_loaded">正在显示示例心理学家。请在 Firebase 中添加真实数据以替换。</string>
+
+    <string-array name="psychologist_types">
+        <item>富有同理心</item>
+        <item>严格</item>
+        <item>中立</item>
+        <item>教练型</item>
+        <item>睿智</item>
+        <item>诙谐</item>
+        <item>神秘</item>
+    </string-array>
 </resources>

@@ -1,37 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PsychologicalTestApp</string>
 
-    <string name="logo_desc">Logo de lapplication</string>
-    <string name="go_to_profile">Aller  votre profil</string>
-    <string name="settings_desc">Paramètres de lapplication</string>
-    <string name="login_desc">Connectez-vous  votre compte</string>
+    <string name="logo_desc">Logo de l’application</string>
+    <string name="go_to_profile">Accéder à votre profil</string>
+    <string name="settings_desc">Paramètres de l’application</string>
+    <string name="login_desc">Connectez-vous à votre compte</string>
     <string name="register_desc">Créer un nouveau compte</string>
     <string name="take_test_desc">Passer un test psychologique</string>
-    <string name="psychologist_directory_desc">Explorer lannuaire des psychologues</string>
+    <string name="psychologist_directory_desc">Explorer l’annuaire des psychologues</string>
     <string name="go_premium_desc">Devenez utilisateur Premium</string>
-    <string name="change_to_spanish">Changer la langue en espagnol</string>
-    <string name="change_to_english">Changer la langue en anglais</string>
+    <string name="change_to_spanish">Passer la langue en espagnol</string>
+    <string name="change_to_english">Passer la langue en anglais</string>
+    <string name="test_history_list">Historique des tests</string>
 
-
-        <string name="title_iniciar_sesion">Connexion</string>
-        <string name="hint_correo">Adresse e-mail</string>
-        <string name="hint_contrasena">Mot de passe</string>
-        <string name="forgot_password">Mot de passe oublié ?</string>
-        <string name="btn_iniciar_sesion">Se connecter</string>
-        <string name="btn_google">Continuer avec Google</string>
-        <string name="btn_regresar">Retour</string>
-        <string name="cd_logo_banner">Logo de l’application</string>
-
-
+    <string name="title_iniciar_sesion">Connexion</string>
+    <string name="hint_correo">Adresse e-mail</string>
+    <string name="hint_contrasena">Mot de passe</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
+    <string name="btn_iniciar_sesion">Se connecter</string>
+    <string name="btn_google">Continuer avec Google</string>
+    <string name="btn_regresar">Retour</string>
+    <string name="cd_logo_banner">Logo de l’application</string>
 
     <string name="profile">Profil</string>
     <string name="settings">Paramètres</string>
     <string name="login">Connexion</string>
-    <string name="register">Sinscrire</string>
+    <string name="register">S’inscrire</string>
     <string name="take_test">Passer le test</string>
     <string name="psychologist_directory">Annuaire des psychologues</string>
     <string name="go_premium">&#x1F380; Devenir Premium &#x1F380;</string>
-    <string name="test_history_list">Historique des tests</string>
 
     <string name="spanish">ES</string>
     <string name="english">EN</string>
@@ -41,5 +39,43 @@
     <string name="portuguese">PT</string>
     <string name="chinese">ZH</string>
 
-    <string name="welcome_message">Bienvenue utilisateur !\nExplorons ensemble l de notre esprit</string>
+    <string name="welcome_message">Bienvenue, utilisateur !\nExplorons ensemble l’univers\nde notre esprit</string>
+    <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="test_required_question_warning">Cette question est obligatoire.</string>
+    <string name="register_terms_required">Vous devez accepter les termes et conditions.</string>
+    <string name="register_name_required">Saisissez votre nom complet.</string>
+    <string name="register_email_password_required">Vérifiez votre e-mail et utilisez un mot de passe d’au moins 6 caractères.</string>
+    <string name="register_psychologist_required">Complétez les informations professionnelles pour continuer en tant que psychologue.</string>
+    <string name="register_terms_title">Termes et conditions</string>
+    <string name="register_terms_accept">J’accepte</string>
+    <string name="register_terms_review">Consulter les termes</string>
+    <string name="register_terms_accepted">Termes acceptés</string>
+    <string name="register_terms_unavailable">Impossible de charger les termes. Réessayez plus tard.</string>
+    <string name="register_switch_to_patient">S’inscrire comme patient</string>
+    <string name="register_switch_to_psychologist">S’inscrire comme psychologue</string>
+    <string name="premium_unavailable_title">Premium indisponible</string>
+    <string name="premium_unavailable_message">Nous préparons l’abonnement. Cette option reste masquée jusqu’au lancement de la version payante.</string>
+    <string name="premium_paywall_title">Devenir Premium</string>
+    <string name="premium_paywall_message">Débloquez des avantages :\n✔ Conseils IA illimités\n✔ Tests exclusifs\n✔ Résultats détaillés</string>
+    <string name="premium_paywall_positive">Continuer</string>
+    <string name="premium_paywall_success">Avantages activés !</string>
+    <string name="ai_tips_backend_missing">Configurez l’URL du service de recommandations dans BuildConfig.AI_TIPS_BASE_URL pour activer cette fonctionnalité.</string>
+    <string name="ai_tips_network_error">Erreur réseau : %1$s</string>
+    <string name="ai_tips_server_error">Le service a renvoyé l’erreur %1$d.</string>
+    <string name="ai_tips_empty_response">Nous n’avons pas reçu de suggestions cette fois-ci. Réessayez.</string>
+    <string name="ai_tips_generating">Génération des recommandations…</string>
+    <string name="ai_tips_placeholder_title">Suggestions</string>
+    <string name="test_payload_missing">Nous n’avons pas trouvé le questionnaire pour « %1$s ». Vérifiez que les ressources se trouvent dans /assets/tests.</string>
+    <string name="psychologist_remote_error">Connexion à l’annuaire en ligne impossible. Affichage de données d’exemple.</string>
+    <string name="psychologist_seed_loaded">Des psychologues d’exemple sont affichés. Ajoutez des données réelles dans Firebase pour les remplacer.</string>
+
+    <string-array name="psychologist_types">
+        <item>Empathique</item>
+        <item>Rigoureux</item>
+        <item>Neutre</item>
+        <item>Coach</item>
+        <item>Sage</item>
+        <item>Ludique</item>
+        <item>Mystérieux</item>
+    </string-array>
 </resources>

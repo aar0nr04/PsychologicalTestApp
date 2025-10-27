@@ -1,16 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PsychologicalTestApp</string>
 
-    <string name="logo_desc">Logo dell\'app</string>
+    <string name="logo_desc">Logo dell’app</string>
     <string name="go_to_profile">Vai al tuo profilo</string>
-    <string name="settings_desc">Impostazioni dell\'app</string>
+    <string name="settings_desc">Impostazioni dell’app</string>
     <string name="login_desc">Accedi al tuo account</string>
     <string name="register_desc">Crea un nuovo account</string>
     <string name="take_test_desc">Svolgi un test psicologico</string>
-    <string name="psychologist_directory_desc">Esplora l\'elenco degli psicologi</string>
+    <string name="psychologist_directory_desc">Esplora l’elenco degli psicologi</string>
     <string name="go_premium_desc">Diventa utente Premium</string>
     <string name="change_to_spanish">Cambia lingua in spagnolo</string>
     <string name="change_to_english">Cambia lingua in inglese</string>
+    <string name="test_history_list">Cronologia dei test</string>
 
     <string name="title_iniciar_sesion">Accedi</string>
     <string name="hint_correo">Email</string>
@@ -28,7 +30,6 @@
     <string name="take_test">Fai il test</string>
     <string name="psychologist_directory">Elenco psicologi</string>
     <string name="go_premium">&#x1F380; Diventa Premium &#x1F380;</string>
-    <string name="test_history_list">Cronologia dei test</string>
 
     <string name="spanish">ES</string>
     <string name="english">EN</string>
@@ -38,5 +39,43 @@
     <string name="portuguese">PT</string>
     <string name="chinese">ZH</string>
 
-    <string name="welcome_message">Benvenuto utente!\nEsploriamo insieme l\'universo della nostra mente</string>
+    <string name="welcome_message">Benvenuto, utente!\nEsploriamo insieme l’universo\ndella nostra mente</string>
+    <string name="admob_interstitial_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="test_required_question_warning">Questa domanda è obbligatoria.</string>
+    <string name="register_terms_required">Devi accettare termini e condizioni.</string>
+    <string name="register_name_required">Inserisci il tuo nome completo.</string>
+    <string name="register_email_password_required">Controlla la tua email e usa una password di almeno 6 caratteri.</string>
+    <string name="register_psychologist_required">Compila i dati professionali per continuare come psicologo.</string>
+    <string name="register_terms_title">Termini e condizioni</string>
+    <string name="register_terms_accept">Accetto</string>
+    <string name="register_terms_review">Visualizza termini</string>
+    <string name="register_terms_accepted">Termini accettati</string>
+    <string name="register_terms_unavailable">Impossibile caricare i termini. Riprova più tardi.</string>
+    <string name="register_switch_to_patient">Registrati come paziente</string>
+    <string name="register_switch_to_psychologist">Registrati come psicologo</string>
+    <string name="premium_unavailable_title">Premium non disponibile</string>
+    <string name="premium_unavailable_message">Stiamo preparando l’abbonamento. Questa opzione resta nascosta finché non lanceremo la versione a pagamento.</string>
+    <string name="premium_paywall_title">Diventa Premium</string>
+    <string name="premium_paywall_message">Sblocca i vantaggi:\n✔ Suggerimenti IA illimitati\n✔ Test esclusivi\n✔ Risultati estesi</string>
+    <string name="premium_paywall_positive">Continua</string>
+    <string name="premium_paywall_success">Vantaggi attivati!</string>
+    <string name="ai_tips_backend_missing">Configura l’URL del servizio di raccomandazioni in BuildConfig.AI_TIPS_BASE_URL per abilitare questa funzione.</string>
+    <string name="ai_tips_network_error">Errore di rete: %1$s</string>
+    <string name="ai_tips_server_error">Il servizio ha restituito l’errore %1$d.</string>
+    <string name="ai_tips_empty_response">Non abbiamo ricevuto suggerimenti questa volta. Riprova.</string>
+    <string name="ai_tips_generating">Generazione dei suggerimenti…</string>
+    <string name="ai_tips_placeholder_title">Suggerimenti</string>
+    <string name="test_payload_missing">Non abbiamo trovato il questionario per \"%1$s\". Verifica che le risorse siano in /assets/tests.</string>
+    <string name="psychologist_remote_error">Impossibile connettersi all’elenco online. Mostriamo dati di esempio.</string>
+    <string name="psychologist_seed_loaded">Stiamo mostrando psicologi di esempio. Aggiungi dati reali in Firebase per sostituirli.</string>
+
+    <string-array name="psychologist_types">
+        <item>Empatico</item>
+        <item>Rigoroso</item>
+        <item>Neutro</item>
+        <item>Coach</item>
+        <item>Saggio</item>
+        <item>Spiritoso</item>
+        <item>Misterioso</item>
+    </string-array>
 </resources>

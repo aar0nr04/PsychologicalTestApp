@@ -9,7 +9,7 @@
     android:padding="8dp"
     android:paddingTop="16dp"
     android:gravity="center_vertical"
-    android:background="#2860C2"
+    android:background="?attr/colorPrimary"
     android:elevation="6dp"
     android:visibility="invisible">
 
