@@ -65,7 +65,7 @@
     <string name="ai_tips_empty_response">We didn't receive suggestions this time. Try again.</string>
     <string name="ai_tips_generating">Generating recommendations…</string>
     <string name="ai_tips_placeholder_title">Suggestions</string>
-    <string name="test_payload_missing">We couldn't find the questionnaire for "%1$s". Verify that the assets are under /assets/tests.</string>
+    <string name="test_payload_missing">We couldn't find the questionnaire for \"%1$s\". Verify that the assets are under /assets/tests.</string>
     <string name="psychologist_remote_error">We couldn't connect to the online directory. Showing sample data.</string>
     <string name="psychologist_seed_loaded">Showing sample psychologists. Add real data in Firebase to replace them.</string>
 
