@@ -11,6 +11,9 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
+        android:background="@drawable/logo_frame"
+        android:padding="16dp"
+        android:contentDescription="@string/cd_logo_banner"
         app:srcCompat="@drawable/logo_banner"/>
     <!-- Campo para el Titulo -->
     <TextView

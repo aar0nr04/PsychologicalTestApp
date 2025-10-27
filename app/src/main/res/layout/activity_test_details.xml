@@ -16,6 +16,9 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/logo_banner"
+        android:background="@drawable/logo_frame"
+        android:padding="16dp"
+        android:contentDescription="@string/cd_logo_banner"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -28,6 +31,7 @@
         android:text="Título de la Categoría"
         android:textSize="25sp"
         android:textStyle="bold"
+        android:textColor="?attr/colorOnSurface"
         android:layout_marginTop="24dp"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/bannerImage"
