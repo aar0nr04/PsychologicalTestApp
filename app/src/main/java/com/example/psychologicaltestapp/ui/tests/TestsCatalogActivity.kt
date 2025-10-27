@@ -11,7 +11,6 @@ import com.example.psychologicaltestapp.R
 import com.example.psychologicaltestapp.TestActivity
 import com.example.psychologicaltestapp.data.tests.*
 import com.example.psychologicaltestapp.databinding.ActivityTestsCatalogBinding
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.textfield.TextInputLayout
 
 import android.animation.ValueAnimator
@@ -19,6 +18,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.graphics.ColorUtils
+import com.google.android.material.color.MaterialColors
+import kotlin.math.roundToInt
 
 class TestsCatalogActivity : ComponentActivity() {
 
@@ -183,11 +185,18 @@ class TestsCatalogActivity : ComponentActivity() {
         )
         val baseStrokeColor = container.boxStrokeColor
         val baseBackgroundColor = container.boxBackgroundColor
-        val elevatedBackground = MaterialColors.layer(
-            container,
-            baseBackgroundColor,
-            accentColor,
-            0.08f
+        val backgroundForLayer = if (baseBackgroundColor != 0) {
+            baseBackgroundColor
+        } else {
+            MaterialColors.getColor(
+                container,
+                com.google.android.material.R.attr.colorSurface,
+                primaryColor
+            )
+        }
+        val elevatedBackground = ColorUtils.compositeColors(
+            ColorUtils.setAlphaComponent(accentColor, (0.08f * 255).roundToInt()),
+            backgroundForLayer
         )
 
         var interpolator = FastOutSlowInInterpolator()
