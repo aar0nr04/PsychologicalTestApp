@@ -19,21 +19,27 @@ class TestHistoryActivity : BaseActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.testHistoryRecyclerView)
 
         val testResults = listOf(
-            TestResult("Test 1", "2023-01-01", "85"),
-            TestResult("Test 2", "2023-01-02", "90")
+            TestResult(testName = "Test 1", date = "2023-01-01", score = "85"),
+            TestResult(testName = "Test 2", date = "2023-01-02", score = "90")
         )
 
-        // Aquí defines la acción al dar click sobre un ítem
-        testHistoryAdapter = TestResultAdapter(testResults) { selectedResult ->
+        testHistoryAdapter = TestResultAdapter { selectedResult ->
+            if (selectedResult.testJson.isNullOrBlank() || selectedResult.userResponsesJson.isNullOrBlank()) {
+                Toast.makeText(this, "Este resultado no tiene detalles guardados", Toast.LENGTH_SHORT).show()
+                return@TestResultAdapter
+            }
+
             val intent = Intent(this, ResultActivity::class.java).apply {
-                putExtra("TEST_JSON", selectedResult.testJson ?: "")
-                putExtra("USER_RESPONSES", selectedResult.userResponsesJson ?: "")
+                putExtra("TEST_PAYLOAD", selectedResult.testJson)
+                putExtra("USER_RESPONSES", selectedResult.userResponsesJson)
+                putExtra("FINAL_MESSAGE", selectedResult.resultMessage)
             }
             startActivity(intent)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = testHistoryAdapter
+        testHistoryAdapter.submitList(testResults)
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
