@@ -57,7 +57,8 @@ class UserRepository2 {
         val id: String,
         val title: String?,
         val startTime: Timestamp?,
-        val status: String?
+        val status: String?,
+        val psychologistId: String?
     )
 
     /**
@@ -89,7 +90,8 @@ class UserRepository2 {
                                 ?: d.getString("psychologistName")
                                 ?: "Cita",
                             startTime = d.getTimestamp("startTime"),
-                            status = d.getString("status")
+                            status = d.getString("status"),
+                            psychologistId = d.getString("psychologistId")
                         )
                     })
                 } else {
@@ -106,7 +108,8 @@ class UserRepository2 {
                                     id = d.id,
                                     title = d.getString("title") ?: "Cita",
                                     startTime = d.getTimestamp("startTime"),
-                                    status = d.getString("status")
+                                    status = d.getString("status"),
+                                    psychologistId = d.getString("psychologistId")
                                 )
                             })
                         }
