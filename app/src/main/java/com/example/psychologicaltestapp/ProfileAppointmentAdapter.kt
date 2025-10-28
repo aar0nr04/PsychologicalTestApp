@@ -23,10 +23,7 @@ class ProfileAppointmentAdapter(
 
         fun bind(item: UserRepository.AppointmentItem) {
             val formattedDate = item.startTime?.toDate()?.let { formatter.format(it) }
-            val fallbackDate = item.startTimeText
-            dateText.text = formattedDate
-                ?: fallbackDate
-                ?: itemView.context.getString(R.string.appointment_date_placeholder)
+            dateText.text = formattedDate ?: itemView.context.getString(R.string.appointment_date_placeholder)
             nameText.text = item.title ?: itemView.context.getString(R.string.appointment_title_placeholder)
             statusText.text = itemView.context.getString(
                 R.string.appointment_status_template,
