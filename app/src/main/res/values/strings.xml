@@ -18,12 +18,15 @@
     <string name="appointment_title_placeholder">Cita</string>
     <string name="appointment_status_template">Estado: %1$s</string>
     <string name="appointment_status_unknown">Sin estado</string>
+<<<<<<< HEAD
     <string name="appointment_saved_limited_message">Solicitud enviada. Te avisaremos cuando sea confirmada.</string>
     <string name="appointment_saved_offline_message">Guardamos tu cita, revisa tu perfil para confirmar disponibilidad.</string>
     <string name="appointment_error_with_reason">No se pudo guardar la cita: %1$s</string>
     <string name="appointment_detail_with_time">Fecha: %1$s\nHora: %2$s\nNotas: %3$s</string>
     <string name="appointment_detail_without_time">Fecha: %1$s\nNotas: %2$s</string>
     <string name="appointment_notes_placeholder">Sin notas</string>
+=======
+>>>>>>> origin/main
 
     <string name="title_iniciar_sesion">Iniciar Sesión</string>
     <string name="hint_correo">Correo electrónico</string>
