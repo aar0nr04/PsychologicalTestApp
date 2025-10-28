@@ -14,6 +14,12 @@
     <string name="change_to_english">Passer la langue en anglais</string>
     <string name="test_history_list">Historique des tests</string>
 
+    <string name="test_score_template">Score : %1$s</string>
+    <string name="appointment_date_placeholder">Date à confirmer</string>
+    <string name="appointment_title_placeholder">Rendez-vous</string>
+    <string name="appointment_status_template">Statut : %1$s</string>
+    <string name="appointment_status_unknown">Aucun statut</string>
+
     <string name="title_iniciar_sesion">Connexion</string>
     <string name="hint_correo">Adresse e-mail</string>
     <string name="hint_contrasena">Mot de passe</string>
@@ -68,6 +74,36 @@
     <string name="test_payload_missing">Nous n’avons pas trouvé le questionnaire pour « %1$s ». Vérifiez que les ressources se trouvent dans /assets/tests.</string>
     <string name="psychologist_remote_error">Connexion à l’annuaire en ligne impossible. Affichage de données d’exemple.</string>
     <string name="psychologist_seed_loaded">Des psychologues d’exemple sont affichés. Ajoutez des données réelles dans Firebase pour les remplacer.</string>
+
+    <string name="tests_catalog_intro">Choisissez un groupe, une catégorie et un test pour commencer.</string>
+    <string name="tests_catalog_group_title">Groupe</string>
+    <string name="tests_catalog_group_hint">Sélectionnez un groupe</string>
+    <string name="tests_catalog_category_title">Catégorie</string>
+    <string name="tests_catalog_category_hint">Sélectionnez une catégorie</string>
+    <string name="tests_catalog_subcategory_title">Sous-catégorie</string>
+    <string name="tests_catalog_subcategory_hint">Sélectionnez une sous-catégorie</string>
+    <string name="tests_catalog_test_title">Test</string>
+    <string name="tests_catalog_test_hint">Sélectionnez un test</string>
+    <string name="tests_catalog_toggle_cd">Afficher ou masquer les options</string>
+    <string name="tests_catalog_start_button">Démarrer le test</string>
+    <string name="premium_plans_title">Offres Premium</string>
+    <string name="premium_plans_subtitle">Découvrez nos options pour les psychologues indépendants et les institutions.</string>
+    <string name="premium_plan_free_title">Gratuit</string>
+    <string name="premium_plan_free_price">$0 MXN</string>
+    <string name="premium_plan_free_features">&#8226; Créer un profil professionnel\n&#8226; 1 test gratuit\n&#8226; Publications de base</string>
+    <string name="premium_plan_pro_title">Pro mensuel</string>
+    <string name="premium_plan_pro_price">$149–199 MXN / mois</string>
+    <string name="premium_plan_pro_features">&#8226; Tests illimités\n&#8226; Statistiques détaillées\n&#8226; Personnalisation du profil\n&#8226; IA de base pour les rapports</string>
+    <string name="premium_plan_premium_title">Premium</string>
+    <string name="premium_plan_premium_price">$299–349 MXN / mois</string>
+    <string name="premium_plan_premium_features">&#8226; Tout le plan Pro\n&#8226; Mise en avant\n&#8226; Rapports avancés\n&#8226; IA avancée et support prioritaire</string>
+    <string name="premium_plan_cta">Voir les détails</string>
+    <string name="premium_plan_coming_soon">L'achat sera activé très bientôt avec Google Play Billing.</string>
+    <string name="premium_plan_contact_sales">Besoin de licences institutionnelles ? Contactez-nous pour des plans éducatifs, professionnels ou gouvernementaux.</string>
+    <string name="premium_plan_contact_button">Demander des informations</string>
+    <string name="premium_plan_contact_message">Merci pour votre intérêt. Écrivez-nous à soporte@psychotestapp.com pour commencer.</string>
+    <string name="premium_plan_toast_free">Cette offre est déjà active pour tous les utilisateurs.</string>
+    <string name="premium_plan_toast_paid">Vous pourrez bientôt vous abonner depuis l'application. Nous vous tiendrons informé !</string>
 
     <string-array name="psychologist_types">
         <item>Empathique</item>
