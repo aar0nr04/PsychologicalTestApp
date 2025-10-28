@@ -57,7 +57,6 @@ class UserRepository {
         val id: String,
         val title: String?,
         val startTime: Timestamp?,
-        val startTimeText: String?,
         val status: String?,
         val psychologistId: String?
     )
@@ -138,16 +137,39 @@ class UserRepository {
             .orderBy("startTime", Query.Direction.ASCENDING)
             .limit(limit)
             .get()
-            .addOnSuccessListener { sub ->
-                val legacyItems = sub.documents.map { d ->
-                    AppointmentItem(
-                        id = d.id,
-                        title = d.getString("title") ?: "Cita",
-                        startTime = d.getTimestamp("startTime"),
-                        startTimeText = null,
-                        status = d.getString("status"),
-                        psychologistId = d.getString("psychologistId")
-                    )
+            .addOnSuccessListener { qs ->
+                if (!qs.isEmpty) {
+                    onSuccess(qs.documents.map { d ->
+                        AppointmentItem(
+                            id = d.id,
+                            title = d.getString("title")
+                                ?: d.getString("psychologistName")
+                                ?: "Cita",
+                            startTime = d.getTimestamp("startTime"),
+                            status = d.getString("status"),
+                            psychologistId = d.getString("psychologistId")
+                        )
+                    })
+                } else {
+                    // Fallback: subcolección
+                    firestore.collection("users").document(uid)
+                        .collection("appointments")
+                        .whereGreaterThan("startTime", now)
+                        .orderBy("startTime", Query.Direction.ASCENDING)
+                        .limit(limit)
+                        .get()
+                        .addOnSuccessListener { sub ->
+                            onSuccess(sub.documents.map { d ->
+                                AppointmentItem(
+                                    id = d.id,
+                                    title = d.getString("title") ?: "Cita",
+                                    startTime = d.getTimestamp("startTime"),
+                                    status = d.getString("status"),
+                                    psychologistId = d.getString("psychologistId")
+                                )
+                            })
+                        }
+                        .addOnFailureListener(onError)
                 }
                 onSuccess(legacyItems)
             }
