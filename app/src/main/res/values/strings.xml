@@ -90,21 +90,13 @@
     <string name="premium_plans_subtitle">Explora nuestras opciones para psicólogos independientes e instituciones.</string>
     <string name="premium_plan_free_title">Gratuito</string>
     <string name="premium_plan_free_price">$0 MXN</string>
-    <string name="premium_plan_free_features">&#8226; Crear perfil profesional
-&#8226; 1 test gratuito
-&#8226; Publicaciones básicas</string>
+    <string name="premium_plan_free_features">&#8226; Crear perfil profesional\n&#8226; 1 test gratuito\n&#8226; Publicaciones básicas</string>
     <string name="premium_plan_pro_title">Pro mensual</string>
     <string name="premium_plan_pro_price">$149–199 MXN / mes</string>
-    <string name="premium_plan_pro_features">&#8226; Tests ilimitados
-&#8226; Estadísticas detalladas
-&#8226; Personalización del perfil
-&#8226; IA básica para reportes</string>
+    <string name="premium_plan_pro_features">&#8226; Tests ilimitados\n&#8226; Estadísticas detalladas\n&#8226; Personalización del perfil\n&#8226; IA básica para reportes</string>
     <string name="premium_plan_premium_title">Premium</string>
     <string name="premium_plan_premium_price">$299–349 MXN / mes</string>
-    <string name="premium_plan_premium_features">&#8226; Todo lo del plan Pro
-&#8226; Posicionamiento destacado
-&#8226; Reportes avanzados
-&#8226; IA avanzada y soporte prioritario</string>
+    <string name="premium_plan_premium_features">&#8226; Todo lo del plan Pro\n&#8226; Posicionamiento destacado\n&#8226; Reportes avanzados\n&#8226; IA avanzada y soporte prioritario</string>
     <string name="premium_plan_cta">Ver detalles</string>
     <string name="premium_plan_coming_soon">La compra se habilitará con Google Play Billing muy pronto.</string>
     <string name="premium_plan_contact_sales">¿Necesitas licencias institucionales? Contáctanos para planes educativos, empresariales o de gobierno.</string>

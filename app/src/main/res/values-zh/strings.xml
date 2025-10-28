@@ -14,6 +14,12 @@
     <string name="change_to_english">切换语言为英语</string>
     <string name="test_history_list">测试历史</string>
 
+    <string name="test_score_template">得分：%1$s</string>
+    <string name="appointment_date_placeholder">日期待确认</string>
+    <string name="appointment_title_placeholder">预约</string>
+    <string name="appointment_status_template">状态：%1$s</string>
+    <string name="appointment_status_unknown">无状态</string>
+
     <string name="title_iniciar_sesion">登录</string>
     <string name="hint_correo">电子邮箱</string>
     <string name="hint_contrasena">密码</string>
@@ -54,7 +60,7 @@
     <string name="register_switch_to_patient">注册为患者</string>
     <string name="register_switch_to_psychologist">注册为心理学家</string>
     <string name="premium_unavailable_title">高级版不可用</string>
-    <string name="premium_unavailable_message">我们正在准备订阅。正式上线付费版本前将隐藏此选项。</string>
+    <string name="premium_unavailable_message">我们正在准备订阅。在正式上线付费版本之前会隐藏此选项。</string>
     <string name="premium_paywall_title">成为高级用户</string>
     <string name="premium_paywall_message">解锁福利：\n✔ 无限 AI 建议\n✔ 独家测试\n✔ 扩展结果</string>
     <string name="premium_paywall_positive">继续</string>
@@ -68,6 +74,36 @@
     <string name="test_payload_missing">未找到“%1$s”的问卷。请确认资源位于 /assets/tests。</string>
     <string name="psychologist_remote_error">无法连接到在线目录。显示示例数据。</string>
     <string name="psychologist_seed_loaded">正在显示示例心理学家。请在 Firebase 中添加真实数据以替换。</string>
+
+    <string name="tests_catalog_intro">选择分组、类别和测试以开始。</string>
+    <string name="tests_catalog_group_title">分组</string>
+    <string name="tests_catalog_group_hint">选择一个分组</string>
+    <string name="tests_catalog_category_title">类别</string>
+    <string name="tests_catalog_category_hint">选择一个类别</string>
+    <string name="tests_catalog_subcategory_title">子类别</string>
+    <string name="tests_catalog_subcategory_hint">选择一个子类别</string>
+    <string name="tests_catalog_test_title">测试</string>
+    <string name="tests_catalog_test_hint">选择一个测试</string>
+    <string name="tests_catalog_toggle_cd">显示或隐藏选项</string>
+    <string name="tests_catalog_start_button">开始测试</string>
+    <string name="premium_plans_title">高级计划</string>
+    <string name="premium_plans_subtitle">探索适用于独立心理学家和机构的选项。</string>
+    <string name="premium_plan_free_title">免费</string>
+    <string name="premium_plan_free_price">$0 MXN</string>
+    <string name="premium_plan_free_features">&#8226; 创建专业档案\n&#8226; 1 个免费测试\n&#8226; 基础发布</string>
+    <string name="premium_plan_pro_title">专业版（月度）</string>
+    <string name="premium_plan_pro_price">$149–199 MXN / 月</string>
+    <string name="premium_plan_pro_features">&#8226; 测试不限次数\n&#8226; 详细统计\n&#8226; 个人档案自定义\n&#8226; 基础报告 AI</string>
+    <string name="premium_plan_premium_title">高级版</string>
+    <string name="premium_plan_premium_price">$299–349 MXN / 月</string>
+    <string name="premium_plan_premium_features">&#8226; 包含 Pro 方案全部内容\n&#8226; 优先展示\n&#8226; 高级报告\n&#8226; 高级 AI 与优先支持</string>
+    <string name="premium_plan_cta">查看详情</string>
+    <string name="premium_plan_coming_soon">我们即将通过 Google Play Billing 开启购买。</string>
+    <string name="premium_plan_contact_sales">需要机构授权？联系我们获取教育、企业或政府方案。</string>
+    <string name="premium_plan_contact_button">索取信息</string>
+    <string name="premium_plan_contact_message">感谢关注。请发送邮件至 soporte@psychotestapp.com 开始流程。</string>
+    <string name="premium_plan_toast_free">该方案已对所有用户开放。</string>
+    <string name="premium_plan_toast_paid">您很快就能在应用内订阅，我们会通知您！</string>
 
     <string-array name="psychologist_types">
         <item>富有同理心</item>
