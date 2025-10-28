@@ -5,16 +5,14 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.psychologicaltestapp.databinding.ActivityMainRedesignedBinding
-import com.example.psychologicaltestapp.utils.DialogHelper
-import com.example.psychologicaltestapp.utils.PremiumManager
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 import com.example.psychologicaltestapp.ui.auth.LoginActivity
 import com.example.psychologicaltestapp.ui.tests.TestsCatalogActivity
+import com.example.psychologicaltestapp.ui.premium.PremiumPlansActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,22 +65,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, PsychologistDirectoryActivity::class.java))
         }
 
-        if (BuildConfig.PREMIUM_ENABLED) {
-            binding.btnPremium.isVisible = true
-            binding.btnPremium.setOnClickListener {
-                if (PremiumManager.isUserPremium(this)) {
-                    Toast.makeText(this, "¡Ya eres Premium!", Toast.LENGTH_SHORT).show()
-                } else {
-                    DialogHelper.mostrarDialogoPremium(this)
-                }
-            }
-        } else {
-            binding.btnPremium.isVisible = false
+        binding.btnPremium.isVisible = true
+        binding.btnPremium.setOnClickListener {
+            startActivity(Intent(this, PremiumPlansActivity::class.java))
         }
     }
 
     private fun applyPremiumButtonAnimation() {
-        if (!BuildConfig.PREMIUM_ENABLED) return
         val pulse = AnimationUtils.loadAnimation(this, R.anim.pulse)
         binding.btnPremium.startAnimation(pulse)
     }
