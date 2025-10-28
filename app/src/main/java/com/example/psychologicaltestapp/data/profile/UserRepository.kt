@@ -63,8 +63,9 @@ class UserRepository {
 
     /**
      * Lee próximas N citas del usuario.
-     * Intenta primero colección global "appointments" (campo userId).
-     * Si no existen, hace fallback a subcolección "users/{uid}/appointments".
+     * Consulta primero la colección de solicitudes "appointment_requests" filtrando por userId
+     * y, si no hay resultados o falla por permisos/campos faltantes, cae a la subcolección legacy
+     * `users/{uid}/appointments`.
      */
     fun loadAppointments(
         limit: Long = 5,
@@ -72,11 +73,66 @@ class UserRepository {
         onError: (Exception) -> Unit
     ) {
         val uid = getCurrentUserId()
-        val now = Timestamp.now()
-
-        // Query global
-        firestore.collection("appointments")
+        val requestCollection = firestore.collection("appointment_requests")
             .whereEqualTo("userId", uid)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(limit)
+
+        requestCollection.get()
+            .addOnSuccessListener { qs ->
+                if (qs.isEmpty) {
+                    loadLegacyAppointments(uid, limit, onSuccess, onError)
+                    return@addOnSuccessListener
+                }
+
+                val formatter = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+
+                val items = qs.documents.map { d ->
+                    val explicitTimestamp = d.getTimestamp("startTime")
+                    val composedDateTime = d.getString("dateTime")
+                        ?: listOfNotNull(d.getString("proposedDate"), d.getString("proposedTime")).takeIf { it.isNotEmpty() }
+                            ?.joinToString(separator = " ")
+
+                    val parsedTimestamp = if (explicitTimestamp == null && !composedDateTime.isNullOrBlank()) {
+                        runCatching {
+                            val parsed = formatter.parse(composedDateTime)
+                            parsed?.let { Timestamp(it) }
+                        }.getOrNull()
+                    } else {
+                        explicitTimestamp
+                    }
+
+                    AppointmentItem(
+                        id = d.id,
+                        title = d.getString("title")
+                            ?: d.getString("psychologistName")
+                            ?: "Cita",
+                        startTime = parsedTimestamp,
+                        startTimeText = composedDateTime,
+                        status = d.getString("status"),
+                        psychologistId = d.getString("psychologistId")
+                    )
+                }
+
+                onSuccess(items)
+            }
+            .addOnFailureListener { error ->
+                // Si la colección principal falla (por permisos u otra causa), intentamos el fallback legacy
+                loadLegacyAppointments(uid, limit, onSuccess) { _ ->
+                    onError(error)
+                }
+            }
+    }
+
+    private fun loadLegacyAppointments(
+        uid: String,
+        limit: Long,
+        onSuccess: (List<AppointmentItem>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val now = Timestamp.now()
+        firestore.collection("users").document(uid)
+            .collection("appointments")
             .whereGreaterThan("startTime", now)
             .orderBy("startTime", Query.Direction.ASCENDING)
             .limit(limit)
@@ -115,6 +171,7 @@ class UserRepository {
                         }
                         .addOnFailureListener(onError)
                 }
+                onSuccess(legacyItems)
             }
             .addOnFailureListener(onError)
     }
