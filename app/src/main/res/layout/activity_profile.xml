@@ -5,398 +5,702 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Banner fijo arriba con logo -->
     <ImageView
         android:id="@+id/bannerImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/cd_logo_banner"
-        android:src="@drawable/logo_banner"
         android:background="@drawable/logo_frame"
-        android:padding="16dp"
+        android:contentDescription="@string/cd_logo_banner"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_banner"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Contenido scrollable del perfil -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
         android:clipToPadding="false"
+        android:fillViewport="true"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
-        app:layout_constraintTop_toBottomOf="@id/bannerImage"
         app:layout_constraintBottom_toTopOf="@id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/bannerImage">
 
-        <!-- ======= TU CONTENIDO ORIGINAL (ajustado a NestedScrollView) ======= -->
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- Contenedor de foto de perfil -->
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="12dp">
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAvatar"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
                 app:cardCornerRadius="60dp"
-                app:cardElevation="2dp"
-                app:shapeAppearanceOverlay="@style/AvatarCircle"
-                app:layout_constraintTop_toBottomOf="@id/bannerImage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="12dp">
+                app:cardElevation="2dp">
 
                 <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="120dp"
+                    android:layout_height="120dp">
 
-                    <!-- Foto circular con borde -->
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imgAvatar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
                         android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile_placeholder"
                         app:shapeAppearanceOverlay="@style/AvatarCircle"
                         app:strokeColor="@android:color/white"
-                        app:strokeWidth="2dp"
-                        android:src="@drawable/ic_profile_placeholder" />
+                        app:strokeWidth="2dp" />
 
-                    <!-- Botón cámara -->
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fabChangePhoto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
                         android:layout_margin="6dp"
-                        app:srcCompat="@drawable/ic_camera"
+                        android:contentDescription="@string/app_name"
                         app:fabSize="mini"
-                        android:contentDescription="@string/app_name" />
+                        app:srcCompat="@drawable/ic_camera" />
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
-
-            <!-- Cuenta básica -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hintEnabled="true"
-                android:hint="Nombre">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email (solo lectura)">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEmail"
-                    android:enabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Teléfono">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPhone"
-                    android:inputType="phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Rol (exposed dropdown) -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilRole"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Rol"
-                app:endIconMode="dropdown_menu">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/ddRole"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:textSize="16sp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <!-- DOB + Edad -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingTop="8dp">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPickDob"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de nacimiento"/>
-                <TextView
-                    android:id="@+id/tvAge"
-                    android:layout_marginStart="12dp"
-                    android:text="Edad: —"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <!-- Ubicación -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="País (ISO)">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCountry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Estado/Provincia">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etState"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Ciudad">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Zona horaria (IANA)">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etTimeZone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Consentimientos -->
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/swReminders"
-                android:text="Recibir recordatorios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/swAnalytics"
-                android:text="Permitir uso de datos ANÓNIMOS para mejora"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <!-- SECCIÓN PROFESIONAL -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardProfessional"
-                android:visibility="gone"
-                android:layout_marginTop="16dp"
+                android:id="@+id/cardPersonal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:animateLayoutChanges="true">
+
                 <LinearLayout
-                    android:padding="16dp"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:text="Perfil profesional"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Headline (ej. TCC | Ansiedad)">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etHeadline"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Comas para listas (MVP) -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Especialidades (coma)">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etSpecialties"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Idiomas (coma)">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etProLanguages"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Modalidades (online,presencial)">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etModalities"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:id="@+id/sectionPersonalHeader"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
 
-                        <com.google.android.material.textfield.TextInputLayout
+                        <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Precio MXN">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etPrice"
-                                android:inputType="number"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </com.google.android.material.textfield.TextInputLayout>
+                            android:text="Información personal"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                            android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="Minutos sesión">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etSessionMinutes"
-                                android:inputType="number"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </com.google.android.material.textfield.TextInputLayout>
+                        <ImageView
+                            android:id="@+id/iconPersonalToggle"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:rotation="0"
+                            android:src="@drawable/ic_expand_more" />
                     </LinearLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <LinearLayout
+                        android:id="@+id/sectionPersonalContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Dirección (si presencial)">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etAddress"
+                        android:orientation="vertical"
+                        android:paddingBottom="4dp"
+                        android:animateLayoutChanges="true">
+
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content"
+                            android:hint="Nombre">
 
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/swPublicPhone"
-                        android:text="Mostrar teléfono públicamente"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/swPublicLocation"
-                        android:text="Mostrar dirección públicamente"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Email (solo lectura)">
 
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/swAccepting"
-                        android:text="Aceptar nuevos pacientes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="false" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Availability MVP: campos por día con comas -->
-                    <TextView
-                        android:text="Disponibilidad (HH:mm, separadas por coma)"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Teléfono">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Lunes (mon)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etMon" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Martes (tue)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etTue" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Miércoles (wed)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etWed" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Jueves (thu)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etThu" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Viernes (fri)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etFri" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Sábado (sat)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etSat" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:hint="Domingo (sun)" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etSun" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilRole"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Rol"
+                            app:endIconMode="dropdown_menu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddRole"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnPickDob"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Fecha de nacimiento" />
+
+                            <TextView
+                                android:id="@+id/tvAge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:text="Edad: —" />
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCountry"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="País (ISO)"
+                            app:endIconMode="dropdown_menu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddCountry"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilState"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Estado/Provincia"
+                            app:endIconMode="dropdown_menu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddState"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCity"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ciudad"
+                            app:endIconMode="dropdown_menu">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddCity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Zona horaria (IANA)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etTimeZone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Botón Guardar -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="end"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPreferences"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginBottom="12dp"
+                android:animateLayoutChanges="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/sectionPreferencesHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Preferencias"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iconPreferencesToggle"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:rotation="0"
+                            android:src="@drawable/ic_expand_more" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sectionPreferencesContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/swReminders"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Recibir recordatorios" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/swAnalytics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Permitir uso de datos ANÓNIMOS para mejora" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardProfessional"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:animateLayoutChanges="true"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/sectionProfessionalHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Perfil profesional"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iconProfessionalToggle"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:rotation="0"
+                            android:src="@drawable/ic_expand_more" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sectionProfessionalContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Headline (ej. TCC | Ansiedad)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etHeadline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Especialidades (coma)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etSpecialties"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Idiomas (coma)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProLanguages"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Modalidades (online,presencial)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etModalities"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Precio MXN">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etPrice"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Minutos sesión">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etSessionMinutes"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Dirección (si presencial)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/swPublicPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mostrar teléfono públicamente" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/swPublicLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mostrar dirección públicamente" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/swAccepting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Aceptar nuevos pacientes" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Disponibilidad (HH:mm, separadas por coma)" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Lunes (mon)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etMon"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Martes (tue)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etTue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Miércoles (wed)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etWed"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Jueves (thu)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etThu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Viernes (fri)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etFri"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Sábado (sat)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etSat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Domingo (sun)">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etSun"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTestResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:animateLayoutChanges="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/sectionResultsHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Resultados recientes"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iconResultsToggle"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:rotation="0"
+                            android:src="@drawable/ic_expand_more" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sectionResultsContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvResultsEmpty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:text="Aún no tienes resultados guardados"
+                            android:visibility="gone" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerTestResults"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAppointments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:animateLayoutChanges="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/sectionAppointmentsHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Próximas citas"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iconAppointmentsToggle"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:rotation="0"
+                            android:src="@drawable/ic_expand_more" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sectionAppointmentsContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvAppointmentsEmpty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:text="Sin citas agendadas"
+                            android:visibility="gone" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerAppointments"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSave"
-                    android:text="Guardar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Guardar" />
             </LinearLayout>
-
         </LinearLayout>
-        <!-- ======= FIN CONTENIDO ======= -->
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Banner de anuncios fijo abajo -->
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="match_parent"
@@ -404,7 +708,7 @@
         app:adSize="BANNER"
         app:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

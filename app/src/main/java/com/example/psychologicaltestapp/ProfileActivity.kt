@@ -1,31 +1,38 @@
 package com.example.psychologicaltestapp
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
-import com.example.psychologicaltestapp.data.profile.UserRepository
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.psychologicaltestapp.UserRepository
+import com.example.psychologicaltestapp.location.LocationData
 import com.example.psychologicaltestapp.databinding.ActivityProfileBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import java.util.Calendar
 import java.util.Locale
-import android.net.Uri
-import androidx.activity.result.contract.ActivityResultContracts
-import com.bumptech.glide.Glide
-import com.google.firebase.storage.FirebaseStorage
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private val repo = UserRepository()
+    private lateinit var testResultAdapter: TestResultAdapter
+    private lateinit var appointmentAdapter: ProfileAppointmentAdapter
 
     private var currentDob: Timestamp? = null
     private var currentRole: String = "patient"
@@ -53,8 +60,14 @@ class ProfileActivity : AppCompatActivity() {
         setupAdMob()
 
         setupRoleDropdown()
+        setupLocationDropdowns()
+        applySavedLocation("MX", state = null, city = null)
         setupDobPicker()
+        setupSections()
+        setupRecyclerViews()
         loadProfile()
+        loadTestResults()
+        loadAppointments()
 
         binding.btnSave.setOnClickListener { saveProfile() }
     }
@@ -89,6 +102,67 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupLocationDropdowns() {
+        val countries = LocationData.countries()
+        val countryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, countries)
+        binding.ddCountry.setAdapter(countryAdapter)
+
+        binding.ddCountry.setOnItemClickListener { _, _, _, _ ->
+            val selectedCountry = binding.ddCountry.text.toString()
+            updateStates(selectedCountry, preselect = null, cityPreselect = null)
+        }
+
+        binding.ddState.setOnItemClickListener { _, _, _, _ ->
+            val selectedCountry = binding.ddCountry.text.toString()
+            val selectedState = binding.ddState.text.toString()
+            updateCities(selectedCountry, selectedState, preselect = null)
+        }
+    }
+
+    private fun applySavedLocation(country: String, state: String?, city: String?) {
+        val normalizedCountry = country.ifBlank { "MX" }
+        val availableCountries = LocationData.countries().toMutableList()
+        if (availableCountries.none { it.equals(normalizedCountry, ignoreCase = true) }) {
+            availableCountries.add(0, normalizedCountry)
+            binding.ddCountry.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, availableCountries))
+        }
+        binding.ddCountry.setText(normalizedCountry, false)
+        updateStates(normalizedCountry, state, city)
+    }
+
+    private fun updateStates(country: String, preselect: String?, cityPreselect: String?) {
+        val states = LocationData.statesFor(country).toMutableList()
+        if (!preselect.isNullOrBlank() && states.none { it.equals(preselect, ignoreCase = true) }) {
+            states.add(0, preselect)
+        }
+        val stateAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, states)
+        binding.ddState.setAdapter(stateAdapter)
+
+        if (!preselect.isNullOrBlank()) {
+            binding.ddState.setText(preselect, false)
+            updateCities(country, preselect, cityPreselect)
+        } else {
+            binding.ddState.setText("", false)
+            updateCities(country, "", null)
+        }
+    }
+
+    private fun updateCities(country: String, state: String, preselect: String?) {
+        val baseCities = if (state.isBlank()) emptyList() else LocationData.citiesFor(country, state)
+        val cities = baseCities.toMutableList()
+        if (!preselect.isNullOrBlank() && cities.none { it.equals(preselect, ignoreCase = true) }) {
+            cities.add(0, preselect)
+        }
+        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cities)
+        binding.ddCity.setAdapter(cityAdapter)
+
+        if (!preselect.isNullOrBlank()) {
+            binding.ddCity.setText(preselect, false)
+        } else {
+            binding.ddCity.setText("", false)
+        }
+    }
+
     private fun setupDobPicker() {
         binding.btnPickDob.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -113,7 +187,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun showProfessionalSection(show: Boolean) {
-        binding.cardProfessional.visibility = if (show) android.view.View.VISIBLE else android.view.View.GONE
+        binding.cardProfessional.isVisible = show
     }
 
     // --- Load / Save ---
@@ -121,12 +195,19 @@ class ProfileActivity : AppCompatActivity() {
     private fun loadProfile() {
         repo.load(onSuccess = { data ->
             // Básicos
-            binding.etName.setText(data["name"] as? String ?: "")
-            binding.etEmail.setText(data["email"] as? String ?: "")
-            binding.etPhone.setText(data["phone"] as? String ?: "")
-            binding.etCountry.setText((data["country"] as? String) ?: "MX")
-            binding.etState.setText(data["state"] as? String ?: "")
-            binding.etCity.setText(data["city"] as? String ?: "")
+            val firebaseUser = FirebaseAuth.getInstance().currentUser
+
+            val fallbackName = firebaseUser?.displayName
+            val fallbackEmail = firebaseUser?.email
+            val fallbackPhone = firebaseUser?.phoneNumber
+
+            binding.etName.setText((data["name"] as? String) ?: fallbackName ?: "")
+            binding.etEmail.setText((data["email"] as? String) ?: fallbackEmail ?: "")
+            binding.etPhone.setText((data["phone"] as? String) ?: fallbackPhone ?: "")
+            val savedCountry = (data["country"] as? String) ?: "MX"
+            val savedState = data["state"] as? String
+            val savedCity = data["city"] as? String
+            applySavedLocation(savedCountry, savedState, savedCity)
             binding.etTimeZone.setText(data["timeZone"] as? String ?: "")
 
             currentRole = (data["role"] as? String) ?: "patient"
@@ -138,6 +219,10 @@ class ProfileActivity : AppCompatActivity() {
                 currentDob = it
                 val cal = Calendar.getInstance().apply { time = it.toDate() }
                 binding.tvAge.text = "Edad: ${calcAge(cal)}"
+            }
+
+            (data["photoUrl"] as? String)?.takeIf { it.isNotBlank() }?.let {
+                Glide.with(this).load(it).into(binding.imgAvatar)
             }
 
             // Consentimientos
@@ -179,6 +264,34 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    private fun loadTestResults() {
+        val uid = runCatching { repo.getCurrentUserId() }.getOrElse { return }
+        repo.getTestResultsForUser(uid, limit = 20) { results ->
+            if (results.isEmpty()) {
+                binding.tvResultsEmpty.isVisible = true
+                testResultAdapter.submitList(emptyList())
+            } else {
+                binding.tvResultsEmpty.isVisible = false
+                testResultAdapter.submitList(results)
+            }
+        }
+    }
+
+    private fun loadAppointments() {
+        repo.loadAppointments(limit = 20, onSuccess = { items ->
+            if (items.isEmpty()) {
+                binding.tvAppointmentsEmpty.isVisible = true
+                appointmentAdapter.submitList(emptyList())
+            } else {
+                binding.tvAppointmentsEmpty.isVisible = false
+                appointmentAdapter.submitList(items)
+            }
+        }, onError = {
+            Toast.makeText(this, "Error cargando citas: ${it.message}", Toast.LENGTH_LONG).show()
+            binding.tvAppointmentsEmpty.isVisible = true
+        })
+    }
+
     private fun saveProfile() {
         // Validaciones mínimas
         val tz = binding.etTimeZone.text.toString().trim()
@@ -203,9 +316,9 @@ class ProfileActivity : AppCompatActivity() {
         val patch = mutableMapOf<String, Any?>(
             "name" to binding.etName.text.toString().trim(),
             "phone" to binding.etPhone.text.toString().trim(),
-            "country" to binding.etCountry.text.toString().uppercase(Locale.US),
-            "state" to binding.etState.text.toString().trim(),
-            "city" to binding.etCity.text.toString().trim(),
+            "country" to binding.ddCountry.text.toString().uppercase(Locale.US),
+            "state" to binding.ddState.text.toString().trim(),
+            "city" to binding.ddCity.text.toString().trim(),
             "timeZone" to tz,
             "role" to currentRole,
             "consents" to consents
@@ -269,6 +382,87 @@ class ProfileActivity : AppCompatActivity() {
     override fun onDestroy() {
         binding.adView.destroy()
         super.onDestroy()
+    }
+
+    private fun setupSections() {
+        setupExpandableSection(
+            header = binding.sectionPersonalHeader,
+            content = binding.sectionPersonalContent,
+            icon = binding.iconPersonalToggle
+        )
+        setupExpandableSection(
+            header = binding.sectionPreferencesHeader,
+            content = binding.sectionPreferencesContent,
+            icon = binding.iconPreferencesToggle
+        )
+        setupExpandableSection(
+            header = binding.sectionResultsHeader,
+            content = binding.sectionResultsContent,
+            icon = binding.iconResultsToggle
+        )
+        setupExpandableSection(
+            header = binding.sectionAppointmentsHeader,
+            content = binding.sectionAppointmentsContent,
+            icon = binding.iconAppointmentsToggle
+        )
+        setupExpandableSection(
+            header = binding.sectionProfessionalHeader,
+            content = binding.sectionProfessionalContent,
+            icon = binding.iconProfessionalToggle
+        )
+    }
+
+    private fun setupExpandableSection(header: android.view.View, content: android.view.View, icon: android.widget.ImageView, defaultExpanded: Boolean = true) {
+        content.isVisible = defaultExpanded
+        icon.rotation = if (defaultExpanded) 0f else -90f
+        header.setOnClickListener {
+            val expanding = !content.isVisible
+            content.isVisible = expanding
+            icon.animate().rotation(if (expanding) 0f else -90f).setDuration(200).start()
+        }
+    }
+
+    private fun setupRecyclerViews() {
+        testResultAdapter = TestResultAdapter { openTestResult(it) }
+        binding.recyclerTestResults.apply {
+            layoutManager = LinearLayoutManager(this@ProfileActivity)
+            adapter = testResultAdapter
+        }
+
+        appointmentAdapter = ProfileAppointmentAdapter { openAppointment(it) }
+        binding.recyclerAppointments.apply {
+            layoutManager = LinearLayoutManager(this@ProfileActivity)
+            adapter = appointmentAdapter
+        }
+    }
+
+    private fun openTestResult(result: TestResult) {
+        if (result.testJson.isNullOrBlank() || result.userResponsesJson.isNullOrBlank()) {
+            Toast.makeText(this, "No se encontró la información completa del resultado", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra("TEST_PAYLOAD", result.testJson)
+            putExtra("USER_RESPONSES", result.userResponsesJson)
+            putExtra("FINAL_MESSAGE", result.resultMessage)
+        }
+        startActivity(intent)
+    }
+
+    private fun openAppointment(item: UserRepository.AppointmentItem) {
+        if (item.psychologistId.isNullOrBlank()) {
+            Toast.makeText(this, "No pudimos abrir el detalle de la cita", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val intent = Intent(this, AppointmentDetailActivity::class.java).apply {
+            putExtra("appointmentId", item.id)
+            putExtra("psychologistId", item.psychologistId)
+            putExtra("appointmentSource", item.source.name)
+            putExtra("appointmentFallbackLabel", item.startTimeText)
+        }
+        startActivity(intent)
     }
     private fun uploadAvatarToStorage(uri: Uri) {
         val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid ?: return
