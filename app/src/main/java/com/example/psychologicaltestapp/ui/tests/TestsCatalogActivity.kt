@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -19,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.isVisible
 import com.google.android.material.color.MaterialColors
 import kotlin.math.roundToInt
 
@@ -31,6 +33,11 @@ class TestsCatalogActivity : ComponentActivity() {
     private var selectedCategory: Category? = null
     private var selectedSubcategory: Subcategory? = null
     private var selectedTest: TestItem? = null
+
+    private lateinit var groupSection: SectionToggle
+    private lateinit var categorySection: SectionToggle
+    private lateinit var subcategorySection: SectionToggle
+    private lateinit var testSection: SectionToggle
 
     // Usa "es" si tu index.json tiene títulos en español. Si no, cambia a "en".
     private val locale = "es"
@@ -45,6 +52,7 @@ class TestsCatalogActivity : ComponentActivity() {
         binding = ActivityTestsCatalogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupSections()
         binding.ddGroup.applyRefinedDropdown(binding.tilGroup)
         binding.ddCategory.applyRefinedDropdown(binding.tilCategory)
         binding.ddSubcategory.applyRefinedDropdown(binding.tilSubcategory)
@@ -68,6 +76,8 @@ class TestsCatalogActivity : ComponentActivity() {
 
         // Abre el primer dropdown para que el usuario vea opciones
         binding.ddGroup.postDelayed({ binding.ddGroup.showDropDown() }, 300)
+
+        updateSelectionLabels()
     }
 
     // ---------- Helpers ----------
@@ -97,6 +107,11 @@ class TestsCatalogActivity : ComponentActivity() {
             binding.ddCategory.setText(""); binding.ddSubcategory.setText(""); binding.ddTest.setText("")
             setupCategoryDropdown()
             updateButtonState()
+            updateSelectionLabels()
+            groupSection.setExpanded(false)
+            categorySection.setExpanded(true)
+            subcategorySection.setExpanded(false)
+            testSection.setExpanded(false)
             binding.ddCategory.post { binding.ddCategory.showDropDown() }
         }
     }
@@ -113,6 +128,10 @@ class TestsCatalogActivity : ComponentActivity() {
             binding.ddSubcategory.setText(""); binding.ddTest.setText("")
             setupSubcategoryDropdown()
             updateButtonState()
+            updateSelectionLabels()
+            categorySection.setExpanded(false)
+            subcategorySection.setExpanded(true)
+            testSection.setExpanded(false)
             binding.ddSubcategory.post { binding.ddSubcategory.showDropDown() }
         }
     }
@@ -127,21 +146,29 @@ class TestsCatalogActivity : ComponentActivity() {
             selectedSubcategory = subs[pos]
             selectedTest = null
             binding.ddTest.setText("")
-            setupTestsDropdown()
+            val hasTests = setupTestsDropdown()
             updateButtonState()
-            binding.ddTest.post { binding.ddTest.showDropDown() }
+            updateSelectionLabels()
+            subcategorySection.setExpanded(false)
+            testSection.setExpanded(hasTests)
+            if (hasTests) {
+                binding.ddTest.post { binding.ddTest.showDropDown() }
+            }
         }
     }
 
-    private fun setupTestsDropdown() {
-        val g = selectedGroup?.id ?: return
-        val c = selectedCategory?.id ?: return
-        val s = selectedSubcategory?.id ?: return
+    private fun setupTestsDropdown(): Boolean {
+        val g = selectedGroup?.id ?: return false
+        val c = selectedCategory?.id ?: return false
+        val s = selectedSubcategory?.id ?: return false
 
         val tests = index.tests.filter { it.group == g && it.category == c && it.subcategory == s }
         if (tests.isEmpty()) {
             Toast.makeText(this, "No hay tests para $g/$c/$s", Toast.LENGTH_SHORT).show()
             binding.btnStartTest.isEnabled = false
+            testSection.setExpanded(false)
+            updateSelectionLabels()
+            return false
         }
 
         val labels = tests.map { locale.safeLocale(it.title, "en") }.toTypedArray()
@@ -150,7 +177,9 @@ class TestsCatalogActivity : ComponentActivity() {
         binding.ddTest.setOnItemClickListener { _, _, pos, _ ->
             selectedTest = tests[pos]
             updateButtonState()
+            updateSelectionLabels()
         }
+        return true
     }
 
     // ---------- Navegación ----------
@@ -168,6 +197,47 @@ class TestsCatalogActivity : ComponentActivity() {
             putExtra("locale", locale)
         }
         startActivity(i)
+    }
+
+    private fun setupSections() {
+        groupSection = SectionToggle(binding.sectionGroupHeader, binding.sectionGroupContent, binding.iconGroupToggle)
+        categorySection = SectionToggle(binding.sectionCategoryHeader, binding.sectionCategoryContent, binding.iconCategoryToggle)
+        subcategorySection = SectionToggle(binding.sectionSubcategoryHeader, binding.sectionSubcategoryContent, binding.iconSubcategoryToggle)
+        testSection = SectionToggle(binding.sectionTestHeader, binding.sectionTestContent, binding.iconTestToggle)
+
+        groupSection.setup(defaultExpanded = true)
+        categorySection.setup(defaultExpanded = false)
+        subcategorySection.setup(defaultExpanded = false)
+        testSection.setup(defaultExpanded = false)
+    }
+
+    private fun updateSelectionLabels() {
+        binding.textGroupSelection.text = selectedGroup?.let { locale.safeLocale(it.title, "en") }
+            ?: getString(R.string.tests_catalog_group_hint)
+        binding.textCategorySelection.text = selectedCategory?.let { locale.safeLocale(it.title, "en") }
+            ?: getString(R.string.tests_catalog_category_hint)
+        binding.textSubcategorySelection.text = selectedSubcategory?.let { locale.safeLocale(it.title, "en") }
+            ?: getString(R.string.tests_catalog_subcategory_hint)
+        binding.textTestSelection.text = selectedTest?.let { locale.safeLocale(it.title, "en") }
+            ?: getString(R.string.tests_catalog_test_hint)
+    }
+
+    private data class SectionToggle(
+        val header: View,
+        val content: View,
+        val icon: ImageView
+    ) {
+        fun setup(defaultExpanded: Boolean) {
+            content.isVisible = defaultExpanded
+            icon.rotation = if (defaultExpanded) 0f else -90f
+            header.setOnClickListener { setExpanded(!content.isVisible) }
+        }
+
+        fun setExpanded(expanded: Boolean) {
+            if (content.isVisible == expanded) return
+            content.isVisible = expanded
+            icon.animate().rotation(if (expanded) 0f else -90f).setDuration(200).start()
+        }
     }
 
     private fun AutoCompleteTextView.applyRefinedDropdown(container: TextInputLayout) {

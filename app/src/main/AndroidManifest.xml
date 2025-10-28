@@ -78,6 +78,9 @@
         <activity
             android:name=".ui.tests.TestRunnerActivity"
             android:exported="false"/>
+        <activity
+            android:name=".ui.premium.PremiumPlansActivity"
+            android:exported="false" />
 
 
     </application>

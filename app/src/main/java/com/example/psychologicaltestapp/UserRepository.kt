@@ -1,13 +1,12 @@
-package com.example.psychologicaltestapp.data.profile
+package com.example.psychologicaltestapp
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.example.psychologicaltestapp.TestResult
 
-class UserRepository2 {
+class UserRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
@@ -57,13 +56,16 @@ class UserRepository2 {
         val id: String,
         val title: String?,
         val startTime: Timestamp?,
-        val status: String?
+        val startTimeText: String?,
+        val status: String?,
+        val psychologistId: String?
     )
 
     /**
      * Lee próximas N citas del usuario.
-     * Intenta primero colección global "appointments" (campo userId).
-     * Si no existen, hace fallback a subcolección "users/{uid}/appointments".
+     * Consulta primero la colección de solicitudes "appointment_requests" filtrando por userId
+     * y, si no hay resultados o falla por permisos/campos faltantes, cae a la subcolección legacy
+     * `users/{uid}/appointments`.
      */
     fun loadAppointments(
         limit: Long = 5,
@@ -71,47 +73,82 @@ class UserRepository2 {
         onError: (Exception) -> Unit
     ) {
         val uid = getCurrentUserId()
-        val now = Timestamp.now()
-
-        // Query global
-        firestore.collection("appointments")
+        val requestCollection = firestore.collection("appointment_requests")
             .whereEqualTo("userId", uid)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(limit)
+
+        requestCollection.get()
+            .addOnSuccessListener { qs ->
+                if (qs.isEmpty) {
+                    loadLegacyAppointments(uid, limit, onSuccess, onError)
+                    return@addOnSuccessListener
+                }
+
+                val formatter = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+
+                val items = qs.documents.map { d ->
+                    val explicitTimestamp = d.getTimestamp("startTime")
+                    val composedDateTime = d.getString("dateTime")
+                        ?: listOfNotNull(d.getString("proposedDate"), d.getString("proposedTime")).takeIf { it.isNotEmpty() }
+                            ?.joinToString(separator = " ")
+
+                    val parsedTimestamp = if (explicitTimestamp == null && !composedDateTime.isNullOrBlank()) {
+                        runCatching {
+                            val parsed = formatter.parse(composedDateTime)
+                            parsed?.let { Timestamp(it) }
+                        }.getOrNull()
+                    } else {
+                        explicitTimestamp
+                    }
+
+                    AppointmentItem(
+                        id = d.id,
+                        title = d.getString("title")
+                            ?: d.getString("psychologistName")
+                            ?: "Cita",
+                        startTime = parsedTimestamp,
+                        startTimeText = composedDateTime,
+                        status = d.getString("status"),
+                        psychologistId = d.getString("psychologistId")
+                    )
+                }
+
+                onSuccess(items)
+            }
+            .addOnFailureListener { error ->
+                // Si la colección principal falla (por permisos u otra causa), intentamos el fallback legacy
+                loadLegacyAppointments(uid, limit, onSuccess) { _ ->
+                    onError(error)
+                }
+            }
+    }
+
+    private fun loadLegacyAppointments(
+        uid: String,
+        limit: Long,
+        onSuccess: (List<AppointmentItem>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        val now = Timestamp.now()
+        firestore.collection("users").document(uid)
+            .collection("appointments")
             .whereGreaterThan("startTime", now)
             .orderBy("startTime", Query.Direction.ASCENDING)
             .limit(limit)
             .get()
-            .addOnSuccessListener { qs ->
-                if (!qs.isEmpty) {
-                    onSuccess(qs.documents.map { d ->
-                        AppointmentItem(
-                            id = d.id,
-                            title = d.getString("title")
-                                ?: d.getString("psychologistName")
-                                ?: "Cita",
-                            startTime = d.getTimestamp("startTime"),
-                            status = d.getString("status")
-                        )
-                    })
-                } else {
-                    // Fallback: subcolección
-                    firestore.collection("users").document(uid)
-                        .collection("appointments")
-                        .whereGreaterThan("startTime", now)
-                        .orderBy("startTime", Query.Direction.ASCENDING)
-                        .limit(limit)
-                        .get()
-                        .addOnSuccessListener { sub ->
-                            onSuccess(sub.documents.map { d ->
-                                AppointmentItem(
-                                    id = d.id,
-                                    title = d.getString("title") ?: "Cita",
-                                    startTime = d.getTimestamp("startTime"),
-                                    status = d.getString("status")
-                                )
-                            })
-                        }
-                        .addOnFailureListener(onError)
+            .addOnSuccessListener { sub ->
+                val legacyItems = sub.documents.map { d ->
+                    AppointmentItem(
+                        id = d.id,
+                        title = d.getString("title") ?: "Cita",
+                        startTime = d.getTimestamp("startTime"),
+                        startTimeText = null,
+                        status = d.getString("status"),
+                        psychologistId = d.getString("psychologistId")
+                    )
                 }
+                onSuccess(legacyItems)
             }
             .addOnFailureListener(onError)
     }
