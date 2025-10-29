@@ -76,7 +76,7 @@ class AppointmentDetailActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            val messageData = hashMapOf(
+            val messageData = hashMapOf<String, Any>(
                 "fromUserId" to currentUser.uid,
                 "toPsychologistId" to psychologistId,
                 "appointmentId" to appointmentId,
