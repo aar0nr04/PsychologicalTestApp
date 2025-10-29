@@ -123,6 +123,7 @@ class UserRepository {
                 loadLegacyAppointments(uid, limit, onSuccess) { _ ->
                     onError(error)
                 }
+                onSuccess(legacyItems)
             }
     }
 
