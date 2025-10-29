@@ -73,7 +73,7 @@ class PsychologistDetailActivity : BaseActivity() {
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val parsedStart = runCatching { formatter.parse(dateTime) }.getOrNull()?.let { Timestamp(it) }
 
-        val requestData = hashMapOf(
+        val requestData: HashMap<String, Any> = hashMapOf(
             "userId" to userId,
             "psychologistId" to psychologist.id,
             "psychologistName" to psychologist.name,
