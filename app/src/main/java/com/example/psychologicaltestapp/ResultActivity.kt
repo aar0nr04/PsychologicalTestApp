@@ -6,7 +6,7 @@ import android.text.format.DateFormat
 import android.widget.Toast
 import com.example.psychologicaltestapp.databinding.ActivityResultBinding
 import com.example.psychologicaltestapp.data.tests.TestPayload
-import com.example.psychologicaltestapp.data.profile.UserRepository
+import com.example.psychologicaltestapp.UserRepository
 import com.example.psychologicaltestapp.utils.Dialogs
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds

@@ -199,36 +199,57 @@
                         </LinearLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCountry"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="País (ISO)">
+                            android:hint="País (ISO)"
+                            app:endIconMode="dropdown_menu">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etCountry"
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddCountry"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilState"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Estado/Provincia">
+                            android:hint="Estado/Provincia"
+                            app:endIconMode="dropdown_menu">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etState"
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddState"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilCity"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Ciudad">
+                            android:hint="Ciudad"
+                            app:endIconMode="dropdown_menu">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etCity"
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/ddCity"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout

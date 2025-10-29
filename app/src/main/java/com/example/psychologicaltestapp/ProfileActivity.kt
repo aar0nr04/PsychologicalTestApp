@@ -15,7 +15,8 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.psychologicaltestapp.data.profile.UserRepository
+import com.example.psychologicaltestapp.UserRepository
+import com.example.psychologicaltestapp.location.LocationData
 import com.example.psychologicaltestapp.databinding.ActivityProfileBinding
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -59,6 +60,8 @@ class ProfileActivity : AppCompatActivity() {
         setupAdMob()
 
         setupRoleDropdown()
+        setupLocationDropdowns()
+        applySavedLocation("MX", state = null, city = null)
         setupDobPicker()
         setupSections()
         setupRecyclerViews()
@@ -96,6 +99,67 @@ class ProfileActivity : AppCompatActivity() {
         binding.ddRole.setOnItemClickListener { _, _, pos, _ ->
             currentRole = roles[pos]
             showProfessionalSection(currentRole == "psychologist")
+        }
+    }
+
+    private fun setupLocationDropdowns() {
+        val countries = LocationData.countries()
+        val countryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, countries)
+        binding.ddCountry.setAdapter(countryAdapter)
+
+        binding.ddCountry.setOnItemClickListener { _, _, _, _ ->
+            val selectedCountry = binding.ddCountry.text.toString()
+            updateStates(selectedCountry, preselect = null, cityPreselect = null)
+        }
+
+        binding.ddState.setOnItemClickListener { _, _, _, _ ->
+            val selectedCountry = binding.ddCountry.text.toString()
+            val selectedState = binding.ddState.text.toString()
+            updateCities(selectedCountry, selectedState, preselect = null)
+        }
+    }
+
+    private fun applySavedLocation(country: String, state: String?, city: String?) {
+        val normalizedCountry = country.ifBlank { "MX" }
+        val availableCountries = LocationData.countries().toMutableList()
+        if (availableCountries.none { it.equals(normalizedCountry, ignoreCase = true) }) {
+            availableCountries.add(0, normalizedCountry)
+            binding.ddCountry.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, availableCountries))
+        }
+        binding.ddCountry.setText(normalizedCountry, false)
+        updateStates(normalizedCountry, state, city)
+    }
+
+    private fun updateStates(country: String, preselect: String?, cityPreselect: String?) {
+        val states = LocationData.statesFor(country).toMutableList()
+        if (!preselect.isNullOrBlank() && states.none { it.equals(preselect, ignoreCase = true) }) {
+            states.add(0, preselect)
+        }
+        val stateAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, states)
+        binding.ddState.setAdapter(stateAdapter)
+
+        if (!preselect.isNullOrBlank()) {
+            binding.ddState.setText(preselect, false)
+            updateCities(country, preselect, cityPreselect)
+        } else {
+            binding.ddState.setText("", false)
+            updateCities(country, "", null)
+        }
+    }
+
+    private fun updateCities(country: String, state: String, preselect: String?) {
+        val baseCities = if (state.isBlank()) emptyList() else LocationData.citiesFor(country, state)
+        val cities = baseCities.toMutableList()
+        if (!preselect.isNullOrBlank() && cities.none { it.equals(preselect, ignoreCase = true) }) {
+            cities.add(0, preselect)
+        }
+        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cities)
+        binding.ddCity.setAdapter(cityAdapter)
+
+        if (!preselect.isNullOrBlank()) {
+            binding.ddCity.setText(preselect, false)
+        } else {
+            binding.ddCity.setText("", false)
         }
     }
 
@@ -140,9 +204,10 @@ class ProfileActivity : AppCompatActivity() {
             binding.etName.setText((data["name"] as? String) ?: fallbackName ?: "")
             binding.etEmail.setText((data["email"] as? String) ?: fallbackEmail ?: "")
             binding.etPhone.setText((data["phone"] as? String) ?: fallbackPhone ?: "")
-            binding.etCountry.setText((data["country"] as? String) ?: "MX")
-            binding.etState.setText(data["state"] as? String ?: "")
-            binding.etCity.setText(data["city"] as? String ?: "")
+            val savedCountry = (data["country"] as? String) ?: "MX"
+            val savedState = data["state"] as? String
+            val savedCity = data["city"] as? String
+            applySavedLocation(savedCountry, savedState, savedCity)
             binding.etTimeZone.setText(data["timeZone"] as? String ?: "")
 
             currentRole = (data["role"] as? String) ?: "patient"
@@ -251,9 +316,9 @@ class ProfileActivity : AppCompatActivity() {
         val patch = mutableMapOf<String, Any?>(
             "name" to binding.etName.text.toString().trim(),
             "phone" to binding.etPhone.text.toString().trim(),
-            "country" to binding.etCountry.text.toString().uppercase(Locale.US),
-            "state" to binding.etState.text.toString().trim(),
-            "city" to binding.etCity.text.toString().trim(),
+            "country" to binding.ddCountry.text.toString().uppercase(Locale.US),
+            "state" to binding.ddState.text.toString().trim(),
+            "city" to binding.ddCity.text.toString().trim(),
             "timeZone" to tz,
             "role" to currentRole,
             "consents" to consents
@@ -394,6 +459,8 @@ class ProfileActivity : AppCompatActivity() {
         val intent = Intent(this, AppointmentDetailActivity::class.java).apply {
             putExtra("appointmentId", item.id)
             putExtra("psychologistId", item.psychologistId)
+            putExtra("appointmentSource", item.source.name)
+            putExtra("appointmentFallbackLabel", item.startTimeText)
         }
         startActivity(intent)
     }
