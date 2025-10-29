@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?attr/colorSurface">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/premiumScroll"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/premium_plans_title"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/gray_dark"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:text="@string/premium_plans_subtitle"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/gray_dark" />
+                android:textColor="?android:textColorSecondary" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardFreePlan"
@@ -52,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -66,6 +67,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/premium_plan_free_title"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
 
                     <TextView
@@ -74,7 +76,7 @@
                         android:layout_marginTop="4dp"
                         android:text="@string/premium_plan_free_price"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -82,7 +84,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/premium_plan_free_features"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFreePlan"
@@ -98,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -112,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/premium_plan_pro_title"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
 
                     <TextView
@@ -120,7 +124,7 @@
                         android:layout_marginTop="4dp"
                         android:text="@string/premium_plan_pro_price"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -128,7 +132,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/premium_plan_pro_features"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnProPlan"
@@ -144,6 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -158,6 +163,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/premium_plan_premium_title"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
 
                     <TextView
@@ -166,7 +172,7 @@
                         android:layout_marginTop="4dp"
                         android:text="@string/premium_plan_premium_price"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -174,7 +180,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/premium_plan_premium_features"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPremiumPlan"
@@ -193,12 +199,13 @@
                 android:text="@string/premium_plan_coming_soon"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/gray_dark" />
+                android:textColor="?android:textColorSecondary" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardInstitutional"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -213,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/premium_plan_contact_sales"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/gray_dark" />
+                        android:textColor="?android:textColorSecondary" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnContactSales"

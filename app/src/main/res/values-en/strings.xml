@@ -13,6 +13,11 @@
     <string name="change_to_spanish">Switch language to Spanish</string>
     <string name="change_to_english">Switch language to English</string>
     <string name="test_history_list">Test History</string>
+    <string name="test_score_template">Score: %1$s</string>
+    <string name="appointment_date_placeholder">Date to be confirmed</string>
+    <string name="appointment_title_placeholder">Appointment</string>
+    <string name="appointment_status_template">Status: %1$s</string>
+    <string name="appointment_status_unknown">No status</string>
 
     <string name="title_iniciar_sesion">Sign In</string>
     <string name="hint_correo">Email</string>
@@ -72,6 +77,37 @@
 
     <string name="psychologist_remote_error">We couldn\'t connect to the online directory. Showing sample data.</string>
     <string name="psychologist_seed_loaded">Showing sample psychologists. Add real data in Firebase to replace them.</string>
+
+    <string name="tests_catalog_intro">Choose a group, category, and test to get started.</string>
+    <string name="tests_catalog_group_title">Group</string>
+    <string name="tests_catalog_group_hint">Select a group</string>
+    <string name="tests_catalog_category_title">Category</string>
+    <string name="tests_catalog_category_hint">Select a category</string>
+    <string name="tests_catalog_subcategory_title">Subcategory</string>
+    <string name="tests_catalog_subcategory_hint">Select a subcategory</string>
+    <string name="tests_catalog_test_title">Test</string>
+    <string name="tests_catalog_test_hint">Select a test</string>
+    <string name="tests_catalog_toggle_cd">Show or hide options</string>
+    <string name="tests_catalog_start_button">Start test</string>
+
+    <string name="premium_plans_title">Premium Plans</string>
+    <string name="premium_plans_subtitle">Explore our options for independent psychologists and institutions.</string>
+    <string name="premium_plan_free_title">Free</string>
+    <string name="premium_plan_free_price">$0 MXN</string>
+    <string name="premium_plan_free_features">&#8226; Create a professional profile\n&#8226; 1 free test\n&#8226; Basic posts</string>
+    <string name="premium_plan_pro_title">Pro Monthly</string>
+    <string name="premium_plan_pro_price">$149–199 MXN / month</string>
+    <string name="premium_plan_pro_features">&#8226; Unlimited tests\n&#8226; Detailed statistics\n&#8226; Profile customization\n&#8226; Basic AI for reports</string>
+    <string name="premium_plan_premium_title">Premium</string>
+    <string name="premium_plan_premium_price">$299–349 MXN / month</string>
+    <string name="premium_plan_premium_features">&#8226; Everything in the Pro plan\n&#8226; Featured placement\n&#8226; Advanced reports\n&#8226; Advanced AI and priority support</string>
+    <string name="premium_plan_cta">View details</string>
+    <string name="premium_plan_coming_soon">Purchasing will be enabled with Google Play Billing very soon.</string>
+    <string name="premium_plan_contact_sales">Need institutional licenses? Contact us for education, business, or government plans.</string>
+    <string name="premium_plan_contact_button">Request information</string>
+    <string name="premium_plan_contact_message">Thanks for your interest. Email soporte@psychotestapp.com to get started.</string>
+    <string name="premium_plan_toast_free">This plan is already active for every user.</string>
+    <string name="premium_plan_toast_paid">You'll be able to subscribe from the app soon. We'll let you know!</string>
 
     <string-array name="psychologist_types">
         <item>Empathetic</item>

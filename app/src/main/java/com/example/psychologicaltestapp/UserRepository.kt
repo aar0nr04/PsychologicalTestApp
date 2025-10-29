@@ -52,13 +52,20 @@ class UserRepository {
 
     // ===== Citas (tarjeta "Próximas citas") =====
 
+    enum class AppointmentSource {
+        GLOBAL,
+        REQUESTS,
+        LEGACY
+    }
+
     data class AppointmentItem(
         val id: String,
         val title: String?,
         val startTime: Timestamp?,
         val status: String?,
         val psychologistId: String?,
-        val startTimeText: String? = null
+        val startTimeText: String? = null,
+        val source: AppointmentSource = AppointmentSource.GLOBAL
     )
 
     /**
@@ -73,54 +80,50 @@ class UserRepository {
         onError: (Exception) -> Unit
     ) {
         val uid = getCurrentUserId()
-        val requestCollection = firestore.collection("appointment_requests")
+        firestore.collection("appointments")
             .whereEqualTo("userId", uid)
             .orderBy("createdAt", Query.Direction.DESCENDING)
             .limit(limit)
-
-        requestCollection.get()
+            .get()
             .addOnSuccessListener { qs ->
-                if (qs.isEmpty) {
-                    loadLegacyAppointments(uid, limit, onSuccess, onError)
-                    return@addOnSuccessListener
+                val mapped = qs.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.GLOBAL) }
+                if (mapped.isNotEmpty()) {
+                    onSuccess(sortAppointments(mapped))
+                } else {
+                    loadAppointmentRequests(uid, limit, onSuccess, onError)
                 }
-
-                val formatter = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
-
-                val items = qs.documents.map { d ->
-                    val explicitTimestamp = d.getTimestamp("startTime")
-                    val composedDateTime = d.getString("dateTime")
-                        ?: listOfNotNull(d.getString("proposedDate"), d.getString("proposedTime")).takeIf { it.isNotEmpty() }
-                            ?.joinToString(separator = " ")
-
-                    val parsedTimestamp = if (explicitTimestamp == null && !composedDateTime.isNullOrBlank()) {
-                        runCatching {
-                            val parsed = formatter.parse(composedDateTime)
-                            parsed?.let { Timestamp(it) }
-                        }.getOrNull()
-                    } else {
-                        explicitTimestamp
-                    }
-
-                    AppointmentItem(
-                        id = d.id,
-                        title = d.getString("title")
-                            ?: d.getString("psychologistName")
-                            ?: "Cita",
-                        startTime = parsedTimestamp,
-                        status = d.getString("status"),
-                        psychologistId = d.getString("psychologistId"),
-                        startTimeText = composedDateTime
-                    )
-                }
-
-                onSuccess(items)
             }
             .addOnFailureListener { error ->
-                // Si la colección principal falla (por permisos u otra causa), intentamos el fallback legacy
+                loadAppointmentRequests(uid, limit, onSuccess) { _ ->
+                    onError(error)
+                }
+            }
+    }
+
+    private fun loadAppointmentRequests(
+        uid: String,
+        limit: Long,
+        onSuccess: (List<AppointmentItem>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        firestore.collection("appointment_requests")
+            .whereEqualTo("userId", uid)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(limit)
+            .get()
+            .addOnSuccessListener { qs ->
+                val mapped = qs.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.REQUESTS) }
+                if (mapped.isNotEmpty()) {
+                    onSuccess(sortAppointments(mapped))
+                } else {
+                    loadLegacyAppointments(uid, limit, onSuccess, onError)
+                }
+            }
+            .addOnFailureListener { error ->
                 loadLegacyAppointments(uid, limit, onSuccess) { _ ->
                     onError(error)
                 }
+                onSuccess(legacyItems)
             }
     }
 
@@ -138,18 +141,66 @@ class UserRepository {
             .limit(limit)
             .get()
             .addOnSuccessListener { sub ->
-                val legacyItems = sub.documents.map { d ->
-                    AppointmentItem(
-                        id = d.id,
-                        title = d.getString("title") ?: "Cita",
-                        startTime = d.getTimestamp("startTime"),
-                        status = d.getString("status"),
-                        psychologistId = d.getString("psychologistId")
-                    )
-                }
-                onSuccess(legacyItems)
+                val legacyItems = sub.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.LEGACY) }
+                onSuccess(sortAppointments(legacyItems))
             }
             .addOnFailureListener(onError)
+    }
+
+    private fun mapAppointmentDocument(
+        document: com.google.firebase.firestore.DocumentSnapshot,
+        source: AppointmentSource
+    ): AppointmentItem? {
+        val formatter = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+        val explicitTimestamp = document.getTimestamp("startTime")
+        val composedDateTime = document.getString("dateTime")
+            ?: listOfNotNull(
+                document.getString("proposedDate"),
+                document.getString("proposedTime")
+            ).takeIf { it.isNotEmpty() }?.joinToString(separator = " ")
+
+        val parsedTimestamp = if (explicitTimestamp == null && !composedDateTime.isNullOrBlank()) {
+            runCatching {
+                formatter.parse(composedDateTime)?.let { Timestamp(it) }
+            }.getOrNull()
+        } else {
+            explicitTimestamp
+        }
+
+        val psychologistId = document.getString("psychologistId")
+            ?: document.getString("providerId")
+            ?: document.getString("psychologistUid")
+
+        val displayTitle = document.getString("title")
+            ?: document.getString("psychologistName")
+            ?: document.getString("providerName")
+            ?: "Cita"
+
+        val fallbackText = composedDateTime
+            ?: document.getString("startTimeText")
+            ?: document.getString("formattedStart")
+            ?: document.getString("startLabel")
+
+        return AppointmentItem(
+            id = document.id,
+            title = displayTitle,
+            startTime = parsedTimestamp,
+            status = document.getString("status")
+                ?: document.getString("state"),
+            psychologistId = psychologistId,
+            startTimeText = fallbackText,
+            source = source
+        )
+    }
+
+    private fun sortAppointments(items: List<AppointmentItem>): List<AppointmentItem> {
+        return items.sortedWith(
+            compareBy<AppointmentItem> {
+                it.startTime?.seconds ?: Long.MAX_VALUE
+            }.thenBy {
+                it.startTimeText ?: "zzzz"
+            }
+        )
     }
 
     // ===== Historial de tests =====

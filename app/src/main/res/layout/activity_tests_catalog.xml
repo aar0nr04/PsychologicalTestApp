@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?attr/colorSurface">
 
     <ImageView
         android:id="@+id/catalogBanner"
@@ -53,7 +53,7 @@
                 android:text="@string/tests_catalog_intro"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="@color/black" />
+                android:textColor="?attr/colorOnSurface" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardGroup"
@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:animateLayoutChanges="true"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -98,7 +99,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/tests_catalog_group_hint"
                                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                                android:textColor="@color/gray_dark" />
+                                android:textColor="?android:textColorSecondary" />
                         </LinearLayout>
 
                         <ImageView
@@ -140,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:animateLayoutChanges="true"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -177,7 +179,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/tests_catalog_category_hint"
                                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                                android:textColor="@color/gray_dark" />
+                                android:textColor="?android:textColorSecondary" />
                         </LinearLayout>
 
                         <ImageView
@@ -219,6 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:animateLayoutChanges="true"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -256,7 +259,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/tests_catalog_subcategory_hint"
                                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                                android:textColor="@color/gray_dark" />
+                                android:textColor="?android:textColorSecondary" />
                         </LinearLayout>
 
                         <ImageView
@@ -297,6 +300,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
@@ -334,7 +338,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/tests_catalog_test_hint"
                                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                                android:textColor="@color/gray_dark" />
+                                android:textColor="?android:textColorSecondary" />
                         </LinearLayout>
 
                         <ImageView

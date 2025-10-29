@@ -6,7 +6,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,6 +30,8 @@ class AppointmentDetailActivity : BaseActivity() {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var appointmentId: String
     private lateinit var psychologistId: String
+    private var appointmentSource: String? = null
+    private var fallbackStartLabel: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +57,8 @@ class AppointmentDetailActivity : BaseActivity() {
 
         appointmentId = intent.getStringExtra("appointmentId") ?: return
         psychologistId = intent.getStringExtra("psychologistId") ?: return
+        appointmentSource = intent.getStringExtra("appointmentSource")
+        fallbackStartLabel = intent.getStringExtra("appointmentFallbackLabel")
 
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -111,22 +114,84 @@ class AppointmentDetailActivity : BaseActivity() {
     }
 
     private fun loadAppointmentData(appointmentId: String) {
+        when (appointmentSource) {
+            UserRepository.AppointmentSource.REQUESTS.name -> loadFromRequests(appointmentId)
+            UserRepository.AppointmentSource.LEGACY.name -> loadFromLegacy(appointmentId)
+            else -> loadFromGlobal(appointmentId)
+        }
+    }
+
+    private fun loadFromGlobal(appointmentId: String) {
+        db.collection("appointments").document(appointmentId).get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    renderAppointment(doc)
+                } else {
+                    loadFromRequests(appointmentId)
+                }
+            }
+            .addOnFailureListener { loadFromRequests(appointmentId) }
+    }
+
+    private fun loadFromRequests(appointmentId: String) {
         db.collection("appointment_requests").document(appointmentId).get()
             .addOnSuccessListener { doc ->
                 if (doc.exists()) {
-                    val status = doc.getString("status") ?: "Desconocido"
-                    val date = doc.getString("proposedDate") ?: "Fecha no disponible"
-                    val time = doc.getString("proposedTime") ?: "Hora no disponible"
-                    val notes = doc.getString("notes") ?: "Sin notas"
-
-                    appointmentStatus.text = "Estado: $status"
-                    appointmentDetails.text = "Fecha: $date\nHora: $time\nNotas: $notes"
+                    renderAppointment(doc)
+                } else {
+                    loadFromLegacy(appointmentId)
                 }
             }
-            .addOnFailureListener {
-                appointmentStatus.text = "Estado: Desconocido"
-                appointmentDetails.text = "Error al cargar detalles"
+            .addOnFailureListener { loadFromLegacy(appointmentId) }
+    }
+
+    private fun loadFromLegacy(appointmentId: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid == null) {
+            showAppointmentFallback()
+            return
+        }
+
+        db.collection("users")
+            .document(uid)
+            .collection("appointments")
+            .document(appointmentId)
+            .get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    renderAppointment(doc)
+                } else {
+                    showAppointmentFallback()
+                }
             }
+            .addOnFailureListener { showAppointmentFallback() }
+    }
+
+    private fun renderAppointment(doc: com.google.firebase.firestore.DocumentSnapshot) {
+        val status = doc.getString("status") ?: doc.getString("state") ?: "Desconocido"
+        val date = doc.getString("proposedDate")
+            ?: doc.getString("date")
+            ?: fallbackStartLabel
+            ?: "Fecha no disponible"
+        val time = doc.getString("proposedTime")
+            ?: doc.getString("time")
+            ?: "Hora no disponible"
+        val notes = doc.getString("notes")
+            ?: doc.getString("details")
+            ?: "Sin notas"
+
+        appointmentStatus.text = getString(R.string.appointment_status_template, status)
+        appointmentDetails.text = if (time.isBlank() || time == "Hora no disponible") {
+            getString(R.string.appointment_detail_without_time, date, notes)
+        } else {
+            getString(R.string.appointment_detail_with_time, date, time, notes)
+        }
+    }
+
+    private fun showAppointmentFallback() {
+        appointmentStatus.text = getString(R.string.appointment_status_template, getString(R.string.appointment_status_unknown))
+        val label = fallbackStartLabel ?: getString(R.string.appointment_date_placeholder)
+        appointmentDetails.text = getString(R.string.appointment_detail_without_time, label, getString(R.string.appointment_notes_placeholder))
     }
 
     private fun loadChatMessages(appointmentId: String) {
