@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 
 class UserRepository {
@@ -80,6 +81,7 @@ class UserRepository {
         onError: (Exception) -> Unit
     ) {
         val uid = getCurrentUserId()
+        val errors = mutableListOf<Exception>()
         firestore.collection("appointments")
             .whereEqualTo("userId", uid)
             .orderBy("createdAt", Query.Direction.DESCENDING)
@@ -90,19 +92,19 @@ class UserRepository {
                 if (mapped.isNotEmpty()) {
                     onSuccess(sortAppointments(mapped))
                 } else {
-                    loadAppointmentRequests(uid, limit, onSuccess, onError)
+                    loadAppointmentRequests(uid, limit, errors, onSuccess, onError)
                 }
             }
             .addOnFailureListener { error ->
-                loadAppointmentRequests(uid, limit, onSuccess) { _ ->
-                    onError(error)
-                }
+                errors += error
+                loadAppointmentRequests(uid, limit, errors, onSuccess, onError)
             }
     }
 
     private fun loadAppointmentRequests(
         uid: String,
         limit: Long,
+        errors: MutableList<Exception>,
         onSuccess: (List<AppointmentItem>) -> Unit,
         onError: (Exception) -> Unit
     ) {
@@ -116,35 +118,55 @@ class UserRepository {
                 if (mapped.isNotEmpty()) {
                     onSuccess(sortAppointments(mapped))
                 } else {
-                    loadLegacyAppointments(uid, limit, onSuccess, onError)
+                    loadLegacyAppointments(uid, limit, errors, onSuccess, onError)
                 }
             }
             .addOnFailureListener { error ->
-                loadLegacyAppointments(uid, limit, onSuccess) { _ ->
-                    onError(error)
-                }
-                onSuccess(legacyItems)
+                errors += error
+                loadLegacyAppointments(uid, limit, errors, onSuccess, onError)
             }
     }
 
     private fun loadLegacyAppointments(
         uid: String,
         limit: Long,
+        errors: MutableList<Exception>,
         onSuccess: (List<AppointmentItem>) -> Unit,
         onError: (Exception) -> Unit
     ) {
-        val now = Timestamp.now()
         firestore.collection("users").document(uid)
             .collection("appointments")
-            .whereGreaterThan("startTime", now)
-            .orderBy("startTime", Query.Direction.ASCENDING)
-            .limit(limit)
             .get()
             .addOnSuccessListener { sub ->
-                val legacyItems = sub.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.LEGACY) }
-                onSuccess(sortAppointments(legacyItems))
+                val nowDate = Timestamp.now().toDate()
+                val legacyItems = sub.documents
+                    .mapNotNull { mapAppointmentDocument(it, AppointmentSource.LEGACY) }
+                    .filter { appointment ->
+                        appointment.startTime?.toDate()?.after(nowDate) ?: true
+                    }
+                val cappedLimit = limit.coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+                onSuccess(sortAppointments(legacyItems).take(cappedLimit))
             }
-            .addOnFailureListener(onError)
+            .addOnFailureListener { error ->
+                errors += error
+                handleAppointmentErrors(errors, onSuccess, onError)
+            }
+    }
+
+    private fun handleAppointmentErrors(
+        errors: List<Exception>,
+        onSuccess: (List<AppointmentItem>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        if (errors.isNotEmpty() && errors.all { isPermissionDenied(it) }) {
+            onSuccess(emptyList())
+        } else {
+            onError(errors.last())
+        }
+    }
+
+    private fun isPermissionDenied(error: Exception): Boolean {
+        return (error as? FirebaseFirestoreException)?.code == FirebaseFirestoreException.Code.PERMISSION_DENIED
     }
 
     private fun mapAppointmentDocument(
@@ -167,6 +189,12 @@ class UserRepository {
             explicitTimestamp
         }
 
+        val createdAt = document.getTimestamp("createdAt")
+            ?: document.getLong("createdAt")?.let { millis ->
+                Timestamp(java.util.Date(millis))
+            }
+        val finalTimestamp = parsedTimestamp ?: createdAt
+
         val psychologistId = document.getString("psychologistId")
             ?: document.getString("providerId")
             ?: document.getString("psychologistUid")
@@ -184,11 +212,11 @@ class UserRepository {
         return AppointmentItem(
             id = document.id,
             title = displayTitle,
-            startTime = parsedTimestamp,
+            startTime = finalTimestamp,
             status = document.getString("status")
                 ?: document.getString("state"),
             psychologistId = psychologistId,
-            startTimeText = fallbackText,
+            startTimeText = fallbackText ?: createdAt?.let { formatter.format(it.toDate()) },
             source = source
         )
     }
