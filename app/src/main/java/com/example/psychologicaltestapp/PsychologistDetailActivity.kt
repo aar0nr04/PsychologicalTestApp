@@ -3,6 +3,7 @@ package com.example.psychologicaltestapp
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -82,7 +83,7 @@ class PsychologistDetailActivity : BaseActivity() {
             "proposedTime" to time,
             "dateTime" to dateTime,
             "notes" to notes,
-            "createdAt" to System.currentTimeMillis()
+            "createdAt" to Timestamp.now()
         )
 
         parsedStart?.let { requestData["startTime"] = it }
@@ -92,6 +93,7 @@ class PsychologistDetailActivity : BaseActivity() {
             .add(requestData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Solicitud enviada, esperando respuesta", Toast.LENGTH_SHORT).show()
+                mirrorAppointmentToUser(userId, requestData)
             }
             .addOnFailureListener { error ->
                 saveAppointmentFallback(db, userId, requestData, error)
@@ -112,6 +114,7 @@ class PsychologistDetailActivity : BaseActivity() {
                     getString(R.string.appointment_saved_limited_message),
                     Toast.LENGTH_LONG
                 ).show()
+                mirrorAppointmentToUser(userId, requestData)
             }
             .addOnFailureListener { secondaryError ->
                 db.collection("users")
@@ -132,6 +135,18 @@ class PsychologistDetailActivity : BaseActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+            }
+    }
+
+    private fun mirrorAppointmentToUser(userId: String, requestData: Map<String, Any>) {
+        val copy = HashMap(requestData)
+        FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(userId)
+            .collection("appointments")
+            .add(copy)
+            .addOnFailureListener { e ->
+                Log.w("PsychologistDetailActivity", "Unable to mirror appointment", e)
             }
     }
 }
