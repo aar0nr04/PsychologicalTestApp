@@ -80,25 +80,32 @@ class UserRepository {
         onError: (Exception) -> Unit
     ) {
         val uid = getCurrentUserId()
-        firestore.collection("appointments")
+        val db = firestore
+
+        // citas donde soy paciente
+        val qAsPatient = db.collection("appointments")
             .whereEqualTo("userId", uid)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
             .limit(limit)
-            .get()
-            .addOnSuccessListener { qs ->
-                val mapped = qs.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.GLOBAL) }
-                if (mapped.isNotEmpty()) {
-                    onSuccess(sortAppointments(mapped))
-                } else {
-                    loadAppointmentRequests(uid, limit, onSuccess, onError)
-                }
+
+        // citas donde soy psicólogo
+        val qAsPsych = db.collection("appointments")
+            .whereEqualTo("psychologistId", uid)
+            .limit(limit)
+
+        qAsPatient.get()
+            .addOnSuccessListener { snapPatient ->
+                qAsPsych.get()
+                    .addOnSuccessListener { snapPsych ->
+                        val list = mutableListOf<AppointmentItem>()
+                        list += snapPatient.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.GLOBAL) }
+                        list += snapPsych.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.GLOBAL) }
+                        onSuccess(sortAppointments(list).take(limit.toInt()))
+                    }
+                    .addOnFailureListener(onError)
             }
-            .addOnFailureListener { error ->
-                loadAppointmentRequests(uid, limit, onSuccess) { _ ->
-                    onError(error)
-                }
-            }
+            .addOnFailureListener(onError)
     }
+
 
     private fun loadAppointmentRequests(
         uid: String,
@@ -108,13 +115,13 @@ class UserRepository {
     ) {
         firestore.collection("appointment_requests")
             .whereEqualTo("userId", uid)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
+            // .orderBy("createdAt", Query.Direction.DESCENDING)  ← QUITADO
             .limit(limit)
             .get()
             .addOnSuccessListener { qs ->
                 val mapped = qs.documents.mapNotNull { mapAppointmentDocument(it, AppointmentSource.REQUESTS) }
                 if (mapped.isNotEmpty()) {
-                    onSuccess(sortAppointments(mapped))
+                    onSuccess(sortAppointments(mapped))   // ordenamos en memoria
                 } else {
                     loadLegacyAppointments(uid, limit, onSuccess, onError)
                 }
@@ -247,58 +254,75 @@ class UserRepository {
         limit: Long = 5,
         onComplete: (List<TestResult>) -> Unit
     ) {
-        val newQuery = firestore.collection("users")
+        val base = firestore.collection("users")
             .document(userId)
             .collection("testResults")
-            .orderBy("completedAt", Query.Direction.DESCENDING)
-            .limit(limit)
 
-        newQuery.get()
-            .addOnSuccessListener { result ->
-                val listNew = result.documents.mapNotNull { it.toObject(TestResult::class.java) }
-                if (listNew.isNotEmpty()) {
-                    onComplete(listNew)
+        // 1) primero por createdAt (lo que sí guardas hoy)
+        base.orderBy("createdAt", Query.Direction.DESCENDING)
+            .limit(limit)
+            .get()
+            .addOnSuccessListener { snap ->
+                val list = snap.documents.mapNotNull { it.toObject(TestResult::class.java) }
+                if (list.isNotEmpty()) {
+                    onComplete(list)
                 } else {
-                    // Fallback legacy
-                    firestore.collection("users")
-                        .document(userId)
-                        .collection("test_results")
-                        .orderBy("completedAt", Query.Direction.DESCENDING)
+                    // 2) entonces intento por completedAt (por si hay viejos)
+                    base.orderBy("completedAt", Query.Direction.DESCENDING)
                         .limit(limit)
                         .get()
-                        .addOnSuccessListener { legacy ->
-                            val listLegacy = legacy.documents.mapNotNull { it.toObject(TestResult::class.java) }
-                            onComplete(listLegacy)
+                        .addOnSuccessListener { snap2 ->
+                            val list2 = snap2.documents.mapNotNull { it.toObject(TestResult::class.java) }
+                            if (list2.isNotEmpty()) {
+                                onComplete(list2)
+                            } else {
+                                // 3) legacy
+                                loadLegacyTestResults(userId, limit, onComplete)
+                            }
                         }
                         .addOnFailureListener {
-                            // Si truena el orderBy por falta de índice/field, intentamos sin ordenar
-                            firestore.collection("users")
-                                .document(userId)
-                                .collection("test_results")
-                                .get()
-                                .addOnSuccessListener { all ->
-                                    val listAll = all.documents.mapNotNull { it.toObject(TestResult::class.java) }
-                                    onComplete(listAll.take(limit.toInt()))
-                                }
-                                .addOnFailureListener { _ -> onComplete(emptyList()) }
+                            loadLegacyTestResults(userId, limit, onComplete)
                         }
                 }
             }
             .addOnFailureListener {
-                // Si falla el query nuevo, intenta legacy directo
+                // si falló por índice o lo que sea, me voy directo a legacy
+                loadLegacyTestResults(userId, limit, onComplete)
+            }
+    }
+
+    private fun loadLegacyTestResults(
+        userId: String,
+        limit: Long,
+        onComplete: (List<TestResult>) -> Unit
+    ) {
+        firestore.collection("users")
+            .document(userId)
+            .collection("test_results")
+            .orderBy("completedAt", Query.Direction.DESCENDING)
+            .limit(limit)
+            .get()
+            .addOnSuccessListener { legacy ->
+                val listLegacy = legacy.documents.mapNotNull { it.toObject(TestResult::class.java) }
+                onComplete(listLegacy)
+            }
+            .addOnFailureListener {
+                // último recurso: sin ordenar
                 firestore.collection("users")
                     .document(userId)
                     .collection("test_results")
-                    .orderBy("completedAt", Query.Direction.DESCENDING)
                     .limit(limit)
                     .get()
-                    .addOnSuccessListener { legacy ->
-                        val listLegacy = legacy.documents.mapNotNull { it.toObject(TestResult::class.java) }
-                        onComplete(listLegacy)
+                    .addOnSuccessListener { raw ->
+                        val listRaw = raw.documents.mapNotNull { it.toObject(TestResult::class.java) }
+                        onComplete(listRaw)
                     }
-                    .addOnFailureListener { _ -> onComplete(emptyList()) }
+                    .addOnFailureListener { _ ->
+                        onComplete(emptyList())
+                    }
             }
     }
+
 
     // ===== Métodos que ya tenías (compat) =====
 
